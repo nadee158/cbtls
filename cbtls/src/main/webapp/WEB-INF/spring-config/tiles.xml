@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	
+   
+	<!-- Definition for Home Page-->
+    <definition name="home.common" template="/WEB-INF/views/layouts/homeLayout.jsp">
+        <put-attribute name="title" value="Template" />
+        <put-attribute name="header" value="/WEB-INF/views/commons/homeHeader.jsp" />	
+        <put-attribute name="body" value="" />
+    </definition>
+    
+    <!-- Definition for Admin Home Page-->
+    <definition name="adminHome.common" template="/WEB-INF/views/layouts/adminHomeLayout.jsp">
+        <put-attribute name="title" value="Template" />
+        <put-attribute name="header" value="/WEB-INF/views/commons/adminHomeHeader.jsp" />	
+        <put-attribute name="body" value="" />
+    </definition>
+    
+     <!--  LOGIN Page-->
+    <definition name="login" extends="home.common">
+        <put-attribute name="title" value="Home" />
+        <put-attribute name="body" value="/WEB-INF/views/content/login.jsp" />		
+    </definition>
+	
+     <!-- HOME Page-->
+    <definition name="home" extends="home.common">
+        <put-attribute name="title" value="Home" />
+        <put-attribute name="body" value="/WEB-INF/views/content/home.jsp" />		
+    </definition>
+    
+    <!-- ADMIN HOME Page-->
+    <definition name="adminHome" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Home" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminHome.jsp" />		
+    </definition> 
+    
+    <!-- Register User Page-->
+    <definition name="registerUser" extends="home.common">
+        <put-attribute name="title" value="Register User" />
+        <put-attribute name="body" value="/WEB-INF/views/content/registerUser.jsp" />		
+    </definition> 
+   
+   
+    
+</tiles-definitions>
