@@ -21,6 +21,7 @@
     <definition name="adminHome.common" template="/WEB-INF/views/layouts/adminHomeLayout.jsp">
         <put-attribute name="title" value="Template" />
         <put-attribute name="header" value="/WEB-INF/views/commons/adminHomeHeader.jsp" />	
+        <put-attribute name="sideBar" value="/WEB-INF/views/commons/adminHomeSideBar.jsp" />
         <put-attribute name="body" value="" />
     </definition>
     

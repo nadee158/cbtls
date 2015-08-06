@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping(value="/admin")
 public class AdminHomeController {
 	
 	@RequestMapping(value = "/adminHome", method = RequestMethod.GET)
