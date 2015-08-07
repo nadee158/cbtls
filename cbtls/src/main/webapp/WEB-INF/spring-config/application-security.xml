@@ -40,8 +40,10 @@
 			authentication-failure-handler-ref="loginFailureHandler"
 			/>
 
-		<security:logout invalidate-session="true" />
-		<security:logout logout-success-url="/userLogin.htm?logout" delete-cookies="JSESSIONID" />
+		<security:logout invalidate-session="true" 
+			logout-url="/j_spring_security_logout"
+			logout-success-url="/userLogin.htm?logout" 
+			delete-cookies="JSESSIONID" />
 		<!-- enable csrf protection -->
 		<security:csrf disabled="true"  />
 	</security:http>

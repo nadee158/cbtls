@@ -13,7 +13,8 @@
 	<!-- Definition for Home Page-->
     <definition name="home.common" template="/WEB-INF/views/layouts/homeLayout.jsp">
         <put-attribute name="title" value="Template" />
-        <put-attribute name="header" value="/WEB-INF/views/commons/homeHeader.jsp" />	
+        <put-attribute name="header" value="/WEB-INF/views/commons/homeHeader.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/commons/homeFooter.jsp" />	
         <put-attribute name="body" value="" />
     </definition>
     
