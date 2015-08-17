@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
@@ -31,8 +32,11 @@ public class TrainLineStation implements Serializable {
     @Column(name = "train_line_station_id", nullable = false)
 	private long trainLineStationId;
 	
-	@Column(name = "distance")
-	private double distance;
+	@Column(name = "distance_from_start_station")
+	private double distanceFromStartStation;
+	
+	@Column(name = "distance_from_end_station")
+	private double distanceFromEndStation;
 	
 	@Enumerated(EnumType.STRING)
     @Column(name="active_status")
@@ -46,6 +50,20 @@ public class TrainLineStation implements Serializable {
 	@JoinColumn(name="train_station",nullable=false)
 	private TrainStation trainStation;
 	
+	@OneToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="next_station",nullable=false)
+	private TrainStation nextStation;
+	
+	@Column(name = "distance_to_next_station")
+	private double distanceToNextStation;
+	
+	@OneToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="previous_station",nullable=false)
+	private TrainStation previousStation;
+	
+	@Column(name = "distance_to_previous_station")
+	private double distanceToPreviousStation;
+	
 	
 	@Version
     @Column(name = "version_id")
@@ -54,10 +72,15 @@ public class TrainLineStation implements Serializable {
 	public Map<String,Object> toBasicMap(){
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("trainLineStationId", trainLineStationId);
-		map.put("distance", distance);
+		map.put("distanceFromStartStation", distanceFromStartStation);
+		map.put("distanceFromEndStation", distanceFromEndStation);
 		map.put("activeStatus", activeStatus);
 		map.put("trainLine", trainLine);
 		map.put("trainStation", trainStation);
+		map.put("nextStation", nextStation);
+		map.put("distanceToNextStation", distanceToNextStation);
+		map.put("previousStation", previousStation);
+		map.put("distanceToPreviousStation", distanceToPreviousStation);
 		map.put("versionId", versionId);
 		return map;
 	}
@@ -73,14 +96,6 @@ public class TrainLineStation implements Serializable {
 
 	public void setTrainLineStationId(long trainLineStationId) {
 		this.trainLineStationId = trainLineStationId;
-	}
-
-	public double getDistance() {
-		return distance;
-	}
-
-	public void setDistance(double distance) {
-		this.distance = distance;
 	}
 
 	public YesNoStatus getActiveStatus() {
@@ -106,6 +121,22 @@ public class TrainLineStation implements Serializable {
 	public void setTrainStation(TrainStation trainStation) {
 		this.trainStation = trainStation;
 	}
+	
+	public TrainStation getNextStation() {
+		return nextStation;
+	}
+
+	public void setNextStation(TrainStation nextStation) {
+		this.nextStation = nextStation;
+	}
+
+	public TrainStation getPreviousStation() {
+		return previousStation;
+	}
+
+	public void setPreviousStation(TrainStation previousStation) {
+		this.previousStation = previousStation;
+	}
 
 	public int getVersionId() {
 		return versionId;
@@ -113,6 +144,38 @@ public class TrainLineStation implements Serializable {
 
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+
+	public double getDistanceFromStartStation() {
+		return distanceFromStartStation;
+	}
+
+	public void setDistanceFromStartStation(double distanceFromStartStation) {
+		this.distanceFromStartStation = distanceFromStartStation;
+	}
+
+	public double getDistanceFromEndStation() {
+		return distanceFromEndStation;
+	}
+
+	public void setDistanceFromEndStation(double distanceFromEndStation) {
+		this.distanceFromEndStation = distanceFromEndStation;
+	}
+
+	public double getDistanceToNextStation() {
+		return distanceToNextStation;
+	}
+
+	public void setDistanceToNextStation(double distanceToNextStation) {
+		this.distanceToNextStation = distanceToNextStation;
+	}
+
+	public double getDistanceToPreviousStation() {
+		return distanceToPreviousStation;
+	}
+
+	public void setDistanceToPreviousStation(double distanceToPreviousStation) {
+		this.distanceToPreviousStation = distanceToPreviousStation;
 	}
 
 

@@ -23,7 +23,7 @@ import org.hibernate.annotations.Cascade;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 
 @Entity(name="trainStation")
-@Table(name = "train_station", uniqueConstraints =@UniqueConstraint(columnNames = "train_station_id"))
+@Table(name = "train_station", uniqueConstraints =@UniqueConstraint(columnNames = {"train_station_id","train_station_code"}))
 public class TrainStation implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,8 +33,14 @@ public class TrainStation implements Serializable {
     @Column(name = "train_station_id", nullable = false)
 	private long trainStationId;
 	
-	@Column(name = "train_station_name")
+	@Column(name = "train_station_code", nullable = false, length=3)
+	private String trainStationCode;
+	
+	@Column(name = "train_station_name", length=255)
 	private String trainStationName;
+	
+	@Column(name = "train_station_contact_number", length=10)
+	private String trainStationContactNumber;
 	
 	@Enumerated(EnumType.STRING)
     @Column(name="active_status")
@@ -52,6 +58,7 @@ public class TrainStation implements Serializable {
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("trainStationId", trainStationId);
 		map.put("trainStationName", trainStationName);
+		map.put("trainStationContactNumber", trainStationContactNumber);
 		map.put("activeStatus", activeStatus);
 		map.put("trainLineStations", trainLineStations);
 		map.put("versionId", versionId);
@@ -101,6 +108,14 @@ public class TrainStation implements Serializable {
 
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+
+	public String getTrainStationContactNumber() {
+		return trainStationContactNumber;
+	}
+
+	public void setTrainStationContactNumber(String trainStationContactNumber) {
+		this.trainStationContactNumber = trainStationContactNumber;
 	}
 
 
