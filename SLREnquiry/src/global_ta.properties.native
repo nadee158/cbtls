@@ -1,0 +1,66 @@
+# Execute this command to generate Sinhala resource file ->
+# native2ascii -encoding UTF-8 global_ta.properties.native global_ta.properties
+
+page.title.searchTrain= புகையிரதல் தேடல்
+page.title.searchResult= தேடல் முடிவுகள்
+page.title.errorPage= வழு
+
+label.start.station= தொடங்கும் நிலையம்
+label.end.station= முடிவடையும் நிலையம்
+label.start.time= தொடங்கும் நேரம் 
+label.end.time= முடிவடையும் நேரம் 
+label.search.date= தேடல் திகதி
+
+button.search= தேடல்
+button.reset= மீளமைவு
+button.back= பின்புறம்
+
+error.message.startStationNotSelected= தொடங்கும் நிலையம் தேர்ந்தெடுக்கப்படவில்லை
+error.message.endStationNotSelected= முடிவடையும் நிலையம் தேர்ந்தெடுக்கப்படவில்லை
+error.message.startTimeGreaterThanEndTime= தொடங்கும் நேரம் முடிவடையும் நேரத்தை விட அதிகமாக அல்லது சமமாக இருக்க முடியாது
+error.message.startAndEndStationSame= தொடங்கும் நிலையம் முடிவடையும் நிலையத்திற்கு சமமாக இருக்க முடியாது.
+error.message.systemError= கணினி பிழை ஏற்பட்டுள்ளது. தயவு செய்து முறைமை நிர்வாகியை தொடர்புகொள்ளவும்.
+
+result.queryString=தேடல் முடிவுகள்: <strong>{0}</strong> நிலையத்தில் இருந்து <strong>{1}</strong> நிலையத்திற்கு <strong>{2}</strong> ஆம் திகதி, நேரம் <strong>{3} மணி</strong> முதல் <strong>{4} மணி வரை</strong>
+
+result.directTrains= நேரடி புகையிரதம் 
+result.directTrains.tableHeader.startStation= தொடங்கும் நிலையம்
+result.directTrains.tableHeader.arrivalTime= வந்தடையும் நேரம்
+result.directTrains.tableHeader.departureTime= புறப்படும் நேரம்
+result.directTrains.tableHeader.destinationAndTime= சேரிடம் / நேரம்
+result.directTrains.tableHeader.endStationAndTime= முடிவடையும் நிலையம்/ நேரம்
+result.directTrains.tableHeader.frequency= அலைவு எண்
+result.directTrains.tableHeader.name= பெயர்
+result.directTrains.tableHeader.type= வகை
+result.directTrains.tablefooter.availableClasses= கிடைக்கப்பெறுகின்ற வகுப்புகள்
+result.directTrains.tablefooter.trainEndsText=<strong>புகையிரதம் </strong> {0} <strong> நிலையத்தில் நிறைவடைகிறது. வந்தடையும் நேரம்: </strong> {1}
+result.directTrains.tablefooter.trainNo= புகையிரதல் எண்
+
+result.connectingTrains= இணைக்கும் புகையிரதம் 
+result.connectingTrains.header.tableHeader.startStation= தொடங்கும் நிலையம்
+result.connectingTrains.header.tableHeader.arrivalTime= வந்தடையும் நேரம்
+result.connectingTrains.header.tableHeader.departureTime= புறப்படும் நேரம்
+result.connectingTrains.header.tableHeader.destination= சேரிடம்
+result.connectingTrains.header.tableHeader.arrivalTimeDestination= சேரிடத்திற்கு வந்துசேரும் நேரம்
+result.connectingTrains.trainList= புகையிரத பட்டியல் 
+result.connectingTrains.trainList.tableHeader.startStation= தொடங்கும் நிலையம்
+result.connectingTrains.trainList.tableHeader.startTime= தொடங்கும் நேரம்
+result.connectingTrains.trainList.tableHeader.endStation= முடிவடையும் நிலையம்
+result.connectingTrains.trainList.tableHeader.endTime= முடிவடையும் நேரம்
+result.connectingTrains.trainList.tableHeader.name= பெயர்
+result.connectingTrains.trainList.tableHeader.trainNo= புகையிரத எண்
+result.connectingTrains.trainList.tableHeader.availableClasses= கிடைக்கப்பெறுகின்ற வகுப்புகள்
+
+result.ticketPrice= பயணச்சீட்டு விலைகள்
+result.ticketPrice.tableHeader.className= வகுப்பு
+result.ticketPrice.tableHeader.price= விலை(ரூ.)
+result.ticketPrice.totalDistance= மொத்த தூரம்
+
+enquiry.home= முதற் பக்கம்
+enquiry.SLR.Home= இலங்கை புகையிரத சேவை - முதற் பக்கம்
+enquiry.transit=<font color="red"><strong>T</strong></font> கடக்கைகளை குறிக்கிறது
+enquiry.mandatory.fields=<font color="red"><strong>*</strong></font> குறியீடு உள்ளவை கட்டாய புலங்கள் ஆகும்
+enquiry.source= மூலம் - இலங்கை புகையிரத சேவை
+enquiry.highlight.firstTrain= தனிப்படுத்தப்பட்ட புகையிரதம் முதலாவது எடுக்க கிடைக்கும் புகையிரதம் ஆகும்
+enquiry.message.resultFound={0} புகையிரதம்(கள்) கிடைக்கப்பெறுகிறது
+enquiry.message.noResultFound= தேடலுக்கான புகையிரதம் எதுவும் காணப்படவில்லை

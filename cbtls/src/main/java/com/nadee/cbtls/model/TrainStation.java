@@ -33,6 +33,9 @@ public class TrainStation implements Serializable {
     @Column(name = "train_station_id", nullable = false)
 	private long trainStationId;
 	
+	@Column(name = "train_station_reference_id", nullable = false)
+	private String trainStationReferenceId;
+	
 	@Column(name = "train_station_code", nullable = false, length=3)
 	private String trainStationCode;
 	
@@ -62,6 +65,8 @@ public class TrainStation implements Serializable {
 		map.put("activeStatus", activeStatus);
 		map.put("trainLineStations", trainLineStations);
 		map.put("versionId", versionId);
+		map.put("trainStationReferenceId", trainStationReferenceId);
+		map.put("trainStationCode", trainStationCode);
 		return map;
 	}
 	
@@ -116,6 +121,22 @@ public class TrainStation implements Serializable {
 
 	public void setTrainStationContactNumber(String trainStationContactNumber) {
 		this.trainStationContactNumber = trainStationContactNumber;
+	}
+
+	public String getTrainStationReferenceId() {
+		return trainStationReferenceId;
+	}
+
+	public void setTrainStationReferenceId(String trainStationReferenceId) {
+		this.trainStationReferenceId = trainStationReferenceId;
+	}
+
+	public String getTrainStationCode() {
+		return trainStationCode;
+	}
+
+	public void setTrainStationCode(String trainStationCode) {
+		this.trainStationCode = trainStationCode;
 	}
 
 

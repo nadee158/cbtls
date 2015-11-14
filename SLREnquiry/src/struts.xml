@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.custom.i18n.resources" value="global" />
+
+    <package name="default" namespace="/" extends="struts-default">
+    
+    	<interceptors>
+			<interceptor-stack name="newStack">
+				<interceptor-ref name="defaultStack">
+			        <param name="i18n.parameterName">lang</param>           
+		        </interceptor-ref>	
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="newStack"></default-interceptor-ref>
+
+        <default-action-ref name="index" />
+
+        <global-results>
+            <result name="error">/pages/error.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+
+		<action name="homeAction" class="lk.icta.slr.enquiry.web.action.SLREnquiryAction" method="homeAction">
+			<result name="success">/pages/home.jsp</result>
+		</action>
+		
+		<action name="searchTrain" class="lk.icta.slr.enquiry.web.action.SLREnquiryAction" method="searchTrain">
+			<result name="input">/pages/home.jsp</result>
+			<result name="success">/pages/searchResult.jsp</result>
+		</action>
+        
+    </package>
+    
+</struts>

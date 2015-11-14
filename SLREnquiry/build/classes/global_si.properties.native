@@ -1,0 +1,66 @@
+# Execute this command to generate Sinhala resource file ->
+# native2ascii -encoding UTF-8 global_si.properties.native global_si.properties
+
+page.title.searchTrain= දුම්රිය සොයන්න
+page.title.searchResult= සෙවුම් ප්‍රතිඵලය
+page.title.errorPage= දෝෂය
+
+label.start.station= ගමනාරම්භක දුම්රිය ස්ථානය
+label.end.station= ගමනාන්ත දුම්රිය ස්ථානය
+label.start.time= ගමනාරම්භක වේලාව
+label.end.time= ගමනාන්ත වේලාව
+label.search.date= සෙවුම් දිනය
+
+button.search= සොයන්න
+button.reset= ප්‍රත්‍යාරම්භ කරන්න
+button.back= ආපසු
+
+error.message.startStationNotSelected= ගමනාරම්භක දුම්රිය ස්ථානය තෝරාගෙන නැත
+error.message.endStationNotSelected= ගමනාන්ත දුම්රිය ස්ථානය තෝරාගෙන නැත
+error.message.startTimeGreaterThanEndTime= ගමනාරම්භක වේලාව ගමනාන්ත වේලාවට සමාන හෝ ඉක්මවා හෝ යා නොහැක
+error.message.startAndEndStationSame= ගමනාරම්භක හා ගමනාන්ත දුම්රිය ස්ථානයන් එකම දුම්රිය ස්ථානයක් විය නොහැක
+error.message.systemError= පද්ධති දෝෂයක් සිදුව ඇත.  කරුණාකර පද්ධති පරිපාලක සම්බන්ධ කරගන්න
+
+result.queryString=සෙවුම් ප්‍රතිඵලය, <strong>{0}</strong> ගමනාරම්භක ස්ථානයේ සිට  <strong>{1}</strong> ගමනාන්තය දක්වා  <strong>{2}</strong> දින  <strong>පැය {3}</strong> සිට  <strong>පැය {4} තෙක්</strong>
+
+result.directTrains= ඍජු දුම්රියයන්
+result.directTrains.tableHeader.startStation= ගමනාරම්භක දුම්රිය ස්ථානය
+result.directTrains.tableHeader.arrivalTime= පැමිණෙන වේලාව
+result.directTrains.tableHeader.departureTime= පිටත්වන වේලාව
+result.directTrains.tableHeader.destinationAndTime= ගමනාන්තය / වේලාව
+result.directTrains.tableHeader.endStationAndTime= ගමනාන්ත දුම්රිය ස්ථානය / වේලාව
+result.directTrains.tableHeader.frequency= සංඛ්‍යාතය
+result.directTrains.tableHeader.name= නම
+result.directTrains.tableHeader.type= වර්ගය
+result.directTrains.tablefooter.availableClasses= ලැබිය හැකි පන්ති
+result.directTrains.tablefooter.trainEndsText=<strong> දුම්රිය </strong> {0} <strong> ගමනාන්තයට ලඟාවන වේලාව </strong> {1}
+result.directTrains.tablefooter.trainNo= දුම්රිය අංකය
+
+result.connectingTrains= ඍජු දුම්රියයන්
+result.connectingTrains.header.tableHeader.startStation= ගමනාරම්භක දුම්රිය ස්ථානය
+result.connectingTrains.header.tableHeader.arrivalTime= පැමිණෙන වේලාව
+result.connectingTrains.header.tableHeader.departureTime= පිටත්වන වේලාව
+result.connectingTrains.header.tableHeader.destination= ගමනාන්තය
+result.connectingTrains.header.tableHeader.arrivalTimeDestination= ගමනාන්තයට ලඟාවන වේලාව
+result.connectingTrains.trainList= දුම්රිය ලැයිස්තුව
+result.connectingTrains.trainList.tableHeader.startStation= ගමනාරම්භක දුම්රිය ස්ථානය
+result.connectingTrains.trainList.tableHeader.startTime= ගමනාරම්භක වේලාව
+result.connectingTrains.trainList.tableHeader.endStation= ගමනාන්ත දුම්රිය ස්ථානය
+result.connectingTrains.trainList.tableHeader.endTime= ගමනාන්ත වේලාව
+result.connectingTrains.trainList.tableHeader.name= නම
+result.connectingTrains.trainList.tableHeader.trainNo= දුම්රිය අංකය
+result.connectingTrains.trainList.tableHeader.availableClasses= ලැබිය හැකි පන්ති
+
+result.ticketPrice= ප්‍රවේශ පත්‍ර ගාස්තු
+result.ticketPrice.tableHeader.className= පන්තිය
+result.ticketPrice.tableHeader.price= මිල[රු.]
+result.ticketPrice.totalDistance= සම්පූර්ණ දුර ප්‍රමාණය
+
+enquiry.home= මුල් පි‍ටුව
+enquiry.SLR.Home=ශ්‍රී ලංකා දුම්රිය සේවය - මුල් පි‍ටුව
+enquiry.transit=<font color="red"><strong>T</strong></font> මගින් මාර්ගස්ථයන් දක්වනු ලැබේ.
+enquiry.mandatory.fields=<font color="red"><strong>*</strong></font> සළකුණ ලකුණු කල ක්ෂේත්‍රයන් අනිවාර්ය වේ
+enquiry.source= මූලාශ්‍රය - ශ්‍රී ලංකා දුම්රිය සේවය 
+enquiry.highlight.firstTrain= මුලින්ම ගත හැකි දුම්රිය ඉස්මතු කර දක්වා ඇත
+enquiry.message.resultFound={0} - ලැබිය හැකි දුම්රිය(න්) ප්‍රමාණය
+enquiry.message.noResultFound= ලැබිය හැකි දුම්රියන් කිසිවක් නොමැත
