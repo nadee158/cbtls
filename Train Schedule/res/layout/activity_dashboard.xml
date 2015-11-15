@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+/**
+* @copyright	Copyright (C) 2010 - 2010 Chatura Dilan Perera
+* @license		GNU/GPL
+* This Application is released on behalf of ICTA (Information and Communication Technology Agency of Sri Lanka)
+* to the public under the GNU General Public License
+*/
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dashboard_root"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+	 <include layout="@layout/include_titlebar"/>
+	 
+	<LinearLayout android:id="@+id/act_dash_main_layout" 
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
+		android:paddingTop="100dp"
+		android:layout_weight="1">
+	
+		<LinearLayout android:id="@+id/dashboard_panel"
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			
+			<Button android:id="@+id/dashboard_btn_train_schedule"		    
+			    android:text="@string/dashboard_btn_train_schedule"
+			    style="@style/dashboard_button"
+			    android:drawableTop="@drawable/dashboard_btn_train_schedule"
+				android:onClick="onBtnTrainScheduleClick"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+			</Button>
+			
+			<Button android:id="@+id/dashboard_btn_train_delay"
+					android:text="@string/dashboard_btn_train_delay"
+					style="@style/dashboard_button"
+					android:visibility="gone"
+					android:drawableTop="@drawable/dashboard_btn_train_delay"				
+					android:onClick="onBtnTrainDelayClick"
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content">
+			</Button>				
+		</LinearLayout>	
+	</LinearLayout>
+	
+	 <ImageView android:id="@+id/footer"    	
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"        
+        android:clickable="true"       
+        android:src="@drawable/icta">
+   </ImageView> 
+</LinearLayout>

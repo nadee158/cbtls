@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+/**
+* @copyright	Copyright (C) 2010 - 2010 Chatura Dilan Perera
+* @license		GNU/GPL
+* This Application is released on behalf of ICTA (Information and Communication Technology Agency of Sri Lanka)
+* to the public under the GNU General Public License
+*/
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_train_lines_root"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+   <include layout="@layout/include_titlebar"/>
+  
+	<ListView android:id="@+id/select_train_lines_listview_lines"
+    	 android:layout_width="fill_parent"
+		 android:layout_height="wrap_content">
+	</ListView>	
+	 	
+</LinearLayout>
