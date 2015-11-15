@@ -13,7 +13,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
@@ -36,6 +38,10 @@ public class TrainStation implements Serializable {
 	@Column(name = "train_station_reference_id", nullable = false)
 	private String trainStationReferenceId;
 	
+	@OneToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="geo_location_id",nullable=false)
+	private GeoLocation geoLocation;
+	
 	@Column(name = "train_station_code", nullable = false, length=3)
 	private String trainStationCode;
 	
@@ -52,6 +58,10 @@ public class TrainStation implements Serializable {
 	@OneToMany(mappedBy = "trainStation", fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainLineStation> trainLineStations;
+	
+	@OneToMany(mappedBy = "trainStation", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private List<TrainStationSchedule> trainStationSchedules;
 	
 	@Version
     @Column(name = "version_id")
@@ -137,6 +147,22 @@ public class TrainStation implements Serializable {
 
 	public void setTrainStationCode(String trainStationCode) {
 		this.trainStationCode = trainStationCode;
+	}
+
+	public GeoLocation getGeoLocation() {
+		return geoLocation;
+	}
+
+	public void setGeoLocation(GeoLocation geoLocation) {
+		this.geoLocation = geoLocation;
+	}
+
+	public List<TrainStationSchedule> getTrainStationSchedules() {
+		return trainStationSchedules;
+	}
+
+	public void setTrainStationSchedules(List<TrainStationSchedule> trainStationSchedules) {
+		this.trainStationSchedules = trainStationSchedules;
 	}
 
 

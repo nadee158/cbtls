@@ -47,11 +47,11 @@ public class TrainLine implements Serializable {
 	private List<TrainLineStation> trainLineStations;
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="start_station",nullable=false)
+	@JoinColumn(name="start_station_id",nullable=false)
 	private TrainStation startStation;
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="end_station",nullable=false)
+	@JoinColumn(name="end_station_id",nullable=false)
 	private TrainStation endStation;
 	
 	@Version

@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
@@ -43,22 +42,22 @@ public class TrainLineStation implements Serializable {
 	private YesNoStatus activeStatus;
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="train_line",nullable=false)
+	@JoinColumn(name="train_line_id",nullable=false)
 	private TrainLine trainLine;
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="train_station",nullable=false)
+	@JoinColumn(name="train_station_id",nullable=false)
 	private TrainStation trainStation;
 	
-	@OneToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="next_station",nullable=false)
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="next_station_id",nullable=false)
 	private TrainStation nextStation;
 	
 	@Column(name = "distance_to_next_station")
 	private double distanceToNextStation;
 	
-	@OneToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="previous_station",nullable=false)
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="previous_station_id",nullable=false)
 	private TrainStation previousStation;
 	
 	@Column(name = "distance_to_previous_station")
