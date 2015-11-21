@@ -28,6 +28,7 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.nadee.cbtls.constant.GeneralEnumConstants.PassengerType;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 
 @Entity(name = "systemUser")
@@ -56,10 +57,18 @@ public class SystemUser implements UserDetails,Serializable {
 	@Column(name = "profile_image_url")
 	private String profileImageUrl;
 	
+	@Column(name = "ranking")
+	private int ranking;
+	
 	@OneToMany(mappedBy = "systemUser", fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<SystemUserMobileDevice> systemUserMobileDevices;
+	
+	@OneToMany(mappedBy = "systemUser", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<SystemUserFavouriteSchedules> systemUserFavouriteSchedules;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "system_user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "user_role_id"))
@@ -70,6 +79,10 @@ public class SystemUser implements UserDetails,Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "yes_no_status")
 	private YesNoStatus activeStatus;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "passenger_type")
+	private PassengerType passengerType;
 	
 	@Version
 	@Column(name = "version_id")
@@ -86,6 +99,9 @@ public class SystemUser implements UserDetails,Serializable {
 		map.put("profileImageUrl", profileImageUrl);
 		map.put("activeStatus", activeStatus);
 		map.put("systemUserMobileDevices", systemUserMobileDevices);
+		map.put("systemUserFavouriteSchedules", systemUserFavouriteSchedules);
+		map.put("ranking", ranking);
+		map.put("passengerType", passengerType);
 		map.put("versionId", versionId);
 		return map;
 	}
@@ -205,6 +221,30 @@ public class SystemUser implements UserDetails,Serializable {
 
 	public void setSystemUserMobileDevices(List<SystemUserMobileDevice> systemUserMobileDevices) {
 		this.systemUserMobileDevices = systemUserMobileDevices;
+	}
+
+	public int getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
+
+	public List<SystemUserFavouriteSchedules> getSystemUserFavouriteSchedules() {
+		return systemUserFavouriteSchedules;
+	}
+
+	public void setSystemUserFavouriteSchedules(List<SystemUserFavouriteSchedules> systemUserFavouriteSchedules) {
+		this.systemUserFavouriteSchedules = systemUserFavouriteSchedules;
+	}
+
+	public PassengerType getPassengerType() {
+		return passengerType;
+	}
+
+	public void setPassengerType(PassengerType passengerType) {
+		this.passengerType = passengerType;
 	}
 	
 	

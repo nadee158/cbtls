@@ -78,6 +78,10 @@ public class TrainSchedule implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainScheduleTurn> trainScheduleTurns;
 	
+	@OneToMany(mappedBy = "trainSchedule", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private List<TicketPrice> ticketPrice;
+	
 	@Enumerated(EnumType.STRING)
     @Column(name="active_status")
 	private YesNoStatus activeStatus;
@@ -193,6 +197,30 @@ public class TrainSchedule implements Serializable {
 
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+
+	public List<TrainStationSchedule> getTrainStationSchedules() {
+		return trainStationSchedules;
+	}
+
+	public void setTrainStationSchedules(List<TrainStationSchedule> trainStationSchedules) {
+		this.trainStationSchedules = trainStationSchedules;
+	}
+
+	public List<TrainScheduleTurn> getTrainScheduleTurns() {
+		return trainScheduleTurns;
+	}
+
+	public void setTrainScheduleTurns(List<TrainScheduleTurn> trainScheduleTurns) {
+		this.trainScheduleTurns = trainScheduleTurns;
+	}
+
+	public List<TicketPrice> getTicketPrice() {
+		return ticketPrice;
+	}
+
+	public void setTicketPrice(List<TicketPrice> ticketPrice) {
+		this.ticketPrice = ticketPrice;
 	}
 
 	

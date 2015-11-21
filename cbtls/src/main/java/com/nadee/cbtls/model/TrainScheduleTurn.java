@@ -58,6 +58,14 @@ public class TrainScheduleTurn implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainStationScheduleTurn> trainStationScheduleTurn;
 	
+	@OneToMany(mappedBy = "trainScheduleTurn", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private List<TrainScheduleTurnLocationUpdate> trainScheduleTurnLocationUpdates;
+	
+	@OneToMany(mappedBy = "trainScheduleTurn", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private List<TrainScheduleTurnLocationPassiveUpdate> trainScheduleTurnLocationPassiveUpdates;
+	
 	@Enumerated(EnumType.STRING)
     @Column(name="active_status")
 	private YesNoStatus activeStatus;
@@ -149,6 +157,24 @@ public class TrainScheduleTurn implements Serializable {
 
 	public void setTrainScheduleTurnDate(Date trainScheduleTurnDate) {
 		this.trainScheduleTurnDate = trainScheduleTurnDate;
+	}
+
+	public List<TrainScheduleTurnLocationUpdate> getTrainScheduleTurnLocationUpdates() {
+		return trainScheduleTurnLocationUpdates;
+	}
+
+	public void setTrainScheduleTurnLocationUpdates(
+			List<TrainScheduleTurnLocationUpdate> trainScheduleTurnLocationUpdates) {
+		this.trainScheduleTurnLocationUpdates = trainScheduleTurnLocationUpdates;
+	}
+
+	public List<TrainScheduleTurnLocationPassiveUpdate> getTrainScheduleTurnLocationPassiveUpdates() {
+		return trainScheduleTurnLocationPassiveUpdates;
+	}
+
+	public void setTrainScheduleTurnLocationPassiveUpdates(
+			List<TrainScheduleTurnLocationPassiveUpdate> trainScheduleTurnLocationPassiveUpdates) {
+		this.trainScheduleTurnLocationPassiveUpdates = trainScheduleTurnLocationPassiveUpdates;
 	}
 
 	

@@ -46,6 +46,12 @@ public class SystemUserMobileDevice implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private SystemUser systemUser;
 	
+	@Column(name="total_location_updates")
+	private int totalLocationUpdates;
+	
+	@Column(name="total_crowd_density_updates")
+	private int totalCrowdDensityUpdates;
+	
 	@Enumerated(EnumType.STRING)
     @Column(name="active_status")
 	private YesNoStatus activeStatus;
@@ -60,6 +66,8 @@ public class SystemUserMobileDevice implements Serializable {
 		map.put("mobileDevice", mobileDevice);
 		map.put("activeStatus", activeStatus);
 		map.put("systemUser", systemUser);
+		map.put("totalLocationUpdates", totalLocationUpdates);
+		map.put("totalCrowdDensityUpdates", totalCrowdDensityUpdates);
 		map.put("versionId", versionId);
 		return map;
 	}
@@ -99,6 +107,22 @@ public class SystemUserMobileDevice implements Serializable {
 	}
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+
+	public int getTotalLocationUpdates() {
+		return totalLocationUpdates;
+	}
+
+	public void setTotalLocationUpdates(int totalLocationUpdates) {
+		this.totalLocationUpdates = totalLocationUpdates;
+	}
+
+	public int getTotalCrowdDensityUpdates() {
+		return totalCrowdDensityUpdates;
+	}
+
+	public void setTotalCrowdDensityUpdates(int totalCrowdDensityUpdates) {
+		this.totalCrowdDensityUpdates = totalCrowdDensityUpdates;
 	}
 	
 	

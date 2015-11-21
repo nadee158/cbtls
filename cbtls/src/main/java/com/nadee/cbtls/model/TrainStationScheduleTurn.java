@@ -37,7 +37,7 @@ public class TrainStationScheduleTurn implements Serializable {
 	private long trainStationScheduleTurnId;
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="train_turn_id",nullable=false)
+	@JoinColumn(name="train_schedule_turn_id",nullable=false)
 	private TrainScheduleTurn trainScheduleTurn;
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
