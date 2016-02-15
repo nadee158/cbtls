@@ -246,6 +246,30 @@ public class SystemUser implements UserDetails,Serializable {
 	public void setPassengerType(PassengerType passengerType) {
 		this.passengerType = passengerType;
 	}
+
+	public void updateUser(SystemUser systemUser) {
+		this.userDisplayName=systemUser.getUserDisplayName();
+		this.emailAddress=systemUser.getEmailAddress();
+		this.profileImageUrl=systemUser.getProfileImageUrl();
+		if(!(systemUser.getSystemUserMobileDevices()==null)){
+			for (SystemUserMobileDevice userMobileDevice : systemUser.getSystemUserMobileDevices()) {
+				if(this.systemUserMobileDevices.contains(userMobileDevice)){
+					for (SystemUserMobileDevice userMobileDevice2 : this.systemUserMobileDevices) {
+						if(userMobileDevice.getSystemUserMobileDeviceId()==userMobileDevice2.getSystemUserMobileDeviceId()){
+							userMobileDevice2.updateSystemUserMobileDevice(userMobileDevice);
+						}
+					}
+				}else{
+					userMobileDevice.setSystemUser(this);
+					userMobileDevice.setActiveStatus(YesNoStatus.YES);
+					this.systemUserMobileDevices.add(userMobileDevice);
+				}
+			}
+		}
+		
+		
+		
+	}
 	
 	
 

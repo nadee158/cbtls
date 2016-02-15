@@ -8,6 +8,8 @@ public interface SystemUserService {
 
 	public long saveSystemUser(SystemUser systemUser, UserRoleType userRoleType);
 
+	public String updateSystemUser(SystemUser systemUser);
+
 	
 	
 	

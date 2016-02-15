@@ -124,6 +124,11 @@ public class SystemUserMobileDevice implements Serializable {
 	public void setTotalCrowdDensityUpdates(int totalCrowdDensityUpdates) {
 		this.totalCrowdDensityUpdates = totalCrowdDensityUpdates;
 	}
+
+	public void updateSystemUserMobileDevice(SystemUserMobileDevice userMobileDevice) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

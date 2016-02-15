@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nadee.cbtls.constant.ApplicationConstants;
 import com.nadee.cbtls.constant.GeneralEnumConstants.UserRoleType;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
@@ -33,6 +34,16 @@ public class SystemUserServiceImpl implements SystemUserService {
 		userRoles.add(new UserRole(userRoleType));
 		systemUser.setUserRoles(userRoles);
 		return commonDAO.<SystemUser> createEntity(systemUser);
+	}
+
+	@Override
+	public String updateSystemUser(SystemUser systemUser) {
+		SystemUser userFromDB=commonDAO.getEntityById(SystemUser.class, systemUser.getUserId());
+		if(!(userFromDB==null)){
+			userFromDB.updateUser(systemUser);
+			return ApplicationConstants.SUCCESS;
+		}
+		return null;
 	}
 
 

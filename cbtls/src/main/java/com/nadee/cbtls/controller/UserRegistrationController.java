@@ -37,20 +37,6 @@ public class UserRegistrationController {
 		return new ModelAndView("registerUser", modelMap);
 	}
 	
-	@RequestMapping(value = "/registerAdmin", method = RequestMethod.GET)
-	public ModelAndView getRegisterAdminPage(HttpServletRequest request) {
-		ModelMap modelMap = new ModelMap();
-		modelMap.put("systemUser", new SystemUser());
-		return new ModelAndView("registerAdmin", modelMap);
-	}
 	
-	
-	@RequestMapping(value = "/registerAdmin", method = RequestMethod.POST)
-	public ModelAndView registerAdmin(HttpServletRequest request, @ModelAttribute("systemUser") SystemUser systemUser) {
-		ModelMap modelMap = new ModelMap();
-		systemUserService.saveSystemUser(systemUser, UserRoleType.ROLE_ADMIN);
-		modelMap.put("systemUser", systemUser);
-		return new ModelAndView("registerAdmin", modelMap);
-	}
 
 }

@@ -20,14 +20,9 @@
 			<security:cache-control />
 		</security:headers>
 
-		<security:intercept-url pattern="/index.jsp" access="permitAll" />
-		<security:intercept-url pattern="/accessDenied.jsp"	access="permitAll" />
-		<security:intercept-url pattern="/userLogin.htm" access="permitAll" />
-		<security:intercept-url pattern="/registerUser.htm" access="permitAll" />
-		<security:intercept-url pattern="/registerAdmin.htm" access="permitAll" />
-		
+		<security:intercept-url pattern="/*" access="permitAll"/>
 
-		<security:intercept-url pattern="/*" access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 
 		<security:form-login login-page="/userLogin.htm" 
@@ -42,7 +37,7 @@
 
 		<security:logout invalidate-session="true" 
 			logout-url="/j_spring_security_logout"
-			logout-success-url="/userLogin.htm?logout" 
+			logout-success-url="/home.htm?logout" 
 			delete-cookies="JSESSIONID" />
 		<!-- enable csrf protection -->
 		<security:csrf disabled="true"  />
