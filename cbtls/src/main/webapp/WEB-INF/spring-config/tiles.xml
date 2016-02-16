@@ -38,11 +38,6 @@
         <put-attribute name="body" value="/WEB-INF/views/content/home.jsp" />		
     </definition>
     
-    <!-- ADMIN HOME Page-->
-    <definition name="adminHome" extends="adminHome.common">
-        <put-attribute name="title" value="Admin Home" />
-        <put-attribute name="body" value="/WEB-INF/views/content/adminHome.jsp" />		
-    </definition> 
     
     <!-- Register User Page-->
     <definition name="registerUser" extends="home.common">
@@ -50,17 +45,37 @@
         <put-attribute name="body" value="/WEB-INF/views/content/registerUser.jsp" />		
     </definition> 
     
-    <!-- Register Admin Page-->
-    <definition name="registerAdmin" extends="home.common">
-        <put-attribute name="title" value="Register Admin" />
-        <put-attribute name="body" value="/WEB-INF/views/content/registerAdmin.jsp" />		
-    </definition>
     
     <!-- User Profile Page-->
     <definition name="userProfile" extends="home.common">
         <put-attribute name="title" value="My Profile" />
         <put-attribute name="body" value="/WEB-INF/views/content/userProfile.jsp" />		
     </definition> 
+    
+    
+    <!-- ADMIN HOME Page-->
+    <definition name="adminHome" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Home" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminHome.jsp" />		
+    </definition> 
+    
+     <!-- Register Admin Page-->
+    <definition name="registerAdmin" extends="adminHome.common">
+        <put-attribute name="title" value="Register Admin" />
+        <put-attribute name="body" value="/WEB-INF/views/content/registerAdmin.jsp" />		
+    </definition>
+    
+     <!-- Master Data-->
+    <definition name="masterData" extends="adminHome.common">
+        <put-attribute name="title" value="Manage Master Data" />
+        <put-attribute name="body" value="/WEB-INF/views/content/masterData.jsp" />		
+    </definition>
+    
+     <!-- Manage Train Stations-->
+    <definition name="manageTrainStations" extends="adminHome.common">
+        <put-attribute name="title" value="Manage Train Stations" />
+        <put-attribute name="body" value="/WEB-INF/views/content/manageTrainStations.jsp" />		
+    </definition>
    
    
     

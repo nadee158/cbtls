@@ -540,3 +540,8 @@
     <!-- /.row -->
 </div>
 <!-- /#page-wrapper -->
+<script type="text/javascript">
+$(function() {
+	initializeCharts();
+});
+</script>

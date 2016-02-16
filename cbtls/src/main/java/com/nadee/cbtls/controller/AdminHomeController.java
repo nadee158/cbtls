@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.UserRoleType;
 import com.nadee.cbtls.model.SystemUser;
+import com.nadee.cbtls.service.MasterDataService;
 import com.nadee.cbtls.service.SystemUserService;
 
 @Controller
@@ -20,6 +21,9 @@ public class AdminHomeController {
 	
 	@Autowired
 	private SystemUserService systemUserService;
+	
+	@Autowired
+	private MasterDataService masterDataService;
 	
 	@RequestMapping(value = "/adminHome", method = RequestMethod.GET)
 	public ModelAndView getLoginPage(HttpServletRequest request) {
@@ -44,6 +48,21 @@ public class AdminHomeController {
 		systemUserService.saveSystemUser(systemUser, UserRoleType.ROLE_ADMIN);
 		modelMap.put("systemUser", systemUser);
 		return new ModelAndView("registerAdmin", modelMap);
+	}
+	
+	@RequestMapping(value = "/masterData", method = RequestMethod.GET)
+	public ModelAndView getmasterDataPage(HttpServletRequest request) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.put("trainLineCount", masterDataService.countActiveTrainLines());
+			modelMap.put("trainScheduleCount", masterDataService.countActiveTrainSchedules());
+			modelMap.put("trainScheduleTurnCount", masterDataService.countActiveTrainScheduleTurns());
+			modelMap.put("trainStationCount", masterDataService.countActiveTrainStations());
+			modelMap.put("trainTypeCount", masterDataService.countActiveTrainTypes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("masterData", modelMap);
 	}
 
 }

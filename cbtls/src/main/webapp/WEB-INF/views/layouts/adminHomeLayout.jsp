@@ -27,12 +27,29 @@
 	    <link href='<c:url value="/css/morris.css" />' rel="stylesheet">
 	    <!-- Custom Fonts -->
 	    <link href='<c:url value="/css/font-awesome.min.css" />' rel="stylesheet" type="text/css">
+	    
+	    <link href='<c:url value="/css/fileinput.min.css" />' rel="stylesheet">
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	    <!--[if lt IE 9]>
 	        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	    <![endif]-->
+	    
+	     <!-- jQuery -->
+	    <script src='<c:url value="/js/jquery-2.1.4.min.js" />' type="text/javascript"></script>
+	    <!-- Bootstrap Core JavaScript -->
+	    <script src='<c:url value="/js/bootstrap.min.js" />' type="text/javascript" ></script>
+	    <!-- Metis Menu Plugin JavaScript -->
+	    <script src='<c:url value="/js/metisMenu.min.js" />' type="text/javascript"></script>
+	    <!-- Morris Charts JavaScript -->
+	    <script src='<c:url value="/js/raphael-min.js" />' type="text/javascript"></script>
+	    <script src='<c:url value="/js/morris.min.js" />' type="text/javascript"></script>
+	    <script src='<c:url value="/js/morris-data.js" />' type="text/javascript"></script>
+	    <!-- Custom Theme JavaScript -->
+	    <script src='<c:url value="/js/sb-admin-2.js" />' type="text/javascript"></script>
+	    
+	    <script src='<c:url value="/js/fileinput.min.js" />' type="text/javascript"></script>
     </head>
 
    <!--BACKGROUND -->
@@ -46,17 +63,6 @@
       	<tiles:insertAttribute name="body" />	
        </div>
        
-     <!-- jQuery -->
-    <script src='<c:url value="/js/jquery-2.1.4.min.js" />' type="text/javascript"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src='<c:url value="/js/bootstrap.min.js" />' type="text/javascript" ></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src='<c:url value="/js/metisMenu.min.js" />' type="text/javascript"></script>
-    <!-- Morris Charts JavaScript -->
-    <script src='<c:url value="/js/raphael-min.js" />' type="text/javascript"></script>
-    <script src='<c:url value="/js/morris.min.js" />' type="text/javascript"></script>
-    <script src='<c:url value="/js/morris-data.js" />' type="text/javascript"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src='<c:url value="/js/sb-admin-2.js" />' type="text/javascript"></script>
+    
    </body>
 </html>

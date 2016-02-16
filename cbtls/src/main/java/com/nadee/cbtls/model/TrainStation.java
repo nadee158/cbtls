@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,8 +39,10 @@ public class TrainStation implements Serializable {
 	@Column(name = "train_station_reference_id", nullable = false)
 	private String trainStationReferenceId;
 	
+	
 	@OneToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="geo_location_id",nullable=false)
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private GeoLocation geoLocation;
 	
 	@Column(name = "train_station_code", nullable = false, length=3)
@@ -55,11 +58,11 @@ public class TrainStation implements Serializable {
     @Column(name="active_status")
 	private YesNoStatus activeStatus;
 	
-	@OneToMany(mappedBy = "trainStation", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "trainStation")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainLineStation> trainLineStations;
 	
-	@OneToMany(mappedBy = "trainStation", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "trainStation")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainStationSchedule> trainStationSchedules;
 	
