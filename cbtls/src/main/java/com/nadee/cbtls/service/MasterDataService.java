@@ -35,4 +35,12 @@ public interface MasterDataService {
 
 	public String deleteTrainStation(long trainStationId) throws Exception;
 
+	public String saveTrainType(TrainType trainType) throws Exception;
+
+	public String deleteTrainType(long trainTypeId) throws Exception;
+
+	public String saveTrainLine(TrainLine trainLine) throws Exception;
+
+	public String deleteTrainLine(long trainLineId) throws Exception;
+
 }

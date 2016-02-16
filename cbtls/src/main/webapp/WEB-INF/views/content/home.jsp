@@ -1,153 +1,127 @@
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+ <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
  <div class="row">
 
  <!-- Blog Post Content Column -->
- <div class="col-lg-8">
-
-     <!-- Blog Post -->
-
-     <!-- Title -->
-     <h1>Blog Post Title</h1>
+ <div class="col-lg-12">
 
      <!-- Author -->
      <p class="lead">
-         by <a href="#">Start Bootstrap</a>
+         Search Train
      </p>
 
-     <hr>
-
-     <!-- Date/Time -->
-     <p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
-
-     <hr>
-
-     <!-- Preview Image -->
-     <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-
-     <hr>
-
-     <!-- Post Content -->
-     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
-     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
-     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
-
-     <hr>
-
-     <!-- Blog Comments -->
-
-     <!-- Comments Form -->
-     <div class="well">
-         <h4>Leave a Comment:</h4>
-         <form role="form">
-             <div class="form-group">
-                 <textarea class="form-control" rows="3"></textarea>
-             </div>
-             <button type="submit" class="btn btn-primary">Submit</button>
-         </form>
-     </div>
-
-     <hr>
-
-     <!-- Posted Comments -->
-
-     <!-- Comment -->
-     <div class="media">
-         <a class="pull-left" href="#">
-             <img class="media-object" src="http://placehold.it/64x64" alt="">
-         </a>
-         <div class="media-body">
-             <h4 class="media-heading">Start Bootstrap
-                 <small>August 25, 2014 at 9:30 PM</small>
-             </h4>
-             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-         </div>
-     </div>
-
-     <!-- Comment -->
-     <div class="media">
-         <a class="pull-left" href="#">
-             <img class="media-object" src="http://placehold.it/64x64" alt="">
-         </a>
-         <div class="media-body">
-             <h4 class="media-heading">Start Bootstrap
-                 <small>August 25, 2014 at 9:30 PM</small>
-             </h4>
-             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-             <!-- Nested Comment -->
-             <div class="media">
-                 <a class="pull-left" href="#">
-                     <img class="media-object" src="http://placehold.it/64x64" alt="">
-                 </a>
-                 <div class="media-body">
-                     <h4 class="media-heading">Nested Start Bootstrap
-                         <small>August 25, 2014 at 9:30 PM</small>
-                     </h4>
-                     Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                 </div>
-             </div>
-             <!-- End Nested Comment -->
-         </div>
-     </div>
+		<form:form id="mainForm" cssClass="form-horizontal" role="form" action="searchTrainAdvanced.htm" onsubmit="return validateForm()" modelAttribute="trainSearchDTO" method="post" >
+			  <div class="form-group">
+			    <label for="startStation" class="col-sm-2 control-label">Start Station</label>
+			    <div class="col-sm-10">
+			    	<select class="form-control" name="startStation" id="startStation">
+			    		<c:forEach items="${trainStations}" var="trainStation">
+			   	  		 	<option value="${trainStation.trainStationId}">${trainStation.trainStationName}</option>
+			   	  		</c:forEach>
+			    	</select>
+			    	<input type="hidden" name="startStationName" id="startStationName" />
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="startStation" class="col-sm-2 control-label">End Station</label>
+			    <div class="col-sm-10">
+			    	<select class="form-control" name="endStation" id="endStation">
+			    		<c:forEach items="${trainStations}" var="trainStation">
+			   	  		 	<option value="${trainStation.trainStationId}">${trainStation.trainStationName}</option>
+			   	  		</c:forEach>
+			    	</select>
+			    	<input type="hidden" name="endStationName" id="endStationName" />
+			    </div>
+			  </div>
+			  <div class="form-group" id="midButtonPanel">
+				<label class="col-md-3 control-label"></label>
+					<div class="col-md-8">
+						<input class="btn btn-primary" onclick="loadNextTrain()" value="Next Train" type="button">
+						<span></span>
+						<input class="btn btn-primary" onclick="loadTodaySchedule()" value="Today Schedule" type="button">
+						<span></span>
+						<input class="btn btn-primary" onclick="showAdvancedFilter()" value="Advanced Filter" type="button">
+					</div>
+		      </div>
+		      <input type="hidden" name="searchType" id="searchType" />
+			  <div id="advancedFilter" style="display: none;">
+			  
+				  <div class="form-group">
+				    <label for="datepicker" class="col-sm-2 control-label">Pick a Date and time</label>
+				    <div class="col-sm-10">
+					    <p id="datepairExample">
+						    <input type="text" class="date start" name="startDate" style="width: 20%"  />
+						    <input type="text" class="time start" name="startTime" style="width: 20%"  /> to
+						    <input type="text" class="time end" name="endTime" style="width: 20%"  />
+						    <input type="text" class="date end" name="endDate" style="width: 20%"  />
+						</p>
+				    </div>
+				  </div>
+				  				  
+			  	  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-5">
+				      <input type="submit" class="btn btn-primary" value="Search" />
+				      <input type="button" class="btn btn-primary"  value="Cancel" onclick="return hideAdvancedFilter()" />
+				    </div>
+				  </div> 			  	
+			  </div>			  			  
+			  
+		</form:form>
+    
 
  </div>
 
- <!-- Blog Sidebar Widgets Column -->
- <div class="col-md-4">
-
-     <!-- Blog Search Well -->
-     <div class="well">
-         <h4>Blog Search</h4>
-         <div class="input-group">
-             <input type="text" class="form-control">
-             <span class="input-group-btn">
-                 <button class="btn btn-default" type="button">
-                     <span class="glyphicon glyphicon-search"></span>
-             </button>
-             </span>
-         </div>
-         <!-- /.input-group -->
-     </div>
-
-     <!-- Blog Categories Well -->
-     <div class="well">
-         <h4>Blog Categories</h4>
-         <div class="row">
-             <div class="col-lg-6">
-                 <ul class="list-unstyled">
-                     <li><a href="#">Category Name</a>
-                     </li>
-                     <li><a href="#">Category Name</a>
-                     </li>
-                     <li><a href="#">Category Name</a>
-                     </li>
-                     <li><a href="#">Category Name</a>
-                     </li>
-                 </ul>
-             </div>
-             <div class="col-lg-6">
-                 <ul class="list-unstyled">
-                     <li><a href="#">Category Name</a>
-                     </li>
-                     <li><a href="#">Category Name</a>
-                     </li>
-                     <li><a href="#">Category Name</a>
-                     </li>
-                     <li><a href="#">Category Name</a>
-                     </li>
-                 </ul>
-             </div>
-         </div>
-         <!-- /.row -->
-     </div>
-
-     <!-- Side Widget Well -->
-        <div class="well">
-            <h4>Side Widget Well</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-        </div>
-
-    </div>
+ 
 
 </div>
 <!-- /.row -->
+<script type="text/javascript">
+$(function() {
+    $('#datepairExample .time').timepicker({
+        'showDuration': true,
+        'timeFormat': 'g:ia'
+    });
+
+    $('#datepairExample .date').datepicker({
+        'format': 'dd/mm/yyyy',
+        'autoclose': true
+    });
+
+    // initialize datepair
+    $('#datepairExample').datepair();
+  });
+
+
+
+
+function showAdvancedFilter(){
+	$('#advancedFilter').show();
+	$('#midButtonPanel').hide();
+}
+
+function hideAdvancedFilter(){
+	$('#advancedFilter').hide();
+	$('#midButtonPanel').show();
+}
+
+function validateForm(){
+	$('#startStationName').val($("#startStation option:selected").text());
+	$('#endStationName').val($("#endStation option:selected").text());
+	return true;
+}
+
+function loadNextTrain(){
+	$('#datepairExample .date').datepicker( "setDate", new Date());
+	$('#searchType').val('Next Train');
+	$('#mainForm').attr('action','searchTrain.htm');
+	$('#mainForm').submit();
+}
+
+function loadTodaySchedule(){
+	$('#datepairExample .date').datepicker( "setDate", new Date());
+	$('#searchType').val('Today Schedule');
+	$('#mainForm').attr('action','searchTrain.htm');
+	$('#mainForm').submit();
+}
+
+</script>

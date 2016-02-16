@@ -90,6 +90,34 @@ public class MasterDataServiceImpl implements MasterDataService {
 		trainStation.setActiveStatus(YesNoStatus.NO);
 		return commonDAO.updateEntity(trainStation);
 	}
+
+	@Override
+	public String saveTrainType(TrainType trainType) throws Exception {
+		trainType.setActiveStatus(YesNoStatus.YES);
+		return commonDAO.saveOrUpdateEntity(trainType);
+	}
+
+	@Override
+	public String deleteTrainType(long trainTypeId) throws Exception {
+		TrainType trainType=commonDAO.getEntityById(TrainType.class, trainTypeId);
+		trainType.setActiveStatus(YesNoStatus.NO);
+		return commonDAO.updateEntity(trainType);
+	}
+
+	@Override
+	public String saveTrainLine(TrainLine trainLine) throws Exception {
+		trainLine.setActiveStatus(YesNoStatus.YES);
+		trainLine.setEndStation((TrainStation) commonDAO.getEntityById(TrainStation.class, trainLine.getEndStation().getTrainStationId()));
+		trainLine.setStartStation((TrainStation) commonDAO.getEntityById(TrainStation.class, trainLine.getStartStation().getTrainStationId()));
+		return commonDAO.saveOrUpdateEntity(trainLine);
+	}
+
+	@Override
+	public String deleteTrainLine(long trainLineId) throws Exception {
+		TrainLine trainLine=commonDAO.getEntityById(TrainLine.class, trainLineId);
+		trainLine.setActiveStatus(YesNoStatus.NO);
+		return commonDAO.updateEntity(trainLine);
+	}
 	
 	
 

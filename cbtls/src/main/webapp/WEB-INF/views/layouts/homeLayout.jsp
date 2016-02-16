@@ -19,6 +19,9 @@
 	    <link href='<c:url value="/css/bootstrap.min.css" />' rel="stylesheet">
 	    <!-- Custom Fonts -->
 	    <link href='<c:url value="/css/font-awesome.min.css" />' rel="stylesheet" type="text/css">
+	     <link href='<c:url value="/css/jquery-ui.min.css" />' rel="stylesheet" type="text/css">
+	      <link href='<c:url value="/css/jquery.timepicker.css" />' rel="stylesheet" type="text/css">
+	      <link href='<c:url value="/css/bootstrap-datepicker.css" />' rel="stylesheet" type="text/css">
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	    <!--[if lt IE 9]>
@@ -35,6 +38,17 @@
 			}
 	    
 	    </style>
+	      <!-- jQuery -->
+		    <script src='<c:url value="/js/jquery-2.1.4.min.js" />' type="text/javascript"></script>
+		    <script src='<c:url value="/js/jquery-ui.js" />' type="text/javascript"></script>
+		    <!-- Bootstrap Core JavaScript -->
+		    <script src='<c:url value="/js/bootstrap.min.js" />' type="text/javascript" ></script>
+		    
+		    <script src='<c:url value="/js/jquery.timepicker.js" />' type="text/javascript"></script>
+		    <script src='<c:url value="/js/datepair.js" />' type="text/javascript"></script>
+		    <script src='<c:url value="/js/jquery.datepair.js" />' type="text/javascript"></script>
+		    <script src='<c:url value="/js/bootstrap-datepicker.js" />' type="text/javascript"></script>
+		    
     </head>
 
     <body>
@@ -47,8 +61,5 @@
          <div style="clear: both"></div>
             
     </body>
-      <!-- jQuery -->
-    <script src='<c:url value="/js/jquery-2.1.4.min.js" />' type="text/javascript"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src='<c:url value="/js/bootstrap.min.js" />' type="text/javascript" ></script>
+    
 </html>

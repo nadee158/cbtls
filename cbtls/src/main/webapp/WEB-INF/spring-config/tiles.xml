@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE tiles-definitions PUBLIC
-       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
 <tiles-definitions>
 	
 	<!-- Definition for Home Page-->
@@ -76,7 +77,24 @@
         <put-attribute name="title" value="Manage Train Stations" />
         <put-attribute name="body" value="/WEB-INF/views/content/manageTrainStations.jsp" />		
     </definition>
+    
+     <!-- Manage Train Types-->
+    <definition name="manageTrainTypes" extends="adminHome.common">
+        <put-attribute name="title" value="Manage Train Types" />
+        <put-attribute name="body" value="/WEB-INF/views/content/manageTrainTypes.jsp" />		
+    </definition>
    
    
+    <!-- HOME Page-->
+    <definition name="trainSheduleList" extends="home.common">
+        <put-attribute name="title" value="Train Shedule List" />
+        <put-attribute name="body" value="/WEB-INF/views/content/trainSheduleList.jsp" />		
+    </definition>
+    
+    <!-- HOME Page-->
+    <definition name="viewRecommendations" extends="home.common">
+        <put-attribute name="title" value="View Recommendations" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewRecommendations.jsp" />		
+    </definition>
     
 </tiles-definitions>

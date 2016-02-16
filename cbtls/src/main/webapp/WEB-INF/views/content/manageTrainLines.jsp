@@ -3,7 +3,7 @@
  <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Manage Train Stations</h1>
+            <h1 class="page-header">Manage Train Lines</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -28,13 +28,13 @@
 	  		<a href="javascript:bulkUpload()" class="btn btn-success btn-sm">
 	          <span class="glyphicon glyphicon-plus"></span> Bulk Upload
 	        </a>
-		   <a href="javascript:addNewStation()" class="btn btn-success btn-sm">
-	          <span class="glyphicon glyphicon-plus"></span> Add New Station 
+		   <a href="javascript:addNewLine()" class="btn btn-success btn-sm">
+	          <span class="glyphicon glyphicon-plus"></span> Add New Train Line 
 	        </a>
 	  </div>
 	  <div class="panel-body">
 	  	<div id="bulkUploadForm" style="display: none;">
-	  		<form:form cssClass="form-horizontal" role="form" action="saveTrainStation.htm" modelAttribute="trainStation" method="post" >
+	  		<form:form cssClass="form-horizontal" role="form" action="saveTrainLine.htm" modelAttribute="trainLine" method="post" >
 				<div class="form-group">
 				    <label class="control-label">Select File</label>
 				    <div class="col-sm-10">
@@ -48,30 +48,34 @@
 			  	</div>
 	  		</form:form>
 	  	</div>
-	  	<div id="addNewStationForm" style="display: none;">
-		  <form:form cssClass="form-horizontal" role="form" action="saveTrainStation.htm" modelAttribute="trainStation" method="post" >
+	  	<div id="addNewLineForm" style="display: none;">
+		  <form:form cssClass="form-horizontal" role="form" action="saveTrainLine.htm" modelAttribute="trainLine" method="post" >
 			  <div class="form-group">
-			    <label for="trainStationReferenceId" class="col-sm-2 control-label">Reference Id</label>
+			    <label for="trainLineName" class="col-sm-2 control-label">Line Name</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="trainStationReferenceId" id="trainStationReferenceId" placeholder="Station Reference Id">
+			      <input type="text" class="form-control" name="trainLineName" id="trainLineName" placeholder="Line Name">
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="trainStationCode" class="col-sm-2 control-label">Station Code</label>
+			    <label for="startStation" class="col-sm-2 control-label">Start Station</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="trainStationCode" id="trainStationCode" placeholder="Station Code">
+			   	  <select class="form-control" name="trainLineCode" id="trainLineCode">
+			   	  	<c:forEach items="${trainStations}" var="trainStation">
+			   	  		 <option value="startStation">${trainStation.trainStationName}</option>
+			   	  	</c:forEach>
+			      </select>
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="trainStationName" class="col-sm-2 control-label">Station Name</label>
+			    <label for="trainLineName" class="col-sm-2 control-label">Line Name</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="trainStationName" id="trainStationName" placeholder="Station Name">
+			      <input type="text" class="form-control" name="trainLineName" id="trainLineName" placeholder="Line Name">
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="trainStationContactNumber" class="col-sm-2 control-label">Contact Number</label>
+			    <label for="trainLineContactNumber" class="col-sm-2 control-label">Contact Number</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="trainStationContactNumber" id="trainStationContactNumber" placeholder="Station Contact Number">
+			      <input type="text" class="form-control" name="trainLineContactNumber" id="trainLineContactNumber" placeholder="Line Contact Number">
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -88,7 +92,7 @@
 			  </div>			  
 			  <div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-5">
-			      <input type="submit" class="btn btn-primary" value="Add Station" />
+			      <input type="submit" class="btn btn-primary" value="Add Line" />
 			      <input type="button" class="btn btn-primary" value="Cancel" onclick="return cancelAdding()" />
 			    </div>
 			  </div>
@@ -98,10 +102,10 @@
 			  <table class="table  table-striped">
 			  		<thead>
 			  			<tr>
-				  			<th>Station Reference Id</th>
-				  			<th>Station Code</th>
-				  			<th>Station Name</th>
-				  			<th>Station Contact Number</th>
+				  			<th>Line Reference Id</th>
+				  			<th>Line Code</th>
+				  			<th>Line Name</th>
+				  			<th>Line Contact Number</th>
 				  			<th>Latitude</th>
 				  			<th>Longitude</th>
 				  			<th>Edit</th>	
@@ -110,26 +114,26 @@
 			  		</thead>
 			  		<tbody>
 			  			<c:choose>
-				  			<c:when test="${!empty trainStations}">
-					  			<c:forEach items="${trainStations}" var="trainStation">
+				  			<c:when test="${!empty trainLines}">
+					  			<c:forEach items="${trainLines}" var="trainLine">
 					  				<tr>
-					  					<td>${trainStation.trainStationReferenceId}</td>
-					  					<td>${trainStation.trainStationCode}</td>
-					  					<td>${trainStation.trainStationName}</td>
-					  					<td>${trainStation.trainStationContactNumber}</td>
-					  					<td>${trainStation.geoLocation.latitude}</td>
-					  					<td>${trainStation.geoLocation.longitude }</td>
+					  					<td>${trainLine.trainLineReferenceId}</td>
+					  					<td>${trainLine.trainLineCode}</td>
+					  					<td>${trainLine.trainLineName}</td>
+					  					<td>${trainLine.trainLineContactNumber}</td>
+					  					<td>${trainLine.geoLocation.latitude}</td>
+					  					<td>${trainLine.geoLocation.longitude }</td>
 					  					<td>
 					  						<a href="#" class="btn btn-primary btn-sm">
 									          <span class="glyphicon glyphicon-edit"></span> Edit 
 									        </a>
 					  					</td>
 					  					<td>
-					  						<a href="javascript:deleteTrainStation(${trainStation.trainStationId})" class="btn btn-danger btn-sm">
+					  						<a href="javascript:deleteTrainLine(${trainLine.trainLineId})" class="btn btn-danger btn-sm">
 									          <span class="glyphicon glyphicon-trash"></span> Delete
 									        </a>
-									        <form action="deleteTrainStation.htm" method="post" id="hiddenFormDelete_${trainStation.trainStationId}">
-									          	<input type="hidden" name="trainStationId" value="${trainStation.trainStationId}" >
+									        <form action="deleteTrainLine.htm" method="post" id="hiddenFormDelete_${trainLine.trainLineId}">
+									          	<input type="hidden" name="trainLineId" value="${trainLine.trainLineId}" >
 									         </form> 
 					  					</td>
 					  				</tr>
@@ -151,17 +155,17 @@
 </div>
 <!-- /#page-wrapper -->
 <script type="text/javascript">
-function addNewStation(){
-	$('#addNewStationForm').show();
+function addNewLine(){
+	$('#addNewLineForm').show();
 	$('#bulkUploadForm').hide();
 }
 
-function deleteTrainStation(trainStationId){
-	$('#hiddenFormDelete_' + trainStationId).submit();
+function deleteTrainLine(trainLineId){
+	$('#hiddenFormDelete_' + trainLineId).submit();
 }
 
 function cancelAdding(){
-	$('#addNewStationForm').hide();
+	$('#addNewLineForm').hide();
 }
 
 function cancelBulkUpload(){
@@ -169,7 +173,7 @@ function cancelBulkUpload(){
 }
 
 function bulkUpload(){
-	$('#addNewStationForm').hide();
+	$('#addNewLineForm').hide();
 	$('#bulkUploadForm').show();
 }
 
