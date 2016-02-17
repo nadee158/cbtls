@@ -1,18 +1,16 @@
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
  <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+ <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
  <div class="row">
 
  <!-- Blog Post Content Column -->
  <div class="col-lg-12">
 
-     <!-- Author -->
-     <p class="lead">
-         Search Train
-     </p>
+     <h3 class="page-header"><spring:message code="label.searchTrain"/></h3>
 
 		<form:form id="mainForm" cssClass="form-horizontal" role="form" action="searchTrainAdvanced.htm" onsubmit="return validateForm()" modelAttribute="trainSearchDTO" method="post" >
 			  <div class="form-group">
-			    <label for="startStation" class="col-sm-2 control-label">Start Station</label>
+			    <label for="startStation" class="col-sm-2 control-label"><spring:message code="label.startStation"/></label>
 			    <div class="col-sm-10">
 			    	<select class="form-control" name="startStation" id="startStation">
 			    		<c:forEach items="${trainStations}" var="trainStation">
@@ -23,7 +21,7 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="startStation" class="col-sm-2 control-label">End Station</label>
+			    <label for="startStation" class="col-sm-2 control-label"><spring:message code="label.endStation"/></label>
 			    <div class="col-sm-10">
 			    	<select class="form-control" name="endStation" id="endStation">
 			    		<c:forEach items="${trainStations}" var="trainStation">
@@ -36,11 +34,11 @@
 			  <div class="form-group" id="midButtonPanel">
 				<label class="col-md-3 control-label"></label>
 					<div class="col-md-8">
-						<input class="btn btn-primary" onclick="loadNextTrain()" value="Next Train" type="button">
+						<input class="btn btn-primary" onclick="loadNextTrain()" value='<spring:message code="label.nextTrain"/>' type="button">
 						<span></span>
-						<input class="btn btn-primary" onclick="loadTodaySchedule()" value="Today Schedule" type="button">
+						<input class="btn btn-primary" onclick="loadTodaySchedule()" value='<spring:message code="label.todaySchedule"/>' type="button">
 						<span></span>
-						<input class="btn btn-primary" onclick="showAdvancedFilter()" value="Advanced Filter" type="button">
+						<input class="btn btn-primary" onclick="showAdvancedFilter()" value='<spring:message code="label.advancedFilter"/>' type="button">
 					</div>
 		      </div>
 		      <input type="hidden" name="searchType" id="searchType" />

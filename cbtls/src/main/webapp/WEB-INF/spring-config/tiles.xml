@@ -97,4 +97,47 @@
         <put-attribute name="body" value="/WEB-INF/views/content/viewRecommendations.jsp" />		
     </definition>
     
+     <!-- HOME Page-->
+    <definition name="viewTrainScheduleDetails" extends="home.common">
+        <put-attribute name="title" value="View Train Schedule Details" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewTrainScheduleDetails.jsp" />		
+    </definition>
+    
+    
+     <definition name="activeUpdateLocation" extends="home.common">
+        <put-attribute name="title" value="Actively Update Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/activeUpdateLocation.jsp" />		
+    </definition>
+    
+    <definition name="passiveUpdateLocation" extends="home.common">
+        <put-attribute name="title" value="Passively Update Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/passiveUpdateLocation.jsp" />		
+    </definition>
+    
+     <definition name="viewAnalysisOfTrain" extends="home.common">
+        <put-attribute name="title" value="View Analysis of Train" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewAnalysisOfTrain.jsp" />		
+    </definition>
+    
+    <definition name="updateCompartmentDetails" extends="home.common">
+        <put-attribute name="title" value="Update Compartment Details" />
+        <put-attribute name="body" value="/WEB-INF/views/content/updateCompartmentDetails.jsp" />		
+    </definition>
+
+	<definition name="setNotificationAlarm" extends="home.common">
+        <put-attribute name="title" value="Set Notification Alarm" />
+        <put-attribute name="body" value="/WEB-INF/views/content/setNotificationAlarm.jsp" />		
+    </definition>   
+    
+    <definition name="viewTrainLocation" extends="home.common">
+        <put-attribute name="title" value="View Train Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewTrainLocation.jsp" />		
+    </definition>    
+    
+     <definition name="viewCompartmentDetails" extends="home.common">
+        <put-attribute name="title" value="View Train Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewCompartmentDetails.jsp" />		
+    </definition>      
+    
+    
 </tiles-definitions>

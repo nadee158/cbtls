@@ -71,6 +71,112 @@ public class HomeController {
 		return new ModelAndView("viewTrainScheduleDetails", modelMap);
 	}
 	
+	@RequestMapping(value = "/activeUpdateLocation", method = RequestMethod.POST)
+	public ModelAndView activeUpdateLocation(HttpServletRequest request) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.put("trainStations", masterDataService.listAllTrainStations(YesNoStatus.YES));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TrainSearchDTO trainSearchDTO  = (TrainSearchDTO) request.getSession().getAttribute("trainSearchDTO");
+		System.out.println(trainSearchDTO.getStartDate());
+		modelMap.put("trainSearchDTO", trainSearchDTO);
+		return new ModelAndView("activeUpdateLocation", modelMap);
+	}
+	
+	@RequestMapping(value = "/passiveUpdateLocation", method = RequestMethod.POST)
+	public ModelAndView passiveUpdateLocation(HttpServletRequest request) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.put("trainStations", masterDataService.listAllTrainStations(YesNoStatus.YES));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TrainSearchDTO trainSearchDTO  = (TrainSearchDTO) request.getSession().getAttribute("trainSearchDTO");
+		System.out.println(trainSearchDTO.getStartDate());
+		modelMap.put("trainSearchDTO", trainSearchDTO);
+		return new ModelAndView("passiveUpdateLocation", modelMap);
+	}
+	
+	
+	@RequestMapping(value = "/viewAnalysisOfTrain", method = RequestMethod.POST)
+	public ModelAndView viewAnalysisOfTrain(HttpServletRequest request) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.put("trainStations", masterDataService.listAllTrainStations(YesNoStatus.YES));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TrainSearchDTO trainSearchDTO  = (TrainSearchDTO) request.getSession().getAttribute("trainSearchDTO");
+		System.out.println(trainSearchDTO.getStartDate());
+		modelMap.put("trainSearchDTO", trainSearchDTO);
+		return new ModelAndView("viewAnalysisOfTrain", modelMap);
+	}
+	
+	@RequestMapping(value = "/updateCompartmentDetails", method = RequestMethod.POST)
+	public ModelAndView updateCompartmentDetails(HttpServletRequest request) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.put("trainStations", masterDataService.listAllTrainStations(YesNoStatus.YES));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TrainSearchDTO trainSearchDTO  = (TrainSearchDTO) request.getSession().getAttribute("trainSearchDTO");
+		System.out.println(trainSearchDTO.getStartDate());
+		modelMap.put("trainSearchDTO", trainSearchDTO);
+		return new ModelAndView("updateCompartmentDetails", modelMap);
+	}
+	
+	@RequestMapping(value = "/setNotificationAlarm", method = RequestMethod.POST)
+	public ModelAndView setNotificationAlarm(HttpServletRequest request) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.put("trainStations", masterDataService.listAllTrainStations(YesNoStatus.YES));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TrainSearchDTO trainSearchDTO  = (TrainSearchDTO) request.getSession().getAttribute("trainSearchDTO");
+		System.out.println(trainSearchDTO.getStartDate());
+		modelMap.put("trainSearchDTO", trainSearchDTO);
+		return new ModelAndView("setNotificationAlarm", modelMap);
+	}
+	
+	@RequestMapping(value = "/viewTrainLocation", method = RequestMethod.POST)
+	public ModelAndView viewTrainLocation(HttpServletRequest request) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.put("trainStations", masterDataService.listAllTrainStations(YesNoStatus.YES));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TrainSearchDTO trainSearchDTO  = (TrainSearchDTO) request.getSession().getAttribute("trainSearchDTO");
+		System.out.println(trainSearchDTO.getStartDate());
+		modelMap.put("trainSearchDTO", trainSearchDTO);
+		return new ModelAndView("viewTrainLocation", modelMap);
+	}
+	
+	@RequestMapping(value = "/viewCompartmentDetails", method = RequestMethod.POST)
+	public ModelAndView viewCompartmentDetails(HttpServletRequest request) {
+		ModelMap modelMap = new ModelMap();
+		try {
+			modelMap.put("trainStations", masterDataService.listAllTrainStations(YesNoStatus.YES));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TrainSearchDTO trainSearchDTO  = (TrainSearchDTO) request.getSession().getAttribute("trainSearchDTO");
+		System.out.println(trainSearchDTO.getStartDate());
+		modelMap.put("trainSearchDTO", trainSearchDTO);
+		return new ModelAndView("viewCompartmentDetails", modelMap);
+	}
+	
 	
 
 }

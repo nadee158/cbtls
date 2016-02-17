@@ -45,26 +45,26 @@
 							<td class="text-center">10.30 a.m</td>
 							<td class="text-center">11.30 a.m</td>
 							<td class="text-center">0.30</td>	
-							<td class="text-center">View</td>
+							<td class="text-center"><input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails()" type="button"></td>
 						</tr>
 						<c:if test="${! (trainSearchDTO.searchType=='Next Train')}">
 							<tr>
 								<td class="text-center">11.30 a.m</td>
 								<td class="text-center">12.30 a.m</td>
 								<td class="text-center">0.20</td>	
-								<td class="text-center">View</td>
+								<td class="text-center"><input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails()" type="button"></td>
 							</tr>
 							<tr>
 								<td class="text-center">9.30 a.m</td>
 								<td class="text-center">10.20 a.m</td>
 								<td class="text-center">0.20</td>	
-								<td class="text-center">View</td>
+								<td class="text-center"><input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails()" type="button"></td>
 							</tr>
 							<tr>
 								<td class="text-center">10.30 a.m</td>
 								<td class="text-center">11.30 a.m</td>
 								<td class="text-center">0.30</td>	
-								<td class="text-center">View</td>
+								<td class="text-center"><input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails()" type="button"></td>
 							</tr>
 						</c:if>
 					</tbody>
@@ -84,6 +84,7 @@
 	</div>
     
     <form action="viewRecommendations.htm" id="viewRecommendations" method="post"></form>
+    <form action="viewTrainScheduleDetails.htm" id="viewTrainScheduleDetails" method="post"></form>
     
   </div>
 </div>
@@ -95,5 +96,9 @@ function serchAgain(){
 
 function viewRecommendations(){
 	$('#viewRecommendations').submit();
+}
+
+function viewTrainScheduleDetails(){
+	$('#viewTrainScheduleDetails').submit();
 }
 </script>
