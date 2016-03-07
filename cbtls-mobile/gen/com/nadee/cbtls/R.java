@@ -46,7 +46,7 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a001b;
+        public static final int action_settings=0x7f0a001f;
         public static final int btn_advanced_filter=0x7f0a0007;
         public static final int btn_from_time=0x7f0a000c;
         public static final int btn_next_train=0x7f0a0005;
@@ -54,7 +54,7 @@ public final class R {
         public static final int btn_pick_a_date=0x7f0a0009;
         public static final int btn_search=0x7f0a000e;
         public static final int btn_search_again=0x7f0a0016;
-        public static final int btn_select=0x7f0a001a;
+        public static final int btn_select=0x7f0a001e;
         public static final int btn_to_time=0x7f0a000d;
         public static final int btn_today_schedule=0x7f0a0006;
         public static final int btn_view_recommendations=0x7f0a0015;
@@ -71,15 +71,20 @@ public final class R {
         public static final int textView_StationTitle=0x7f0a000f;
         public static final int textView_TimeTitle=0x7f0a0010;
         public static final int textView_description=0x7f0a0011;
-        public static final int txt_arrival_time=0x7f0a0018;
-        public static final int txt_departure_time=0x7f0a0017;
-        public static final int txt_duration=0x7f0a0019;
+        public static final int txt_arrival_at_destination=0x7f0a0018;
+        public static final int txt_arrival_time=0x7f0a001c;
+        public static final int txt_average_delay=0x7f0a0019;
+        public static final int txt_crowd=0x7f0a001a;
+        public static final int txt_departure_time=0x7f0a001b;
+        public static final int txt_duration=0x7f0a001d;
+        public static final int txt_rank=0x7f0a0017;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_view_recommendation=0x7f030001;
         public static final int activity_view_train_schedules=0x7f030002;
-        public static final int listview_train_schedule=0x7f030003;
+        public static final int listview_train_recommendation=0x7f030003;
+        public static final int listview_train_schedule=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f090000;
