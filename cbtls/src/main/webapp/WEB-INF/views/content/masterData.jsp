@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="manageTrainStations.htm">
+                <a href="manageTrainTypes.htm">
                     <div class="panel-footer">
                         <span class="pull-left">Manage Train Types</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
