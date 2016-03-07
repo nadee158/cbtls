@@ -14,8 +14,23 @@
     <string name="pick_a_time">Pick a Time</string>
     <string name="from_time">From Time</string>
     <string name="to_time">To Time</string>
-   <string name="search"> Search</string>
-   <string name="search_train"> Search Train</string>
+    <string name="search"> Search</string>
+    <string name="search_train"> Search Train</string>
+    <string name="title_activity_view_train_schedules">ViewTrainSchedulesActivity</string>
+    <string name="view_train_schedules">View Train Schedules</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="depature">Depature</string>
+    <string name="arrival">Arrival</string>
+    <string name="duration">Duration(h)</string>
+    <string name="view">View</string>
+    <string name="view_recommendations">View Recommendations</string>
+    <string name="search_again">Search Again</string>
+    <string name="select">Select</string>
+    <string name="title_activity_view_recommendation">ViewRecommendationActivity</string>
     
+    <string name="train_recommendation_description">Trains are listed based on rankings from best to worst, trains are ranked 
+        based on historical data</string>
+        <string name="ok">Ok</string>
 
 </resources>

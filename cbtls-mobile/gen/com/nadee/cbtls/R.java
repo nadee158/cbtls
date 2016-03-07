@@ -46,45 +46,76 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a000f;
+        public static final int action_settings=0x7f0a001b;
         public static final int btn_advanced_filter=0x7f0a0007;
         public static final int btn_from_time=0x7f0a000c;
         public static final int btn_next_train=0x7f0a0005;
+        public static final int btn_ok=0x7f0a0014;
         public static final int btn_pick_a_date=0x7f0a0009;
         public static final int btn_search=0x7f0a000e;
+        public static final int btn_search_again=0x7f0a0016;
+        public static final int btn_select=0x7f0a001a;
         public static final int btn_to_time=0x7f0a000d;
         public static final int btn_today_schedule=0x7f0a0006;
+        public static final int btn_view_recommendations=0x7f0a0015;
         public static final int linearLayout1=0x7f0a0000;
         public static final int linearLayout2=0x7f0a0004;
+        public static final int linearLayout3=0x7f0a0012;
         public static final int linearLayout4=0x7f0a000b;
         public static final int linearLayout_Advanced_Filter=0x7f0a0008;
+        public static final int list_train_schedule=0x7f0a0013;
         public static final int pick_a_time=0x7f0a000a;
         public static final int spinner_from_station=0x7f0a0002;
         public static final int spinner_to_station=0x7f0a0003;
         public static final int textView1=0x7f0a0001;
+        public static final int textView_StationTitle=0x7f0a000f;
+        public static final int textView_TimeTitle=0x7f0a0010;
+        public static final int textView_description=0x7f0a0011;
+        public static final int txt_arrival_time=0x7f0a0018;
+        public static final int txt_departure_time=0x7f0a0017;
+        public static final int txt_duration=0x7f0a0019;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int activity_view_recommendation=0x7f030001;
+        public static final int activity_view_train_schedules=0x7f030002;
+        public static final int listview_train_schedule=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f090000;
+        public static final int view_recommendation=0x7f090001;
+        public static final int view_train_schedules=0x7f090002;
     }
     public static final class string {
         public static final int action_settings=0x7f070002;
         public static final int app_name=0x7f070000;
+        public static final int arrival=0x7f070014;
+        public static final int depature=0x7f070013;
+        public static final int duration=0x7f070015;
+        public static final int from=0x7f070011;
         public static final int from_station_prompt=0x7f070003;
         public static final int from_time=0x7f07000b;
         public static final int hello_world=0x7f070001;
         public static final int hide_advanced_filter=0x7f070008;
         public static final int next_train=0x7f070005;
+        public static final int ok=0x7f07001c;
         public static final int pick_a_date=0x7f070009;
         public static final int pick_a_time=0x7f07000a;
         public static final int search=0x7f07000d;
+        public static final int search_again=0x7f070018;
         public static final int search_train=0x7f07000e;
+        public static final int select=0x7f070019;
         public static final int show_advanced_filter=0x7f070007;
+        public static final int title_activity_view_recommendation=0x7f07001a;
+        public static final int title_activity_view_train_schedules=0x7f07000f;
+        public static final int to=0x7f070012;
         public static final int to_station_prompt=0x7f070004;
         public static final int to_time=0x7f07000c;
         public static final int today_schedule=0x7f070006;
+        public static final int train_recommendation_description=0x7f07001b;
+        public static final int view=0x7f070016;
+        public static final int view_recommendations=0x7f070017;
+        public static final int view_train_schedules=0x7f070010;
     }
     public static final class style {
         /** 
