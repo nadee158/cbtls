@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
@@ -50,6 +51,7 @@ public class TrainLine implements Serializable {
 	@JoinColumn(name="start_station_id",nullable=false)
 	private TrainStation startStation;
 	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="end_station_id",nullable=false)
 	private TrainStation endStation;

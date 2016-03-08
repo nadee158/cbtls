@@ -12,7 +12,7 @@
 			  <div class="form-group">
 			    <label for="startStation" class="col-sm-2 control-label">Train Line</label>
 			    <div class="col-sm-10">
-			    	<select class="form-control" id="trainLine">
+			    	<select class="form-control" id="trainLine" onchange="loadTrainStations(this.value)">
 			    	</select>
 			    </div>
 			  </div>
@@ -21,9 +21,6 @@
 			    <label for="startStation" class="col-sm-2 control-label"><spring:message code="label.startStation"/></label>
 			    <div class="col-sm-10">
 			    	<select class="form-control" name="startStation" id="startStation">
-			    		<c:forEach items="${trainStations}" var="trainStation">
-			   	  		 	<option value="${trainStation.trainStationId}">${trainStation.trainStationName}</option>
-			   	  		</c:forEach>
 			    	</select>
 			    	<input type="hidden" name="startStationName" id="startStationName" />
 			    </div>
@@ -32,9 +29,6 @@
 			    <label for="startStation" class="col-sm-2 control-label"><spring:message code="label.endStation"/></label>
 			    <div class="col-sm-10">
 			    	<select class="form-control" name="endStation" id="endStation">
-			    		<c:forEach items="${trainStations}" var="trainStation">
-			   	  		 	<option value="${trainStation.trainStationId}">${trainStation.trainStationName}</option>
-			   	  		</c:forEach>
 			    	</select>
 			    	<input type="hidden" name="endStationName" id="endStationName" />
 			    </div>
@@ -100,7 +94,7 @@ $(function() {
   });
 
 function loadTrainLines(){
-	$('#trainLine').append('<option>Select</option>')
+	$('#trainLine').append('<option value="0">Select</option>')
 	$.getJSON( "listTrainLines.json", function( data ) {
 		var appendText='';
 		$(data).each(function() {
@@ -110,6 +104,22 @@ function loadTrainLines(){
 	});
 }
 
+
+function loadTrainStations(trainLineId){
+	if(!(trainLineId<=0)){
+		$('#startStation').append('<option value="0">Select</option>');
+		$('#endStation').append('<option value="0">Select</option>');
+		
+		$.getJSON( "listTrainStationsByTrainLine.json",{trainLineId : trainLineId}, function( data ) {
+			var appendText='';
+			$(data).each(function() {
+				appendText=appendText + '<option value="' + $(this).trainStationId + '">' + $(this).trainStationName + '</option>';
+		    });
+			$('#startStation').append(appendText);
+			$('#endStation').append(appendText);
+		});
+	}
+}
 
 function showAdvancedFilter(){
 	$('#advancedFilter').show();

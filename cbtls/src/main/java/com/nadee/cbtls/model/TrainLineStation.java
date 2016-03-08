@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 
 @Entity(name="trainLineStation")
@@ -41,10 +43,12 @@ public class TrainLineStation implements Serializable {
     @Column(name="active_status")
 	private YesNoStatus activeStatus;
 	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="train_line_id",nullable=false)
 	private TrainLine trainLine;
 	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="train_station_id",nullable=false)
 	private TrainStation trainStation;
