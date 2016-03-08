@@ -1,13 +1,18 @@
 package com.nadee.cbtls.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
+import com.nadee.cbtls.initbinder.TrainStationEditor;
 import com.nadee.cbtls.model.TrainLine;
+import com.nadee.cbtls.model.TrainStation;
 import com.nadee.cbtls.service.TrainLineService;
 import com.nadee.cbtls.service.TrainStationService;
 
@@ -29,6 +36,13 @@ public class TrainLineController {
 	@Autowired
 	private TrainStationService trainStationService;
 
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(TrainStation.class, new TrainStationEditor(trainStationService));
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(format, true));
+	}
+	
 	// Train Lines
 	// ----------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/admin/manageTrainLines", method = RequestMethod.GET)

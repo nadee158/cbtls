@@ -61,7 +61,7 @@
 			    <div class="col-sm-10">
 			   	  <select class="form-control" name="startStation" id="startStation">
 			   	  	<c:forEach items="${trainStations}" var="trainStation">
-			   	  		 <option value="${trainStation.trainStationCode}">${trainStation.trainStationName}</option>
+			   	  		 <option value="${trainStation.trainStationId}">${trainStation.trainStationName}</option>
 			   	  	</c:forEach>
 			      </select>
 			    </div>
@@ -71,7 +71,7 @@
 			    <div class="col-sm-10">
 			   	  <select class="form-control" name="endStation" id="endStation">
 			   	  	<c:forEach items="${trainStations}" var="trainStation">
-			   	  		 <option value="${trainStation.trainStationCode}">${trainStation.trainStationName}</option>
+			   	  		 <option value="${trainStation.trainStationId}">${trainStation.trainStationName}</option>
 			   	  	</c:forEach>
 			      </select>
 			    </div>
@@ -88,12 +88,10 @@
 			  <table class="table  table-striped">
 			  		<thead>
 			  			<tr>
-				  			<th>Line Reference Id</th>
-				  			<th>Line Code</th>
-				  			<th>Line Name</th>
-				  			<th>Line Contact Number</th>
-				  			<th>Latitude</th>
-				  			<th>Longitude</th>
+				  			<th>Train Line Id</th>
+				  			<th>Train Line Name</th>
+				  			<th>Start Station</th>
+				  			<th>End Station</th>
 				  			<th>Edit</th>	
 				  			<th>Delete</th>	  			
 			  			</tr>
@@ -103,12 +101,10 @@
 				  			<c:when test="${!empty trainLines}">
 					  			<c:forEach items="${trainLines}" var="trainLine">
 					  				<tr>
-					  					<td>${trainLine.trainLineReferenceId}</td>
-					  					<td>${trainLine.trainLineCode}</td>
+					  					<td>${trainLine.trainLineId}</td>
 					  					<td>${trainLine.trainLineName}</td>
-					  					<td>${trainLine.trainLineContactNumber}</td>
-					  					<td>${trainLine.geoLocation.latitude}</td>
-					  					<td>${trainLine.geoLocation.longitude }</td>
+					  					<td>${trainLine.startStation.trainStationName}</td>
+					  					<td>${trainLine.endStation.trainStationName}</td>
 					  					<td>
 					  						<a href="#" class="btn btn-primary btn-sm">
 									          <span class="glyphicon glyphicon-edit"></span> Edit 
