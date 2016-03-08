@@ -59,40 +59,26 @@
 			  <div class="form-group">
 			    <label for="startStation" class="col-sm-2 control-label">Start Station</label>
 			    <div class="col-sm-10">
-			   	  <select class="form-control" name="trainLineCode" id="trainLineCode">
+			   	  <select class="form-control" name="startStation" id="startStation">
 			   	  	<c:forEach items="${trainStations}" var="trainStation">
-			   	  		 <option value="startStation">${trainStation.trainStationName}</option>
+			   	  		 <option value="${trainStation.trainStationCode}">${trainStation.trainStationName}</option>
 			   	  	</c:forEach>
 			      </select>
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="trainLineName" class="col-sm-2 control-label">Line Name</label>
+			    <label for="endStation" class="col-sm-2 control-label">End Station</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="trainLineName" id="trainLineName" placeholder="Line Name">
+			   	  <select class="form-control" name="endStation" id="endStation">
+			   	  	<c:forEach items="${trainStations}" var="trainStation">
+			   	  		 <option value="${trainStation.trainStationCode}">${trainStation.trainStationName}</option>
+			   	  	</c:forEach>
+			      </select>
 			    </div>
 			  </div>
-			  <div class="form-group">
-			    <label for="trainLineContactNumber" class="col-sm-2 control-label">Contact Number</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="trainLineContactNumber" id="trainLineContactNumber" placeholder="Line Contact Number">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="latitude" class="col-sm-2 control-label">Latitude</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="geoLocation.latitude" id="latitude" placeholder="Latitude">
-			    </div>
-			  </div>	
-			   <div class="form-group">
-			    <label for="longitude" class="col-sm-2 control-label">Longitude</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="geoLocation.longitude" id="longitude" placeholder="Longitude">
-			    </div>
-			  </div>			  
 			  <div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-5">
-			      <input type="submit" class="btn btn-primary" value="Add Line" />
+			      <input type="submit" class="btn btn-primary" value="Add Train Line" />
 			      <input type="button" class="btn btn-primary" value="Cancel" onclick="return cancelAdding()" />
 			    </div>
 			  </div>

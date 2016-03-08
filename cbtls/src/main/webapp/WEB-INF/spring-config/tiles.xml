@@ -84,7 +84,12 @@
         <put-attribute name="body" value="/WEB-INF/views/content/manageTrainTypes.jsp" />		
     </definition>
    
-   
+   <!-- Manage Train Types-->
+    <definition name="manageTrainLines" extends="adminHome.common">
+        <put-attribute name="title" value="Manage Train Lines" />
+        <put-attribute name="body" value="/WEB-INF/views/content/manageTrainLines.jsp" />		
+    </definition>
+    
     <!-- HOME Page-->
     <definition name="trainSheduleList" extends="home.common">
         <put-attribute name="title" value="Train Shedule List" />
@@ -138,6 +143,5 @@
         <put-attribute name="title" value="View Train Location" />
         <put-attribute name="body" value="/WEB-INF/views/content/viewCompartmentDetails.jsp" />		
     </definition>      
-    
-    
+
 </tiles-definitions>
