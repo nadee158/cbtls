@@ -59,11 +59,11 @@ public class TrainSchedule implements Serializable {
 	private TrainStation endStation;
 	
 	@Column(name="departure_time")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIME)
 	private Date departureTime;
 	
 	@Column(name="arrival_time")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIME)
 	private Date arrivalTime;
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
