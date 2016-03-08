@@ -1,17 +1,25 @@
 package com.nadee.cbtls.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.UserRoleType;
+import com.nadee.cbtls.initbinder.TrainStationEditor;
 import com.nadee.cbtls.model.SystemUser;
+import com.nadee.cbtls.model.TrainStation;
 import com.nadee.cbtls.service.SystemUserService;
 import com.nadee.cbtls.service.TrainLineService;
 import com.nadee.cbtls.service.TrainScheduleService;
@@ -22,6 +30,15 @@ import com.nadee.cbtls.service.TrainTypeService;
 @Controller
 @RequestMapping(value="/admin")
 public class AdminHomeController {
+	
+	
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(TrainStation.class, new TrainStationEditor(trainStationService));
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(format, true));
+	}
 	
 	@Autowired
 	private SystemUserService systemUserService;

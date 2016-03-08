@@ -62,4 +62,9 @@ public class TrainStationServiceImpl implements TrainStationService {
 		return trainStations;
 	}
 
+	@Override
+	public TrainStation getTrainStationById(long trainStationId) {
+		return commonDAO.getEntityById(TrainStation.class, trainStationId);
+	}
+
 }

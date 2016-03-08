@@ -17,4 +17,6 @@ public interface TrainStationService {
 
 	public List<TrainStation> listAllTrainStationsByTrainLine(YesNoStatus yes,long trainLineId);
 
+	public TrainStation getTrainStationById(long trainStationId);
+
 }
