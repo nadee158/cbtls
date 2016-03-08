@@ -15,4 +15,6 @@ public interface TrainStationService {
 
 	public String deleteTrainStation(long trainStationId) throws Exception;
 
+	public List<TrainStation> listAllTrainStationsByTrainLine(YesNoStatus yes,long trainLineId);
+
 }

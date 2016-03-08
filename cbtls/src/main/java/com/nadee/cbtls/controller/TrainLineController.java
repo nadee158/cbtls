@@ -80,7 +80,6 @@ public class TrainLineController {
 		try {
 			trainLines=trainLineService.listAllTrainLines(YesNoStatus.YES);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return trainLines;
