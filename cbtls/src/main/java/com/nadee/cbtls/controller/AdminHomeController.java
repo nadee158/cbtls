@@ -12,8 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.UserRoleType;
 import com.nadee.cbtls.model.SystemUser;
-import com.nadee.cbtls.service.MasterDataService;
 import com.nadee.cbtls.service.SystemUserService;
+import com.nadee.cbtls.service.TrainLineService;
+import com.nadee.cbtls.service.TrainScheduleService;
+import com.nadee.cbtls.service.TrainScheduleTurnService;
+import com.nadee.cbtls.service.TrainStationService;
+import com.nadee.cbtls.service.TrainTypeService;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -23,7 +27,20 @@ public class AdminHomeController {
 	private SystemUserService systemUserService;
 	
 	@Autowired
-	private MasterDataService masterDataService;
+	private TrainLineService trainLineService;
+	
+	@Autowired
+	private TrainScheduleService trainScheduleService;
+	
+	@Autowired
+	private TrainScheduleTurnService trainScheduleTurnService;
+	
+	@Autowired
+	private TrainStationService trainStationService;
+	
+	@Autowired
+	private TrainTypeService trainTypeService;
+	
 	
 	@RequestMapping(value = "/adminHome", method = RequestMethod.GET)
 	public ModelAndView getLoginPage(HttpServletRequest request) {
@@ -54,11 +71,11 @@ public class AdminHomeController {
 	public ModelAndView getmasterDataPage(HttpServletRequest request) {
 		ModelMap modelMap = new ModelMap();
 		try {
-			modelMap.put("trainLineCount", masterDataService.countActiveTrainLines());
-			modelMap.put("trainScheduleCount", masterDataService.countActiveTrainSchedules());
-			modelMap.put("trainScheduleTurnCount", masterDataService.countActiveTrainScheduleTurns());
-			modelMap.put("trainStationCount", masterDataService.countActiveTrainStations());
-			modelMap.put("trainTypeCount", masterDataService.countActiveTrainTypes());
+			modelMap.put("trainLineCount", trainLineService.countActiveTrainLines());
+			modelMap.put("trainScheduleCount", trainScheduleService.countActiveTrainSchedules());
+			modelMap.put("trainScheduleTurnCount", trainScheduleTurnService.countActiveTrainScheduleTurns());
+			modelMap.put("trainStationCount", trainStationService.countActiveTrainStations());
+			modelMap.put("trainTypeCount", trainTypeService.countActiveTrainTypes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

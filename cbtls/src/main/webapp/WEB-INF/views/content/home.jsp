@@ -10,6 +10,14 @@
 
 		<form:form id="mainForm" cssClass="form-horizontal" role="form" action="searchTrainAdvanced.htm" onsubmit="return validateForm()" modelAttribute="trainSearchDTO" method="post" >
 			  <div class="form-group">
+			    <label for="startStation" class="col-sm-2 control-label">Train Line</label>
+			    <div class="col-sm-10">
+			    	<select class="form-control" id="trainLine">
+			    	</select>
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
 			    <label for="startStation" class="col-sm-2 control-label"><spring:message code="label.startStation"/></label>
 			    <div class="col-sm-10">
 			    	<select class="form-control" name="startStation" id="startStation">
@@ -87,9 +95,20 @@ $(function() {
 
     // initialize datepair
     $('#datepairExample').datepair();
+
+    loadTrainLines();
   });
 
-
+function loadTrainLines(){
+	$('#trainLine').append('<option>Select</option>')
+	$.getJSON( "listTrainLines.json", function( data ) {
+		var appendText='';
+		$(data).each(function() {
+			appendText=appendText + '<option value="' + $(this).trainLineId + '">' + $(this).trainLineName + '</option>';
+	    });
+		$('#trainLine').append(appendText);
+	});
+}
 
 
 function showAdvancedFilter(){
