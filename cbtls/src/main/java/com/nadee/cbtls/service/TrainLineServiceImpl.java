@@ -1,5 +1,6 @@
 package com.nadee.cbtls.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dao.TrainLineDAO;
+import com.nadee.cbtls.dto.TrainLineDTO;
 import com.nadee.cbtls.model.TrainLine;
 import com.nadee.cbtls.model.TrainStation;
 
@@ -30,8 +32,13 @@ public class TrainLineServiceImpl implements TrainLineService {
 	}
 
 	@Override
-	public List<TrainLine> listAllTrainLines(YesNoStatus yesNoStatus) throws Exception {
-		return trainLineDAO.listAllTrainLines(yesNoStatus);
+	public List<TrainLineDTO> listAllTrainLines(YesNoStatus yesNoStatus) throws Exception {
+		List<TrainLineDTO> lineDTOs=new ArrayList<TrainLineDTO>();
+		List<TrainLine> lines=trainLineDAO.listAllTrainLines(yesNoStatus);
+		for (TrainLine trainLine : lines) {
+			lineDTOs.add(new TrainLineDTO(trainLine));
+		}
+		return lineDTOs;
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
+import com.nadee.cbtls.dto.TrainLineDTO;
 import com.nadee.cbtls.initbinder.TrainStationEditor;
 import com.nadee.cbtls.model.TrainLine;
 import com.nadee.cbtls.model.TrainStation;
@@ -89,8 +90,8 @@ public class TrainLineController {
 	}
 	
 	@RequestMapping(value = "/listTrainLines", method = RequestMethod.GET)
-	public @ResponseBody List<TrainLine> listAllTrainLines(){
-		List<TrainLine> trainLines=new ArrayList<TrainLine>();
+	public @ResponseBody List<TrainLineDTO> listAllTrainLines(){
+		List<TrainLineDTO> trainLines=new ArrayList<TrainLineDTO>();
 		try {
 			trainLines=trainLineService.listAllTrainLines(YesNoStatus.YES);
 		} catch (Exception e) {
