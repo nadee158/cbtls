@@ -9,27 +9,27 @@ public class GeoLocationManager {
 	/**
 	 * The minimum allowed latitude
 	 */
-	public static float MIN_LATITUDE = Float.valueOf("-90.0000");
+	public static double MIN_LATITUDE = Double.valueOf("-90.0000");
 
 	/**
 	 * The maximum allowed latitude
 	 */
-	public static float MAX_LATITUDE = Float.valueOf("90.0000");
+	public static double MAX_LATITUDE = Double.valueOf("90.0000");
 
 	/**
 	 * The minimum allowed longitude
 	 */
-	public static float MIN_LONGITUDE = Float.valueOf("-180.0000");
+	public static double MIN_LONGITUDE = Double.valueOf("-180.0000");
 
 	/**
 	 * The maximum allowed longitude
 	 */
-	public static float MAX_LONGITUDE = Float.valueOf("180.0000");
+	public static double MAX_LONGITUDE = Double.valueOf("180.0000");
 
 	/**
 	 * The diameter of the Earth used in calculations
 	 */
-	public static float EARTH_DIAMETER = Float.valueOf("12756.274");
+	public static double EARTH_DIAMETER = Double.valueOf("12756.274");
 
 	/**
 	 * A method to validate a latitude value
@@ -40,7 +40,7 @@ public class GeoLocationManager {
 	 * @return true if, and only if, the latitude is within the MIN and MAX
 	 *         latitude
 	 */
-	public static boolean isValidLatitude(float latitude) {
+	public static boolean isValidLatitude(double latitude) {
 		if (latitude >= MIN_LATITUDE && latitude <= MAX_LATITUDE) {
 			return true;
 		} else {
@@ -57,7 +57,7 @@ public class GeoLocationManager {
 	 * @return true if, and only if, the longitude is between the MIN and MAX
 	 *         longitude
 	 */
-	public static boolean isValidLongitude(float longitude) {
+	public static boolean isValidLongitude(double longitude) {
 		if (longitude >= MIN_LONGITUDE && longitude <= MAX_LONGITUDE) {
 			return true;
 		} else {
@@ -71,9 +71,9 @@ public class GeoLocationManager {
 	 * @return a double representing the latitude constant
 	 */
 	public static double latitudeConstant() {
-		return EARTH_DIAMETER * (Math.PI / Float.valueOf("360"));
-		// return EARTH_DIAMETER * (Float.valueOf("3.14") /
-		// Float.valueOf("360"));
+		return EARTH_DIAMETER * (Math.PI / Double.valueOf("360"));
+		// return EARTH_DIAMETER * (Double.valueOf("3.14") /
+		// Double.valueOf("360"));
 	}
 
 	/**
@@ -84,10 +84,10 @@ public class GeoLocationManager {
 	 *
 	 * @return a double representing the longitude constant
 	 */
-	public static double longitudeConstant(float latitude) {
+	public static double longitudeConstant(double latitude) {
 
 		// return Math.abs( Math.cos(Math.abs(latitude)));
-		return EARTH_DIAMETER * Math.PI * Math.abs(Math.cos(Math.abs(latitude))) / Float.valueOf("360");
+		return EARTH_DIAMETER * Math.PI * Math.abs(Math.cos(Math.abs(latitude))) / Double.valueOf("360");
 
 	}
 
@@ -103,7 +103,7 @@ public class GeoLocationManager {
 	 *
 	 * @return the new GeoLocation
 	 */
-	public static GeoLocation addDistanceNorth(float latitude, float longitude, int distance) {
+	public static GeoLocation addDistanceNorth(double latitude, double longitude, int distance) {
 
 		// check on the parameters
 		if (isValidLatitude(latitude) == false || isValidLongitude(longitude) == false || distance <= 0) {
@@ -111,12 +111,12 @@ public class GeoLocationManager {
 		}
 
 		// convert the distance from metres to kilometers
-		float kilometers = distance / new Float(1000);
+		double kilometers = distance / new Double(1000);
 
 		// calculate the new latitude
 		double newLat = latitude + (kilometers / latitudeConstant());
 
-		return new GeoLocation(new Float(newLat).floatValue(), longitude);
+		return new GeoLocation(new Double(newLat).doubleValue(), longitude);
 
 	}
 
@@ -132,7 +132,7 @@ public class GeoLocationManager {
 	 *
 	 * @return the new GeoLocation
 	 */
-	public static GeoLocation addDistanceSouth(float latitude, float longitude, int distance) {
+	public static GeoLocation addDistanceSouth(double latitude, double longitude, int distance) {
 
 		// check on the parameters
 		if (isValidLatitude(latitude) == false || isValidLongitude(longitude) == false || distance <= 0) {
@@ -140,12 +140,12 @@ public class GeoLocationManager {
 		}
 
 		// convert the distance from metres to kilometers
-		float kilometers = distance / new Float(1000);
+		double kilometers = distance / new Double(1000);
 
 		// calculate the new latitude
 		double newLat = latitude - (kilometers / latitudeConstant());
 
-		return new GeoLocation(new Float(newLat).floatValue(), longitude);
+		return new GeoLocation(new Double(newLat).doubleValue(), longitude);
 
 	}
 
@@ -161,7 +161,7 @@ public class GeoLocationManager {
 	 *
 	 * @return the new GeoLocation
 	 */
-	public static GeoLocation addDistanceEast(float latitude, float longitude, int distance) {
+	public static GeoLocation addDistanceEast(double latitude, double longitude, int distance) {
 
 		// check on the parameters
 		if (isValidLatitude(latitude) == false || isValidLongitude(longitude) == false || distance <= 0) {
@@ -169,12 +169,12 @@ public class GeoLocationManager {
 		}
 
 		// convert the distance from metres to kilometers
-		float kilometers = distance / 1000;
+		double kilometers = distance / 1000;
 
 		// calculate the new longitude
 		double newLng = longitude + (distance / longitudeConstant(latitude));
 
-		return new GeoLocation(latitude, new Float(newLng).floatValue());
+		return new GeoLocation(latitude, new Double(newLng).doubleValue());
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class GeoLocationManager {
 	 *
 	 * @return the new GeoLocation
 	 */
-	public static GeoLocation addDistanceWest(float latitude, float longitude, int distance) {
+	public static GeoLocation addDistanceWest(double latitude, double longitude, int distance) {
 
 		// check on the parameters
 		if (isValidLatitude(latitude) == false || isValidLongitude(longitude) == false || distance <= 0) {
@@ -197,12 +197,12 @@ public class GeoLocationManager {
 		}
 
 		// convert the distance from metres to kilometers
-		float kilometers = distance / 1000;
+		double kilometers = distance / 1000;
 
 		// calculate the new longitude
 		double newLng = longitude - (distance / longitudeConstant(latitude));
 
-		return new GeoLocation(latitude, new Float(newLng).floatValue());
+		return new GeoLocation(latitude, new Double(newLng).doubleValue());
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class GeoLocationManager {
 	 *
 	 * @return a hashMap representing the bounding box (NE,SE,SW,NW)
 	 */
-	public static java.util.HashMap<String, GeoLocation> getBoundingBox(float latitude, float longitude, int distance) {
+	public static java.util.HashMap<String, GeoLocation> getBoundingBox(double latitude, double longitude, int distance) {
 
 		// check on the parameters
 		if (isValidLatitude(latitude) == false || isValidLongitude(longitude) == false || distance <= 0) {
@@ -226,7 +226,7 @@ public class GeoLocationManager {
 		}
 
 		// convert the distance from metres to kilometers
-		float kilometers = distance / 1000;
+		double kilometers = distance / 1000;
 
 		// declare helper variables
 		java.util.HashMap<String, GeoLocation> boundingBox = new java.util.HashMap<String, GeoLocation>();

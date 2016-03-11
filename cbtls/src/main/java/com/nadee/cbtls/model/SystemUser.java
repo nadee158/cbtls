@@ -58,7 +58,15 @@ public class SystemUser implements UserDetails,Serializable {
 	private String profileImageUrl;
 	
 	@Column(name = "ranking")
-	private int ranking;
+	private float averageRanking;
+	
+	@Column(name = "total_number_of_feed_backs")
+	private int totalNumberOfFeedBacks;
+	
+	@OneToMany(mappedBy = "systemUser", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<SystemUserRankings> systemUserRankings;
 	
 	@OneToMany(mappedBy = "systemUser", fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
@@ -100,7 +108,7 @@ public class SystemUser implements UserDetails,Serializable {
 		map.put("activeStatus", activeStatus);
 		map.put("systemUserMobileDevices", systemUserMobileDevices);
 		map.put("systemUserFavouriteSchedules", systemUserFavouriteSchedules);
-		map.put("ranking", ranking);
+		map.put("averageRanking", averageRanking);
 		map.put("passengerType", passengerType);
 		map.put("versionId", versionId);
 		return map;
@@ -223,12 +231,12 @@ public class SystemUser implements UserDetails,Serializable {
 		this.systemUserMobileDevices = systemUserMobileDevices;
 	}
 
-	public int getRanking() {
-		return ranking;
+	public float getAverageRanking() {
+		return averageRanking;
 	}
 
-	public void setRanking(int ranking) {
-		this.ranking = ranking;
+	public void setAverageRanking(float averageRanking) {
+		this.averageRanking = averageRanking;
 	}
 
 	public List<SystemUserFavouriteSchedules> getSystemUserFavouriteSchedules() {
@@ -269,6 +277,22 @@ public class SystemUser implements UserDetails,Serializable {
 		
 		
 		
+	}
+
+	public int getTotalNumberOfFeedBacks() {
+		return totalNumberOfFeedBacks;
+	}
+
+	public void setTotalNumberOfFeedBacks(int totalNumberOfFeedBacks) {
+		this.totalNumberOfFeedBacks = totalNumberOfFeedBacks;
+	}
+
+	public List<SystemUserRankings> getSystemUserRankings() {
+		return systemUserRankings;
+	}
+
+	public void setSystemUserRankings(List<SystemUserRankings> systemUserRankings) {
+		this.systemUserRankings = systemUserRankings;
 	}
 	
 	

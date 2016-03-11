@@ -28,10 +28,10 @@ public class GeoLocation implements Serializable, Comparable<GeoLocation> {
 	private long geoLocationId;
 
 	@Column(name = "latitude", nullable = false)
-	private float latitude;
+	private double latitude;
 
 	@Column(name = "longitude", nullable = false)
-	private float longitude;
+	private double longitude;
 	
 	@Transient
 	private DecimalFormat format;
@@ -50,7 +50,7 @@ public class GeoLocation implements Serializable, Comparable<GeoLocation> {
 	   * @param latitude a latitude coordinate in decimal notation
 	   * @param longitude a longitude coordinate in decimal notation
 	   */
-	  public GeoLocation(float latitude, float longitude) {
+	  public GeoLocation(double latitude, double longitude) {
 	  
 	    if(GeoLocationManager.isValidLatitude(latitude) == true && GeoLocationManager.isValidLongitude(longitude) == true) {
 	      this.latitude = latitude;
@@ -84,11 +84,7 @@ public class GeoLocation implements Serializable, Comparable<GeoLocation> {
 		this.geoLocationId = geoLocationId;
 	}
 
-	public float getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(float latitude) {
+	public void setLatitude(double latitude) {
 		if (GeoLocationManager.isValidLatitude(latitude) == true) {
 			this.latitude = latitude;
 		} else {
@@ -96,16 +92,22 @@ public class GeoLocation implements Serializable, Comparable<GeoLocation> {
 		}
 	}
 
-	public float getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(float longitude) {
+	public void setLongitude(double longitude) {
 		if (GeoLocationManager.isValidLongitude(longitude) == true) {
 			this.longitude = longitude;
 		} else {
 			throw new IllegalArgumentException("The parameter did not pass validation as defined by the CoordinateManager class");
 		}
+	}
+	
+	
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
 	}
 
 	public DecimalFormat getFormat() {
