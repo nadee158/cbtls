@@ -150,7 +150,7 @@ CREATE TABLE `system_user_favourite_schedule` (
   KEY `FK_2ijh49e7e723n0m9eaxu3q823` (`train_schedule_id`),
   CONSTRAINT `FK_2ijh49e7e723n0m9eaxu3q823` FOREIGN KEY (`train_schedule_id`) REFERENCES `train_schedule` (`train_schedule_id`),
   CONSTRAINT `FK_ora794jxy7ecwthpyly4tk5c0` FOREIGN KEY (`system_user_id`) REFERENCES `system_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,11 +263,11 @@ CREATE TABLE `ticket_price` (
   `ticket_price` float DEFAULT NULL,
   `user_role_type` varchar(255) DEFAULT NULL,
   `version_id` int(11) DEFAULT NULL,
-  `train_schedule_id` bigint(20) NOT NULL,
+  `train_station_schedule` bigint(20) NOT NULL,
   PRIMARY KEY (`ticket_price_id`),
-  KEY `FK_8ceuv88c93urqany9gt8xqtob` (`train_schedule_id`),
-  CONSTRAINT `FK_8ceuv88c93urqany9gt8xqtob` FOREIGN KEY (`train_schedule_id`) REFERENCES `train_schedule` (`train_schedule_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `FK_3wof1qswcvr6j61soqd40nsys` (`train_station_schedule`),
+  CONSTRAINT `FK_3wof1qswcvr6j61soqd40nsys` FOREIGN KEY (`train_station_schedule`) REFERENCES `train_station_schedule` (`train_station_schedule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,8 +362,6 @@ DROP TABLE IF EXISTS `train_schedule`;
 CREATE TABLE `train_schedule` (
   `train_schedule_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `active_status` varchar(255) DEFAULT NULL,
-  `arrival_time` time DEFAULT NULL,
-  `departure_time` time DEFAULT NULL,
   `train_frequency` varchar(255) DEFAULT NULL,
   `train_name` varchar(255) DEFAULT NULL,
   `train_number` varchar(255) DEFAULT NULL,
@@ -378,7 +376,7 @@ CREATE TABLE `train_schedule` (
   CONSTRAINT `FK_bn2kcqy0obn6cho6m9nj6jx0b` FOREIGN KEY (`end_station_id`) REFERENCES `train_station` (`train_station_id`),
   CONSTRAINT `FK_fia2s5t4hxnqcae68t8q6g7uq` FOREIGN KEY (`train_type_id`) REFERENCES `train_type` (`train_type_id`),
   CONSTRAINT `FK_lkhjp6m01s0jdfjy0jyirfvho` FOREIGN KEY (`start_station_id`) REFERENCES `train_station` (`train_station_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -408,7 +406,7 @@ CREATE TABLE `train_schedule_turn` (
   PRIMARY KEY (`train_schedule_turn_id`),
   KEY `FK_l28s197x3ijgul2etijsbukqr` (`train_schedule_id`),
   CONSTRAINT `FK_l28s197x3ijgul2etijsbukqr` FOREIGN KEY (`train_schedule_id`) REFERENCES `train_schedule` (`train_schedule_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -442,7 +440,7 @@ CREATE TABLE `train_schedule_turn_compartment_update` (
   KEY `FK_4743lx34ybujppiih4sy3k06u` (`user_id`),
   CONSTRAINT `FK_4743lx34ybujppiih4sy3k06u` FOREIGN KEY (`user_id`) REFERENCES `system_user` (`user_id`),
   CONSTRAINT `FK_79u2vyx2hp7gncfr6e9o98t36` FOREIGN KEY (`train_schedule_turn_id`) REFERENCES `train_schedule_turn` (`train_schedule_turn_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -476,7 +474,7 @@ CREATE TABLE `train_schedule_turn_location_passive_update` (
   CONSTRAINT `FK_aeac1ccxqt5cnrd1cuub8w7b1` FOREIGN KEY (`train_schedule_turn_id`) REFERENCES `train_schedule_turn` (`train_schedule_turn_id`),
   CONSTRAINT `FK_bkio0l2j0kkvvwds0g1ajnqok` FOREIGN KEY (`last_station_id`) REFERENCES `train_station` (`train_station_id`),
   CONSTRAINT `FK_sojdyf65iplqkd4rgoq43ptxk` FOREIGN KEY (`user_id`) REFERENCES `system_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -512,7 +510,7 @@ CREATE TABLE `train_schedule_turn_location_update` (
   CONSTRAINT `FK_g7b0xmfb14bckdunb1ttjodax` FOREIGN KEY (`last_station_id`) REFERENCES `train_station` (`train_station_id`),
   CONSTRAINT `FK_la2h34a6dagusaibmw4mtorg3` FOREIGN KEY (`user_id`) REFERENCES `system_user` (`user_id`),
   CONSTRAINT `FK_pa1dy0htaapy2wkdotsknrfj` FOREIGN KEY (`train_schedule_turn_id`) REFERENCES `train_schedule_turn` (`train_schedule_turn_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -566,17 +564,21 @@ DROP TABLE IF EXISTS `train_station_schedule`;
 CREATE TABLE `train_station_schedule` (
   `train_station_schedule_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `active_status` varchar(255) DEFAULT NULL,
+  `arrival_at_destination_time` datetime DEFAULT NULL,
   `arrival_time` datetime DEFAULT NULL,
   `departure_time` datetime DEFAULT NULL,
   `version_id` int(11) DEFAULT NULL,
+  `from_train_station_id` bigint(20) NOT NULL,
+  `to_train_station_id` bigint(20) NOT NULL,
   `train_schedule_id` bigint(20) NOT NULL,
-  `train_station_id` bigint(20) NOT NULL,
   PRIMARY KEY (`train_station_schedule_id`),
+  KEY `FK_auf8nvk97ctsud9h9n3o5p45e` (`from_train_station_id`),
+  KEY `FK_mxajgoou2i1tcjv7f92j6qvlw` (`to_train_station_id`),
   KEY `FK_req5673akyodc134xu2bs8sre` (`train_schedule_id`),
-  KEY `FK_cmtac5637uohf04uif19xsfwf` (`train_station_id`),
-  CONSTRAINT `FK_cmtac5637uohf04uif19xsfwf` FOREIGN KEY (`train_station_id`) REFERENCES `train_station` (`train_station_id`),
+  CONSTRAINT `FK_auf8nvk97ctsud9h9n3o5p45e` FOREIGN KEY (`from_train_station_id`) REFERENCES `train_station` (`train_station_id`),
+  CONSTRAINT `FK_mxajgoou2i1tcjv7f92j6qvlw` FOREIGN KEY (`to_train_station_id`) REFERENCES `train_station` (`train_station_id`),
   CONSTRAINT `FK_req5673akyodc134xu2bs8sre` FOREIGN KEY (`train_schedule_id`) REFERENCES `train_schedule` (`train_schedule_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -608,7 +610,7 @@ CREATE TABLE `train_station_schedule_turn` (
   KEY `FK_p9oskaw8hlevptudjf3igl1nj` (`train_station_schedule_id`),
   CONSTRAINT `FK_c344c02d4ksrw13krvhxiw173` FOREIGN KEY (`train_schedule_turn_id`) REFERENCES `train_schedule_turn` (`train_schedule_turn_id`),
   CONSTRAINT `FK_p9oskaw8hlevptudjf3igl1nj` FOREIGN KEY (`train_station_schedule_id`) REFERENCES `train_station_schedule` (`train_station_schedule_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -633,7 +635,7 @@ CREATE TABLE `train_type` (
   `train_type_name` varchar(255) DEFAULT NULL,
   `version_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`train_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -642,6 +644,7 @@ CREATE TABLE `train_type` (
 
 LOCK TABLES `train_type` WRITE;
 /*!40000 ALTER TABLE `train_type` DISABLE KEYS */;
+INSERT INTO `train_type` VALUES (1,'YES','LONG DISTANCE',3),(2,'YES','COLOMBO  COMMUTER',0);
 /*!40000 ALTER TABLE `train_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -678,4 +681,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-12 12:08:02
+-- Dump completed on 2016-03-12 19:46:01
