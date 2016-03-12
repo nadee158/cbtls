@@ -1,0 +1,2 @@
+mvn install:install-file -Dfile=E:/maven_custom_jar/ksoap2-android-assembly-2.4-jar-with-dependencies.jar 
+-DgroupId=com.google.code.ksoap2-android -DartifactId=ksoap2 -Dversion=1.0 -Dpackaging=jar
