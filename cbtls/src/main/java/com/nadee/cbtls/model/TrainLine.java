@@ -36,6 +36,9 @@ public class TrainLine implements Serializable {
     @Column(name = "train_line_id", nullable = false)
 	private long trainLineId;
 	
+	@Column(name = "train_line_integration_id")
+	private int trainLineIntegrationId;
+	
 	@Column(name = "train_line_name")
 	private String trainLineName;
 	
@@ -47,22 +50,35 @@ public class TrainLine implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainLineStation> trainLineStations;
 	
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="start_station_id",nullable=false)
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="start_station_id")
 	private TrainStation startStation;
 	
 	@JsonIgnore
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="end_station_id",nullable=false)
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="end_station_id")
 	private TrainStation endStation;
 	
 	@Version
     @Column(name = "version_id")
 	private int versionId;
 	
+	
+	
+	public TrainLine() {
+		super();
+	}
+
+	public TrainLine(int trainLineIntegrationId, String trainLineName) {
+		this.trainLineIntegrationId=trainLineIntegrationId;
+		this.trainLineName=trainLineName;
+		this.activeStatus=YesNoStatus.YES;
+	}
+
 	public Map<String,Object> toBasicMap(){
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("trainLineId", trainLineId);
+		map.put("trainLineIntegrationId", trainLineIntegrationId);
 		map.put("trainLineName", trainLineName);
 		map.put("activeStatus", activeStatus);
 		map.put("trainLineStations", trainLineStations);
@@ -131,6 +147,14 @@ public class TrainLine implements Serializable {
 
 	public void setEndStation(TrainStation endStation) {
 		this.endStation = endStation;
+	}
+
+	public int getTrainLineIntegrationId() {
+		return trainLineIntegrationId;
+	}
+
+	public void setTrainLineIntegrationId(int trainLineIntegrationId) {
+		this.trainLineIntegrationId = trainLineIntegrationId;
 	}
 
 

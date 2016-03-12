@@ -13,7 +13,6 @@ import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dao.TrainLineDAO;
 import com.nadee.cbtls.dto.TrainLineDTO;
 import com.nadee.cbtls.model.TrainLine;
-import com.nadee.cbtls.model.TrainStation;
 
 @Service("trainLineService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -43,9 +42,6 @@ public class TrainLineServiceImpl implements TrainLineService {
 
 	@Override
 	public String saveTrainLine(TrainLine trainLine) throws Exception {
-		trainLine.setActiveStatus(YesNoStatus.YES);
-		trainLine.setEndStation((TrainStation) commonDAO.getEntityById(TrainStation.class, trainLine.getEndStation().getTrainStationId()));
-		trainLine.setStartStation((TrainStation) commonDAO.getEntityById(TrainStation.class, trainLine.getStartStation().getTrainStationId()));
 		return commonDAO.saveOrUpdateEntity(trainLine);
 	}
 

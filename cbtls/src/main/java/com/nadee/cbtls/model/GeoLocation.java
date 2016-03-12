@@ -41,7 +41,16 @@ public class GeoLocation implements Serializable, Comparable<GeoLocation> {
 	private int versionId;
 
 	public GeoLocation() {
+		 super();
 		 this.format = new DecimalFormat("##.######");
+	}
+	
+	public GeoLocation(boolean defaultConstructor) {
+		this();
+		if(!(defaultConstructor)){
+			this.latitude=00.000000;
+			this.longitude=00.000000;
+		}
 	}
 	
 	/**

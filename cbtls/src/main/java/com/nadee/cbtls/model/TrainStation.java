@@ -35,16 +35,13 @@ public class TrainStation implements Serializable {
     @Column(name = "train_station_id", nullable = false)
 	private long trainStationId;
 	
-	@Column(name = "train_station_reference_id", nullable = false)
-	private String trainStationReferenceId;
-	
 	
 	@OneToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="geo_location_id",nullable=false)
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private GeoLocation geoLocation;
 	
-	@Column(name = "train_station_code", nullable = false, length=3)
+	@Column(name = "train_station_code", nullable = false, length=25)
 	private String trainStationCode;
 	
 	@Column(name = "train_station_name", length=255)
@@ -69,6 +66,36 @@ public class TrainStation implements Serializable {
     @Column(name = "version_id")
 	private int versionId;
 	
+	
+	
+	public TrainStation(long trainStationId, GeoLocation geoLocation,
+			String trainStationCode, String trainStationName, String trainStationContactNumber,
+			YesNoStatus activeStatus, List<TrainLineStation> trainLineStations,
+			List<TrainStationSchedule> trainStationSchedules, int versionId) {
+		super();
+		this.trainStationId = trainStationId;
+		this.geoLocation = geoLocation;
+		this.trainStationCode = trainStationCode;
+		this.trainStationName = trainStationName;
+		this.trainStationContactNumber = trainStationContactNumber;
+		this.activeStatus = activeStatus;
+		this.trainLineStations = trainLineStations;
+		this.trainStationSchedules = trainStationSchedules;
+		this.versionId = versionId;
+	}
+
+	public TrainStation() {
+		super();
+	}
+
+	public TrainStation(String stationsName, String statsionCode) {
+		this.geoLocation = new GeoLocation();
+		this.trainStationCode = statsionCode;
+		this.trainStationName = stationsName;
+		this.activeStatus = YesNoStatus.YES;
+		this.trainStationContactNumber="0000000000";
+	}
+
 	public Map<String,Object> toBasicMap(){
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("trainStationId", trainStationId);
@@ -77,7 +104,6 @@ public class TrainStation implements Serializable {
 		map.put("activeStatus", activeStatus);
 		map.put("trainLineStations", trainLineStations);
 		map.put("versionId", versionId);
-		map.put("trainStationReferenceId", trainStationReferenceId);
 		map.put("trainStationCode", trainStationCode);
 		return map;
 	}
@@ -135,13 +161,6 @@ public class TrainStation implements Serializable {
 		this.trainStationContactNumber = trainStationContactNumber;
 	}
 
-	public String getTrainStationReferenceId() {
-		return trainStationReferenceId;
-	}
-
-	public void setTrainStationReferenceId(String trainStationReferenceId) {
-		this.trainStationReferenceId = trainStationReferenceId;
-	}
 
 	public String getTrainStationCode() {
 		return trainStationCode;

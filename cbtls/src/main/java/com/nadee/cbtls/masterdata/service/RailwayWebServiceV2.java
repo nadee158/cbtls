@@ -11,6 +11,7 @@ import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
+import org.springframework.stereotype.Component;
 
 import com.nadee.cbtls.masterdata.domain.Delays;
 import com.nadee.cbtls.masterdata.domain.Rates;
@@ -19,7 +20,7 @@ import com.nadee.cbtls.masterdata.domain.TrainSchedules;
 import com.nadee.cbtls.masterdata.domain.TrainStations;
 import com.nadee.cbtls.masterdata.functions.Functions;
 
-
+@Component(value="railwayWebServiceV2")
 public class RailwayWebServiceV2 {
 	
 	private final static String NAMESPACE = "http://ws.wso2.org/dataservice";
@@ -29,21 +30,6 @@ public class RailwayWebServiceV2 {
 		
 	}
 	
-	public static void main(String[] args){
-		try {
-			TrainLines lines=getLines();
-			for (int i = 0; i < lines.getCount(); i++) {
-				System.out.println(lines.getNames()[i]);
-				System.out.println(lines.getIds()[i]);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
-
 	private static SoapObject callWebService(String actionName, SoapObject request)
 			throws Exception {
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
@@ -61,19 +47,21 @@ public class RailwayWebServiceV2 {
 		SoapObject request = new SoapObject(NAMESPACE,methodName);
 		request.addProperty("lang", "en");
 		SoapObject results = callWebService(actionName, request);
+		System.out.println("results " + results);
 		
-		int length = results.getPropertyCount() + 1;			
+		int length = results.getPropertyCount();			
 		TrainLines trainLines = new TrainLines();
 		trainLines.setCount(length);
 		trainLines.setIds(new int[length]);
 		trainLines.setNames(new String[length]);
+		System.out.println("length :" + length);
+//		trainLines.getIds()[0] = 0;
+//		trainLines.getNames()[0] = "All Stations";
 		
-		trainLines.getIds()[0] = 0;
-		trainLines.getNames()[0] = "All Stations";
-		
-		for(int i= 1; i < length; i++)
+		for(int i= 0; i < length; i++)
 		{
-			SoapObject result = (SoapObject) results.getProperty(i-1);			
+			SoapObject result = (SoapObject) results.getProperty(i);	
+			System.out.println("result " + result);
 			trainLines.getIds()[i] = (Integer.parseInt(result.getProperty("id").toString()));
 			trainLines.getNames()[i] = Functions.capitalizeFirstLetters(String.valueOf(result.getProperty("LineName").toString()));						
 		}		
