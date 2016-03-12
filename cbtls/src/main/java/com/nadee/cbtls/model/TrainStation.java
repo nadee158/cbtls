@@ -58,9 +58,13 @@ public class TrainStation implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainLineStation> trainLineStations;
 	
-	@OneToMany(mappedBy = "trainStation")
+	@OneToMany(mappedBy = "fromTrainStation")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	private List<TrainStationSchedule> trainStationSchedules;
+	private List<TrainStationSchedule> fromTrainStationSchedules;
+	
+	@OneToMany(mappedBy = "toTrainStation")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private List<TrainStationSchedule> toTrainStationSchedules;
 	
 	@Version
     @Column(name = "version_id")
@@ -70,8 +74,7 @@ public class TrainStation implements Serializable {
 	
 	public TrainStation(long trainStationId, GeoLocation geoLocation,
 			String trainStationCode, String trainStationName, String trainStationContactNumber,
-			YesNoStatus activeStatus, List<TrainLineStation> trainLineStations,
-			List<TrainStationSchedule> trainStationSchedules, int versionId) {
+			YesNoStatus activeStatus, List<TrainLineStation> trainLineStations, int versionId) {
 		super();
 		this.trainStationId = trainStationId;
 		this.geoLocation = geoLocation;
@@ -80,7 +83,6 @@ public class TrainStation implements Serializable {
 		this.trainStationContactNumber = trainStationContactNumber;
 		this.activeStatus = activeStatus;
 		this.trainLineStations = trainLineStations;
-		this.trainStationSchedules = trainStationSchedules;
 		this.versionId = versionId;
 	}
 
@@ -178,13 +180,22 @@ public class TrainStation implements Serializable {
 		this.geoLocation = geoLocation;
 	}
 
-	public List<TrainStationSchedule> getTrainStationSchedules() {
-		return trainStationSchedules;
+	public List<TrainStationSchedule> getFromTrainStationSchedules() {
+		return fromTrainStationSchedules;
 	}
 
-	public void setTrainStationSchedules(List<TrainStationSchedule> trainStationSchedules) {
-		this.trainStationSchedules = trainStationSchedules;
+	public void setFromTrainStationSchedules(List<TrainStationSchedule> fromTrainStationSchedules) {
+		this.fromTrainStationSchedules = fromTrainStationSchedules;
 	}
+
+	public List<TrainStationSchedule> getToTrainStationSchedules() {
+		return toTrainStationSchedules;
+	}
+
+	public void setToTrainStationSchedules(List<TrainStationSchedule> toTrainStationSchedules) {
+		this.toTrainStationSchedules = toTrainStationSchedules;
+	}
+
 
 
 	

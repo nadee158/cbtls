@@ -1,7 +1,6 @@
 package com.nadee.cbtls.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
@@ -58,16 +55,9 @@ public class TrainSchedule implements Serializable {
 	@JoinColumn(name="end_station_id",nullable=false)
 	private TrainStation endStation;
 	
-	@Column(name="departure_time")
-	@Temporal(TemporalType.TIME)
-	private Date departureTime;
-	
-	@Column(name="arrival_time")
-	@Temporal(TemporalType.TIME)
-	private Date arrivalTime;
-	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="train_type_id",nullable=false)
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private TrainType trainType;
 	
 	@OneToMany(mappedBy = "trainSchedule", fetch = FetchType.LAZY)
@@ -77,10 +67,6 @@ public class TrainSchedule implements Serializable {
 	@OneToMany(mappedBy = "trainSchedule", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainScheduleTurn> trainScheduleTurns;
-	
-	@OneToMany(mappedBy = "trainSchedule", fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-	private List<TicketPrice> ticketPrice;
 	
 	@Enumerated(EnumType.STRING)
     @Column(name="active_status")
@@ -98,8 +84,6 @@ public class TrainSchedule implements Serializable {
 		map.put("trainNumber", trainNumber);
 		map.put("startStation", startStation);
 		map.put("endStation", endStation);
-		map.put("departureTime", departureTime);
-		map.put("arrivalTime", arrivalTime);
 		map.put("trainType", trainType);
 		map.put("activeStatus", activeStatus);
 		map.put("versionId", versionId);
@@ -159,21 +143,6 @@ public class TrainSchedule implements Serializable {
 		this.endStation = endStation;
 	}
 
-	public Date getDepartureTime() {
-		return departureTime;
-	}
-
-	public void setDepartureTime(Date departureTime) {
-		this.departureTime = departureTime;
-	}
-
-	public Date getArrivalTime() {
-		return arrivalTime;
-	}
-
-	public void setArrivalTime(Date arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
 
 	public TrainType getTrainType() {
 		return trainType;
@@ -215,13 +184,6 @@ public class TrainSchedule implements Serializable {
 		this.trainScheduleTurns = trainScheduleTurns;
 	}
 
-	public List<TicketPrice> getTicketPrice() {
-		return ticketPrice;
-	}
-
-	public void setTicketPrice(List<TicketPrice> ticketPrice) {
-		this.ticketPrice = ticketPrice;
-	}
 
 	
 

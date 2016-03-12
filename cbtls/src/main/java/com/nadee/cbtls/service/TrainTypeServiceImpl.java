@@ -33,6 +33,7 @@ public class TrainTypeServiceImpl implements TrainTypeService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
 	public String saveTrainType(TrainType trainType) throws Exception {
 		trainType.setActiveStatus(YesNoStatus.YES);
 		return commonDAO.saveOrUpdateEntity(trainType);
@@ -43,6 +44,11 @@ public class TrainTypeServiceImpl implements TrainTypeService {
 		TrainType trainType=commonDAO.getEntityById(TrainType.class, trainTypeId);
 		trainType.setActiveStatus(YesNoStatus.NO);
 		return commonDAO.updateEntity(trainType);
+	}
+
+	@Override
+	public TrainType getTrainTypeByName(String trainTypeName) throws Exception {
+		return trainTypeDAO.getTrainTypeByName(trainTypeName);
 	}
 
 }

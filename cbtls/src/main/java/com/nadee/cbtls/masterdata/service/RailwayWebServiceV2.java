@@ -7,6 +7,8 @@
 
 package com.nadee.cbtls.masterdata.service;
 
+import java.util.Calendar;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -104,7 +106,7 @@ public class RailwayWebServiceV2 {
 	public static TrainSchedules getSchedule(String fromStationCode, String toStationCode, String arrivalTime, String depatureTime, String currentDate, String currentTime) throws Exception{
 		
 		if(currentTime == null){
-			//currentTime = String.format("%1$tH:%1$tM:%1$tS", Calendar.getInstance());
+			currentTime = String.format("%1$tH:%1$tM:%1$tS", Calendar.getInstance());
 		}		
 		
 		String methodName = "getSchedule";

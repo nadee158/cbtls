@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,20 @@ public class TrainStationDAOImpl implements TrainStationDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TrainStation.class);
 		criteria.add(Restrictions.eq("activeStatus",YesNoStatus.YES));
 		return criteria.list();
+	}
+
+	@Override
+	public TrainStation getTrainStationByName(String trainStationName) throws Exception {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TrainStation.class);
+		criteria.add(Restrictions.ilike("trainStationName",trainStationName,MatchMode.EXACT));
+		return (TrainStation) criteria.uniqueResult();
+	}
+
+	@Override
+	public TrainStation getTrainStationByCode(String trainStationCode) throws Exception {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TrainStation.class);
+		criteria.add(Restrictions.ilike("trainStationCode",trainStationCode,MatchMode.EXACT));
+		return (TrainStation) criteria.uniqueResult();
 	}
 
 }

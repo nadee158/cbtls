@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.Cascade;
+
 import com.nadee.cbtls.constant.GeneralEnumConstants.TicketType;
 
 
@@ -32,8 +34,9 @@ public class TicketPrice implements Serializable {
 	private long ticketPriceId;
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="train_schedule_id",nullable=false)
-	private TrainSchedule trainSchedule;
+	@JoinColumn(name="train_station_schedule",nullable=false)
+	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
+	private TrainStationSchedule trainStationSchedule;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "user_role_type")
@@ -49,6 +52,14 @@ public class TicketPrice implements Serializable {
 	public TicketPrice() {
 	}
 	
+
+	public TicketPrice(TrainStationSchedule trainStationSchedule, TicketType ticketType, float ticketPrice) {
+		super();
+		this.trainStationSchedule = trainStationSchedule;
+		this.ticketType = ticketType;
+		this.ticketPrice = ticketPrice;
+	}
+
 
 	public Map<String,Object> toBasicMap(){
 		Map<String,Object> map=new HashMap<String,Object>();
@@ -105,14 +116,16 @@ public class TicketPrice implements Serializable {
 	}
 
 
-	public TrainSchedule getTrainSchedule() {
-		return trainSchedule;
+	public TrainStationSchedule getTrainStationSchedule() {
+		return trainStationSchedule;
 	}
 
 
-	public void setTrainSchedule(TrainSchedule trainSchedule) {
-		this.trainSchedule = trainSchedule;
+	public void setTrainStationSchedule(TrainStationSchedule trainStationSchedule) {
+		this.trainStationSchedule = trainStationSchedule;
 	}
+
+
 
 	
 

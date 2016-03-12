@@ -9,6 +9,8 @@ public interface TrainTypeDAO {
 	
 	public long countActiveTrainTypes() throws Exception;
 	
-	public List<TrainType> listAllTrainTypes(YesNoStatus yesNoStatus) throws Exception;	
+	public List<TrainType> listAllTrainTypes(YesNoStatus yesNoStatus) throws Exception;
+
+	public TrainType getTrainTypeByName(String trainTypeName) throws Exception;	
 
 }

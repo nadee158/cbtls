@@ -47,9 +47,10 @@ public class GeneralEnumConstants {
 	
 	
 	public enum TrainFrequency{
-		DAILY(1),
-		MONDAY_TO_FRIDAY(2),
-		SATURDAY_SUNDAY(3);
+		MONDAY_TO_FRIDAY(1),	
+		SUNDAYS_AND_HOLIDAYS(2),
+		SATURDAY_AND_SUNDAY(3),
+		DAILY(4);
 		
 		private int code;
 		

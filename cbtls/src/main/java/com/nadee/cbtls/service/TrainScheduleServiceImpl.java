@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nadee.cbtls.constant.GeneralEnumConstants.TrainFrequency;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
+import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dao.TrainScheduleDAO;
 import com.nadee.cbtls.model.TrainSchedule;
 
@@ -17,6 +19,9 @@ public class TrainScheduleServiceImpl implements TrainScheduleService{
 	
 	@Autowired
 	private TrainScheduleDAO trainScheduleDAO;
+	
+	@Autowired
+	private CommonDAO commonDAO;
 
 	@Override
 	public long countActiveTrainSchedules() throws Exception {
@@ -29,15 +34,23 @@ public class TrainScheduleServiceImpl implements TrainScheduleService{
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
 	public String saveTrainSchedule(TrainSchedule trainSchedule) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return commonDAO.saveOrUpdateEntity(trainSchedule);
 	}
 
 	@Override
 	public String deleteTrainSchedule(long trainScheduleId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		TrainSchedule trainSchedule=new TrainSchedule();
+		trainSchedule.setTrainScheduleId(trainScheduleId);
+		return commonDAO.deleteEntity(trainSchedule);
+	}
+
+	@Override
+	public TrainSchedule fetchTrainSchedule(String trainNumber, TrainFrequency trainFrequency,String startStationName, String endStationName,
+			String trainType) throws Exception {
+		return trainScheduleDAO.fetchTrainSchedule(trainNumber, trainFrequency, startStationName, endStationName, 
+				trainType);
 	}
 
 }

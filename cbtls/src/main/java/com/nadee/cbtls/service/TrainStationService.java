@@ -18,5 +18,9 @@ public interface TrainStationService {
 	public List<TrainStation> listAllTrainStationsByTrainLine(YesNoStatus yes,long trainLineId);
 
 	public TrainStation getTrainStationById(long trainStationId);
+	
+	public TrainStation getTrainStationByName(String stationName)throws Exception;
+	
+	public TrainStation getTrainStationByCode(String stationCode)throws Exception;
 
 }

@@ -15,4 +15,6 @@ public interface TrainTypeService {
 
 	public String deleteTrainType(long trainTypeId) throws Exception;
 
+	public TrainType getTrainTypeByName(String tyDescriptions) throws Exception;
+
 }

@@ -67,4 +67,15 @@ public class TrainStationServiceImpl implements TrainStationService {
 		return commonDAO.getEntityById(TrainStation.class, trainStationId);
 	}
 
+	@Override
+	public TrainStation getTrainStationByName(String stationName) throws Exception {
+		return trainStationDAO.getTrainStationByName(stationName);
+	}
+
+	@Override
+	public TrainStation getTrainStationByCode(String stationCode) throws Exception {
+		return trainStationDAO.getTrainStationByCode(stationCode);
+	}
+
+
 }

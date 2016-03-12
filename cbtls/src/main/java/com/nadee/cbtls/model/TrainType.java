@@ -40,6 +40,15 @@ public class TrainType implements Serializable {
     @Column(name = "version_id")
 	private int versionId;
 	
+	public TrainType() {
+		super();
+	}
+	
+	public TrainType(String tyDescriptions) {
+		this.trainTypeName=tyDescriptions;
+		this.activeStatus=YesNoStatus.YES;
+	}
+
 	public Map<String,Object> toBasicMap(){
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("trainTypeId", trainTypeId);
