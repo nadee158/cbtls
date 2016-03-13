@@ -9,6 +9,8 @@ public interface TrainLineDAO {
 	
 	public long countActiveTrainLines() throws Exception;
 	
-	public List<TrainLine> listAllTrainLines(YesNoStatus yesNoStatus) throws Exception;	
+	public List<TrainLine> listAllTrainLines(YesNoStatus yesNoStatus) throws Exception;
+
+	public TrainLine getTrainLineByTrainLineIntegrationId(int trainLineIntegrationId);	
 
 }

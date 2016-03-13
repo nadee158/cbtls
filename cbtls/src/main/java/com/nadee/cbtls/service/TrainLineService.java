@@ -16,4 +16,6 @@ public interface TrainLineService {
 
 	public String deleteTrainLine(long trainLineId) throws Exception;
 
+	public TrainLine getTrainLineByTrainLineIntegrationId(int trainLineIntegrationId);
+
 }

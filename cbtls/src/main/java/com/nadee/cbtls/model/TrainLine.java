@@ -51,12 +51,14 @@ public class TrainLine implements Serializable {
 	private List<TrainLineStation> trainLineStations;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
+	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	@JoinColumn(name="start_station_id")
 	private TrainStation startStation;
 	
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="end_station_id")
+	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainStation endStation;
 	
 	@Version

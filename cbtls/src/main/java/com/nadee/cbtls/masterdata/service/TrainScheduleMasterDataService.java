@@ -47,9 +47,13 @@ public class TrainScheduleMasterDataService {
 	@Autowired
 	private TrainStationScheduleService trainStationScheduleService;
 	
+	private List<TrainType> trainTypes;
+	
 	
 	public void saveSchedules(int trainLine) {
 		try {
+			
+			trainTypes=trainTypeService.listAllTrainTypes(YesNoStatus.YES);
 			
 			TrainStations stations=RailwayWebServiceV2.getTrainStations(trainLine);
 			
@@ -63,16 +67,28 @@ public class TrainScheduleMasterDataService {
 			TrainStation endStation=null;
 			
 			
-			for (int i = 0; i < stations.getCount(); i++) {
+			outer_for:for (int i = 0; i < stations.getCount(); i++) {
 				
 				startStationCode=stations.getCodes()[i];
 				startStationName=stations.getNames()[i];
 				
+				String [] addedStartStations={"AWP","AVD","AKT","BOA","BLT","BSA","CHL","FOT","DAG","EDM","EPN",
+						"IPZ","HRP","HUN","JLA","KYA","KAN","KAW","KAT","CAK","KTK","KLA","KCH","KWW","KUD",
+						"KUR","LGM","LWL","MDP","MKI","MGE","MDA","MNL"};
+				
 				if(!(StringUtils.equals("Anytype{}", startStationName) || startStationCode.length()>3)){
 					
-					if(!(StringUtils.equals(startStationCode, "AWP") || StringUtils.equals(startStationCode, "AVD"))){
+					boolean doAdd=true;
+					
+					for (String addedStartStationCode : addedStartStations) {
+						if(StringUtils.equals(startStationCode, addedStartStationCode)){
+							doAdd=false;
+						}
+					}
+					
+					if(doAdd){
 						startStation =trainStationService.getTrainStationByCode(startStationCode);
-						for (int j = 0; j < stations.getCount(); j++) {
+						inner_for:for (int j = 0; j < stations.getCount(); j++) {
 							endStationCode=stations.getCodes()[j];
 							endStationName=stations.getNames()[j];
 							if(!(StringUtils.equals("Anytype{}", endStationName)|| endStationCode.length()>3)){
@@ -80,8 +96,14 @@ public class TrainScheduleMasterDataService {
 									endStation=trainStationService.getTrainStationByCode(endStationCode);
 									System.out.println("startStation :" + startStation.getTrainStationName());
 									System.out.println("endStation :" + endStation.getTrainStationName());
-									addTrainStationScheduleList(startStation, endStation);
-									
+									try {
+										addTrainStationScheduleList(startStation, endStation);
+									} catch (Exception e) {
+										System.err.println("FAILED.........!");
+										System.err.println("startStation :" + startStation.getTrainStationName());
+										System.err.println("endStation :" + endStation.getTrainStationName());
+										e.printStackTrace();
+									}
 								}
 							}
 						}
@@ -133,12 +155,7 @@ public class TrainScheduleMasterDataService {
 			Date depatureTime=timeFormat.parse(depatureTimes);
 			Date arrivalAtDestinationTime=timeFormat.parse(arrivalAtDestinationTimes);
 			
-			
-			TrainType trainType=trainTypeService.getTrainTypeByName(tyDescriptions);
-			if(trainType==null){
-				trainType=new TrainType(tyDescriptions);
-				//trainTypeService.saveTrainType(trainType);
-			}
+			TrainType trainType=getTrainTypeByName(tyDescriptions);
 			
 			TrainFrequency trainFrequency=TrainFrequency.DAILY;			
 			if(StringUtils.equals(fdDescriptions, MONDAY_TO_FRIDAY)){
@@ -224,6 +241,24 @@ public class TrainScheduleMasterDataService {
 			
 		}
 		
+	}
+
+	private TrainType getTrainTypeByName(String tyDescriptions) throws Exception {
+		TrainType trainType=null;
+		for (TrainType trainTypeItr : trainTypes) {
+			if(StringUtils.equalsIgnoreCase(tyDescriptions, trainTypeItr.getTrainTypeName())){
+				trainType=trainTypeItr;
+			}
+		}
+		if(trainType==null){
+			trainType=trainTypeService.getTrainTypeByName(tyDescriptions);
+			if(trainType==null){
+				trainType=new TrainType(tyDescriptions);
+				trainTypeService.saveTrainType(trainType);
+				trainTypes=trainTypeService.listAllTrainTypes(YesNoStatus.YES);
+			}
+		}
+		return trainType;
 	}
 
 }

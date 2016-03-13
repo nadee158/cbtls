@@ -19,6 +19,7 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Cascade;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 
@@ -46,22 +47,26 @@ public class TrainLineStation implements Serializable {
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="train_line_id",nullable=false)
+	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainLine trainLine;
 	
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="train_station_id",nullable=false)
+	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainStation trainStation;
 	
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="next_station_id",nullable=false)
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="next_station_id")
+	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainStation nextStation;
 	
 	@Column(name = "distance_to_next_station")
 	private double distanceToNextStation;
 	
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="previous_station_id",nullable=false)
+	@ManyToOne(fetch=FetchType.EAGER)
+	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
+	@JoinColumn(name="previous_station_id")
 	private TrainStation previousStation;
 	
 	@Column(name = "distance_to_previous_station")

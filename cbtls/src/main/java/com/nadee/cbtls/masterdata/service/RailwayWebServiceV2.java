@@ -10,6 +10,7 @@ package com.nadee.cbtls.masterdata.service;
 import java.util.Calendar;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
@@ -39,7 +40,18 @@ public class RailwayWebServiceV2 {
 		AndroidHttpTransport androidHttpTransport = new AndroidHttpTransport(ENDPOINT);
 		androidHttpTransport.call(actionName, envelope);
 		System.out.println("result" +  envelope.bodyOut.toString());
-		SoapObject results = (SoapObject) envelope.bodyIn;
+		SoapObject results =null;
+		try {
+			results = (SoapObject) envelope.bodyIn;
+		} catch (ClassCastException e) {
+			SoapFault fault=(SoapFault) envelope.bodyIn;
+			System.err.println("fault.faultstring :" + fault.faultstring);
+			System.err.println("fault.faultcode :" + fault.faultcode);
+			System.err.println("fault.faultactor :" + fault.faultactor);
+			System.err.println("fault.getMessage :" + fault.getMessage());
+			throw e;
+		}
+		
 		return results;
 	}
 	

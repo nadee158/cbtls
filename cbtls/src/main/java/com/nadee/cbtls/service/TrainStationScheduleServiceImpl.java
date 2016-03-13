@@ -34,6 +34,7 @@ public class TrainStationScheduleServiceImpl implements TrainStationScheduleServ
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
 	public String saveTrainStationSchedule(TrainStationSchedule trainStationSchedule) throws Exception {
 		return commonDAO.saveOrUpdateEntity(trainStationSchedule);
 	}

@@ -33,4 +33,11 @@ public class TrainLineDAOImpl implements TrainLineDAO {
 		return criteria.list();
 	}
 
+	@Override
+	public TrainLine getTrainLineByTrainLineIntegrationId(int trainLineIntegrationId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TrainLine.class);
+		criteria.add(Restrictions.eq("trainLineIntegrationId",trainLineIntegrationId));
+		return (TrainLine) criteria.uniqueResult();
+	}
+
 }

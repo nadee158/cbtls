@@ -57,7 +57,7 @@ public class TrainSchedule implements Serializable {
 	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="train_type_id",nullable=false)
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainType trainType;
 	
 	@OneToMany(mappedBy = "trainSchedule", fetch = FetchType.LAZY)

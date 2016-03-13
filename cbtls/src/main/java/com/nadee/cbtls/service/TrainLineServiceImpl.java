@@ -41,6 +41,7 @@ public class TrainLineServiceImpl implements TrainLineService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
 	public String saveTrainLine(TrainLine trainLine) throws Exception {
 		return commonDAO.saveOrUpdateEntity(trainLine);
 	}
@@ -50,6 +51,11 @@ public class TrainLineServiceImpl implements TrainLineService {
 		TrainLine trainLine=commonDAO.getEntityById(TrainLine.class, trainLineId);
 		trainLine.setActiveStatus(YesNoStatus.NO);
 		return commonDAO.updateEntity(trainLine);
+	}
+
+	@Override
+	public TrainLine getTrainLineByTrainLineIntegrationId(int trainLineIntegrationId) {
+		return trainLineDAO.getTrainLineByTrainLineIntegrationId(trainLineIntegrationId);
 	}
 
 }
