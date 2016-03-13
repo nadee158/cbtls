@@ -46,17 +46,17 @@ public class TrainLine implements Serializable {
     @Column(name="active_status")
 	private YesNoStatus activeStatus;
 	
-	@OneToMany(mappedBy = "trainLine", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "trainLine", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainLineStation> trainLineStations;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	@JoinColumn(name="start_station_id")
 	private TrainStation startStation;
 	
 	@JsonIgnore
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="end_station_id")
 	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainStation endStation;

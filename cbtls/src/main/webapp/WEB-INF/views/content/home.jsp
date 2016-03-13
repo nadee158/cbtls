@@ -50,17 +50,17 @@
 				    <label for="datepicker" class="col-sm-2 control-label">Pick a Date and time</label>
 				    <div class="col-sm-10">
 					    <p id="datepairExample">
-						    <input type="text" class="date start" name="startDate" style="width: 20%"  />
-						    <input type="text" class="time start" name="startTime" style="width: 20%"  /> to
-						    <input type="text" class="time end" name="endTime" style="width: 20%"  />
-						    <input type="text" class="date end" name="endDate" style="width: 20%"  />
+						    <input type="text" id="startDate" class="date start" name="startDate" style="width: 20%"  />
+						    <input type="text" id="startTime" class="time start" name="startTime" style="width: 20%"  /> to
+						    <input type="text" id="endTime" class="time end" name="endTime" style="width: 20%"  />
+						    <input type="text" id="endDate" class="date end" name="endDate" style="width: 20%"  />
 						</p>
 				    </div>
 				  </div>
 				  				  
 			  	  <div class="form-group">
 				    <div class="col-sm-offset-2 col-sm-5">
-				      <input type="submit" class="btn btn-primary" value="Search" />
+				      <input type="button" class="btn btn-primary" onclick="advancedSerch()" value="Search" />
 				      <input type="button" class="btn btn-primary"  value="Cancel" onclick="return hideAdvancedFilter()" />
 				    </div>
 				  </div> 			  	
@@ -68,7 +68,7 @@
 			  
 		</form:form>
     
-
+		<input type="hidden" id="hiddenpicker"/>
  </div>
 
  
@@ -87,6 +87,10 @@ $(function() {
         'autoclose': true
     });
 
+    $('#hiddenpicker').timepicker({
+        timeFormat: 'H:i:s',
+    });
+
     // initialize datepair
     $('#datepairExample').datepair();
 
@@ -97,8 +101,8 @@ function loadTrainLines(){
 	$('#trainLine').append('<option value="0">Select</option>')
 	$.getJSON( "listTrainLines.json", function( data ) {
 		var appendText='';
-		$(data).each(function() {
-			appendText=appendText + '<option value="' + $(this).trainLineId + '">' + $(this).trainLineName + '</option>';
+		$(data).each(function(index,item) {
+			appendText=appendText + '<option value="' + item.trainLineId + '">' + item.trainLineName + '</option>';
 	    });
 		$('#trainLine').append(appendText);
 	});
@@ -112,8 +116,8 @@ function loadTrainStations(trainLineId){
 		
 		$.getJSON( "listTrainStationsByTrainLine.json",{trainLineId : trainLineId}, function( data ) {
 			var appendText='';
-			$(data).each(function() {
-				appendText=appendText + '<option value="' + $(this).trainStationId + '">' + $(this).trainStationName + '</option>';
+			$(data).each(function(index,item) {
+				appendText=appendText + '<option value="' + item.trainStationId + '">' + item.trainStationName + '</option>';
 		    });
 			$('#startStation').append(appendText);
 			$('#endStation').append(appendText);
@@ -138,10 +142,59 @@ function validateForm(){
 }
 
 function loadNextTrain(){
-	$('#datepairExample .date').datepicker( "setDate", new Date());
-	$('#searchType').val('Next Train');
-	$('#mainForm').attr('action','searchTrain.htm');
-	$('#mainForm').submit();
+	var fromStationId=parseInt($.trim($('#startStation').val()));
+	var toStationId=parseInt($.trim($('#endStation').val()));
+	if(!(fromStationId==0 || toStationId==0)){
+		if(!(fromStationId==toStationId)){
+			// in dd/MM/yyyy
+			var searchedDate=$.datepicker.formatDate('dd/mm/yy', new Date());
+			// in HH:mm
+			
+			$('#hiddenpicker').timepicker('setTime', new Date());
+			var fromTime=$('#hiddenpicker').val();
+			// in HH:mm
+			var toTime="23:59:59";
+			searchTrainSchedule(fromStationId, toStationId, searchedDate, fromTime, toTime);
+			
+		}else{
+			alert('From and To Stations cant be same!');
+		}
+	}else{
+		alert('Please select from station and to station!');
+	}
+	
+	
+
+	//$('#datepairExample .date').datepicker( "setDate", new Date());
+	//$('#searchType').val('Next Train');
+	//$('#mainForm').attr('action','searchTrain.htm');
+	//$('#mainForm').submit();
+}
+
+function advancedSerch(){
+	
+}
+
+function searchTrainSchedule(fromStationId,toStationId,searchedDate,fromTime,toTime){
+	var trainScheduleSearchDTO=new TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime);
+	 	$.ajax({
+	        url: 'searchTrainSchedules.json',
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify(trainScheduleSearchDTO),
+	        dataType: 'json',
+	        success: function (data) {
+				console.log(data);
+		    }
+	    });
+}
+
+function TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime){
+	this.fromStationId=fromStationId;
+	this.toStationId=toStationId;
+	this.searchedDate=searchedDate;
+	this.fromTime=fromTime;
+	this.toTime=toTime;
 }
 
 function loadTodaySchedule(){

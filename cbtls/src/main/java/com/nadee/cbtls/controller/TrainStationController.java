@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
+import com.nadee.cbtls.dto.TrainStationDTO;
 import com.nadee.cbtls.model.TrainStation;
 import com.nadee.cbtls.service.TrainStationService;
 
@@ -69,8 +69,8 @@ public class TrainStationController {
 	}
 	
 	@RequestMapping(value = "/listTrainStationsByTrainLine", method = RequestMethod.GET)
-	public @ResponseBody List<TrainStation> listAllTrainStationsByTrainLine(@RequestBody long trainLineId){
-		List<TrainStation> trainStations=new ArrayList<TrainStation>();
+	public @ResponseBody List<TrainStationDTO> listAllTrainStationsByTrainLine(@RequestParam("trainLineId") long trainLineId){
+		List<TrainStationDTO> trainStations=new ArrayList<TrainStationDTO>();
 		try {
 			trainStations=trainStationService.listAllTrainStationsByTrainLine(YesNoStatus.YES, trainLineId);
 		} catch (Exception e) {

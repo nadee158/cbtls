@@ -45,7 +45,7 @@ public class TrainLineStation implements Serializable {
 	private YesNoStatus activeStatus;
 	
 	@JsonIgnore
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
 	@JoinColumn(name="train_line_id",nullable=false)
 	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainLine trainLine;
@@ -56,7 +56,7 @@ public class TrainLineStation implements Serializable {
 	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainStation trainStation;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="next_station_id")
 	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainStation nextStation;
@@ -64,7 +64,7 @@ public class TrainLineStation implements Serializable {
 	@Column(name = "distance_to_next_station")
 	private double distanceToNextStation;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	@JoinColumn(name="previous_station_id")
 	private TrainStation previousStation;

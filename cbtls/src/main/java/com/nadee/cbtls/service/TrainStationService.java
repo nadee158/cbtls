@@ -3,6 +3,7 @@ package com.nadee.cbtls.service;
 import java.util.List;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
+import com.nadee.cbtls.dto.TrainStationDTO;
 import com.nadee.cbtls.model.TrainStation;
 
 public interface TrainStationService {
@@ -15,7 +16,7 @@ public interface TrainStationService {
 
 	public String deleteTrainStation(long trainStationId) throws Exception;
 
-	public List<TrainStation> listAllTrainStationsByTrainLine(YesNoStatus yes,long trainLineId);
+	public List<TrainStationDTO> listAllTrainStationsByTrainLine(YesNoStatus yes,long trainLineId) throws Exception;
 
 	public TrainStation getTrainStationById(long trainStationId);
 	

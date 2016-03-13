@@ -1,5 +1,6 @@
 package com.nadee.cbtls.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dao.TrainStationScheduleDAO;
+import com.nadee.cbtls.dto.TicketPriceDTO;
+import com.nadee.cbtls.dto.TrainScheduleSearchDTO;
+import com.nadee.cbtls.dto.TrainStationScheduleDTO;
+import com.nadee.cbtls.model.TicketPrice;
 import com.nadee.cbtls.model.TrainStationSchedule;
 
 @Service("trainStationScheduleService")
@@ -50,6 +55,27 @@ public class TrainStationScheduleServiceImpl implements TrainStationScheduleServ
 	public TrainStationSchedule fetchTrainStationSchedule(long trainScheduleId, long fromStationId, long toStationId,
 			Date arrivalTime, Date depatureTime) throws Exception {
 		return trainStationScheduleDAO.fetchTrainStationSchedule(trainScheduleId, fromStationId, toStationId, arrivalTime, depatureTime);
+	}
+
+	@Override
+	public List<TrainStationScheduleDTO> serachTrainStationSchedules(TrainScheduleSearchDTO trainScheduleSearchDTO)
+			throws Exception {
+		List<TrainStationSchedule> stationSchedules=trainStationScheduleDAO.serachTrainStationSchedules(trainScheduleSearchDTO);
+		if(!(stationSchedules==null)){
+			List<TrainStationScheduleDTO> list=new ArrayList<TrainStationScheduleDTO>();
+			for (TrainStationSchedule trainStationSchedule : stationSchedules) {
+				
+				TrainStationScheduleDTO trainStationScheduleDTO=new TrainStationScheduleDTO(trainStationSchedule);
+				trainStationScheduleDTO.setTicketPrices(new ArrayList<TicketPriceDTO>());
+				List<TicketPrice> ticketPrices=trainStationScheduleDAO.getTicketPrices(trainStationSchedule.getTrainStationScheduleId());
+				for (TicketPrice ticketPrice : ticketPrices) {
+					trainStationScheduleDTO.getTicketPrices().add(new TicketPriceDTO(ticketPrice));
+				}
+				list.add(trainStationScheduleDTO);
+			}
+			return list;
+		}
+		return null;
 	}
 
 }

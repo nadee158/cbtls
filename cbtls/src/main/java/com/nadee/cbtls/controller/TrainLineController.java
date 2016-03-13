@@ -50,7 +50,7 @@ public class TrainLineController {
 	public ModelAndView getManageTrainLines(HttpServletRequest request) {
 		ModelMap modelMap = new ModelMap();
 		try {
-			modelMap.put("trainLines", trainLineService.listAllTrainLines(YesNoStatus.YES));
+			modelMap.put("trainLines", trainLineService.listAllTrainLines(YesNoStatus.YES,true));
 			modelMap.put("trainStations", trainStationService.listAllTrainStations(YesNoStatus.YES));
 			modelMap.put("trainLine", new TrainLine());
 		} catch (Exception e) {
@@ -67,7 +67,7 @@ public class TrainLineController {
 			modelMap.put("status", status);
 			modelMap.put("trainLine", new TrainLine());
 			modelMap.put("trainStations", trainStationService.listAllTrainStations(YesNoStatus.YES));
-			modelMap.put("trainLines", trainLineService.listAllTrainLines(YesNoStatus.YES));
+			modelMap.put("trainLines", trainLineService.listAllTrainLines(YesNoStatus.YES,true));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,7 +82,7 @@ public class TrainLineController {
 			modelMap.put("status", status);
 			modelMap.put("trainLine", new TrainLine());
 			modelMap.put("trainStations", trainStationService.listAllTrainStations(YesNoStatus.YES));
-			modelMap.put("trainLines", trainLineService.listAllTrainLines(YesNoStatus.YES));
+			modelMap.put("trainLines", trainLineService.listAllTrainLines(YesNoStatus.YES, true));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,7 +93,7 @@ public class TrainLineController {
 	public @ResponseBody List<TrainLineDTO> listAllTrainLines(){
 		List<TrainLineDTO> trainLines=new ArrayList<TrainLineDTO>();
 		try {
-			trainLines=trainLineService.listAllTrainLines(YesNoStatus.YES);
+			trainLines=trainLineService.listAllTrainLines(YesNoStatus.YES,false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

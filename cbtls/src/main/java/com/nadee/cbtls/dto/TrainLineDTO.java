@@ -52,19 +52,22 @@ public class TrainLineDTO implements Serializable{
 	}
 
 
-	public TrainLineDTO(TrainLine trainLine) {
+	public TrainLineDTO(TrainLine trainLine, boolean full) {
 		super();
 		this.trainLineId = trainLine.getTrainLineId();
 		this.trainLineName = trainLine.getTrainLineName();
 		this.activeStatus = trainLine.getActiveStatus();
-		this.trainLineStations = new ArrayList<TrainLineStationDTO>();
-		if(!(trainLine.getTrainLineStations()==null)){
-			for (TrainLineStation trainLineStation : trainLine.getTrainLineStations()) {
-				trainLineStations.add(new TrainLineStationDTO(trainLineStation));
+		if(full){
+			this.trainLineStations = new ArrayList<TrainLineStationDTO>();
+			if(!(trainLine.getTrainLineStations()==null)){
+				for (TrainLineStation trainLineStation : trainLine.getTrainLineStations()) {
+					trainLineStations.add(new TrainLineStationDTO(trainLineStation));
+				}
 			}
+			this.startStation = new TrainStationDTO(trainLine.getStartStation());
+			this.endStation = new TrainStationDTO(trainLine.getEndStation());
 		}
-		this.startStation = new TrainStationDTO(trainLine.getStartStation());
-		this.endStation = new TrainStationDTO(trainLine.getEndStation());
+		
 	}
 
 	public List<TrainLineStationDTO> getTrainLineStations() {

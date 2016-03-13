@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
+import com.nadee.cbtls.dto.TrainScheduleSearchDTO;
+import com.nadee.cbtls.dto.TrainStationScheduleDTO;
 import com.nadee.cbtls.model.TrainStationSchedule;
 
 public interface TrainStationScheduleService {
@@ -18,5 +20,7 @@ public interface TrainStationScheduleService {
 	
 	public TrainStationSchedule fetchTrainStationSchedule(long trainScheduleId,long fromStationId, long toStationId,
 			Date arrivalTime,Date depatureTime) throws Exception;
+
+	public List<TrainStationScheduleDTO> serachTrainStationSchedules(TrainScheduleSearchDTO trainScheduleSearchDTO)throws Exception;
 
 }

@@ -33,16 +33,18 @@ public class TrainLineStationDTO implements Serializable {
 
 	public TrainLineStationDTO(TrainLineStation trainLineStation) {
 		super();
-		this.trainLineStationId = trainLineStation.getTrainLineStationId();
-		this.distanceFromStartStation = trainLineStation.getDistanceFromStartStation();
-		this.distanceFromEndStation = trainLineStation.getDistanceFromEndStation();
-		this.activeStatus = trainLineStation.getActiveStatus();
-		this.trainStation = new TrainStationDTO(trainLineStation.getTrainStation());
-		this.nextStation = new TrainStationDTO(trainLineStation.getNextStation());
-		this.distanceToNextStation = trainLineStation.getDistanceToNextStation();
-		this.previousStation = new TrainStationDTO(trainLineStation.getPreviousStation());
-		this.distanceToPreviousStation = trainLineStation.getDistanceToPreviousStation();
-		this.versionId = trainLineStation.getVersionId();
+		if(!(trainLineStation==null)){
+			this.trainLineStationId = trainLineStation.getTrainLineStationId();
+			this.distanceFromStartStation = trainLineStation.getDistanceFromStartStation();
+			this.distanceFromEndStation = trainLineStation.getDistanceFromEndStation();
+			this.activeStatus = trainLineStation.getActiveStatus();
+			this.trainStation = new TrainStationDTO(trainLineStation.getTrainStation());
+			this.nextStation = new TrainStationDTO(trainLineStation.getNextStation());
+			this.distanceToNextStation = trainLineStation.getDistanceToNextStation();
+			this.previousStation = new TrainStationDTO(trainLineStation.getPreviousStation());
+			this.distanceToPreviousStation = trainLineStation.getDistanceToPreviousStation();
+			this.versionId = trainLineStation.getVersionId();
+		}
 	}
 
 	public long getTrainLineStationId() {

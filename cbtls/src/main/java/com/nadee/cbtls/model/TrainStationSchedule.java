@@ -68,7 +68,7 @@ public class TrainStationSchedule implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date arrivalAtDestinationTime;
 	
-	@OneToMany(mappedBy = "trainStationSchedule", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "trainStationSchedule", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TicketPrice> ticketPrice;
 	

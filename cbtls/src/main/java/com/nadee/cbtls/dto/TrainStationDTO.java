@@ -77,12 +77,14 @@ public class TrainStationDTO implements Serializable {
 
 	public TrainStationDTO(TrainStation trainStation) {
 		super();
-		this.trainStationId = trainStation.getTrainStationId();
-		this.geoLocation = trainStation.getGeoLocation();
-		this.trainStationCode = trainStation.getTrainStationCode();
-		this.trainStationName = trainStation.getTrainStationName();
-		this.trainStationContactNumber = trainStation.getTrainStationContactNumber();
-		this.activeStatus = trainStation.getActiveStatus();
+		if(!(trainStation==null)){
+			this.trainStationId = trainStation.getTrainStationId();
+			this.geoLocation = trainStation.getGeoLocation();
+			this.trainStationCode = trainStation.getTrainStationCode();
+			this.trainStationName = trainStation.getTrainStationName();
+			this.trainStationContactNumber = trainStation.getTrainStationContactNumber();
+			this.activeStatus = trainStation.getActiveStatus();
+		}
 	}
 	
 	

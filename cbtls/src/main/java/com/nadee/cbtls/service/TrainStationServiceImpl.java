@@ -10,8 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
+import com.nadee.cbtls.dao.TrainLineStationDAO;
 import com.nadee.cbtls.dao.TrainStationDAO;
-import com.nadee.cbtls.model.TrainLine;
+import com.nadee.cbtls.dto.TrainStationDTO;
 import com.nadee.cbtls.model.TrainLineStation;
 import com.nadee.cbtls.model.TrainStation;
 
@@ -24,6 +25,9 @@ public class TrainStationServiceImpl implements TrainStationService {
 	
 	@Autowired
 	private TrainStationDAO trainStationDAO;
+	
+	@Autowired
+	private TrainLineStationDAO trainLineStationDAO;
 	
 	@Override
 	public long countActiveTrainStations() throws Exception {
@@ -51,12 +55,13 @@ public class TrainStationServiceImpl implements TrainStationService {
 	}
 
 	@Override
-	public List<TrainStation> listAllTrainStationsByTrainLine(YesNoStatus yes, long trainLineId) {
-		List<TrainStation> trainStations=new ArrayList<TrainStation>();
-		TrainLine trainLine=commonDAO.getEntityById(TrainLine.class, trainLineId);
-		if(!(trainLine==null)){
-			for (TrainLineStation trainLineStation : trainLine.getTrainLineStations()) {
-				trainStations.add(trainLineStation.getTrainStation());
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+	public List<TrainStationDTO> listAllTrainStationsByTrainLine(YesNoStatus yes, long trainLineId) throws Exception {
+		List<TrainStationDTO> trainStations=new ArrayList<TrainStationDTO>();
+		List<TrainLineStation> trainLineStations=trainLineStationDAO.listAllTrainLineStationsByTrainLine(trainLineId);
+		if(!(trainLineStations==null)){
+			for (TrainLineStation trainLineStation : trainLineStations) {
+				trainStations.add(new TrainStationDTO(trainLineStation.getTrainStation()));
 			}
 		}
 		return trainStations;

@@ -10,7 +10,7 @@ public interface TrainLineService {
 	
 	public long countActiveTrainLines() throws Exception;
 	
-	public List<TrainLineDTO> listAllTrainLines(YesNoStatus yesNoStatus) throws Exception;	
+	public List<TrainLineDTO> listAllTrainLines(YesNoStatus yesNoStatus, boolean isFullDto) throws Exception;	
 	
 	public String saveTrainLine(TrainLine trainLine) throws Exception;
 

@@ -31,11 +31,12 @@ public class TrainLineServiceImpl implements TrainLineService {
 	}
 
 	@Override
-	public List<TrainLineDTO> listAllTrainLines(YesNoStatus yesNoStatus) throws Exception {
+	public List<TrainLineDTO> listAllTrainLines(YesNoStatus yesNoStatus, boolean isFullDto) throws Exception {
 		List<TrainLineDTO> lineDTOs=new ArrayList<TrainLineDTO>();
 		List<TrainLine> lines=trainLineDAO.listAllTrainLines(yesNoStatus);
+		System.out.println("lines :" + lines.size());
 		for (TrainLine trainLine : lines) {
-			lineDTOs.add(new TrainLineDTO(trainLine));
+			lineDTOs.add(new TrainLineDTO(trainLine,isFullDto));
 		}
 		return lineDTOs;
 	}
