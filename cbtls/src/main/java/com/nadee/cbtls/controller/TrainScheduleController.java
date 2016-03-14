@@ -23,7 +23,7 @@ public class TrainScheduleController {
 	public @ResponseBody List<TrainLineDTO> trainSchedules(){
 		List<TrainLineDTO> trainLines=new ArrayList<TrainLineDTO>();
 		try {
-			trainScheduleMasterDataService.saveSchedules(3);
+		trainScheduleMasterDataService.saveSchedules(3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -72,6 +72,8 @@ public class TrainScheduleMasterDataService {
 				startStationCode=stations.getCodes()[i];
 				startStationName=stations.getNames()[i];
 				
+				
+				
 				String [] addedStartStations={"AWP","AVD","AKT","BOA","BLT","BSA","CHL","FOT","DAG","EDM","EPN",
 						"IPZ","HRP","HUN","JLA","KYA","KAN","KAW","KAT","CAK","KTK","KLA","KCH","KWW","KUD",
 						"KUR","LGM","LWL","MDP","MKI","MGE","MDA","MNL"};
