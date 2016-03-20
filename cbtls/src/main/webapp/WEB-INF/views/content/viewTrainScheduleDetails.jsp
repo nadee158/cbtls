@@ -1,23 +1,25 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container" style="padding-top: 0px;">
   <h1 class="page-header">Train Schedule Details</h1>
   <div class="row">
 		<div class="col-lg-12">
 			<div class="form-group">
 				  <div class="col-md-4">
-					<label class="control-label">Expected Time of Arrival(ETA) at Station 1 :- </label>
+					<label class="control-label">Expected Time of Arrival(ETA) at Start Station :- </label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">10.30 a.m</label>
+					<label class="control-label"><fmt:formatDate value="${trainStationScheduleDTO.arrivalTime}"  pattern="hh:mm a" /></label>
 				  </div>
 	        </div>
 		</div>
 		<div class="col-lg-12">
 			<div class="form-group">
 				  <div class="col-md-4">
-					<label class="control-label">Expected Time of Arrival(ETA) at Station 2 :- </label>
+					<label class="control-label">Expected Time of Arrival(ETA) at Destination :- </label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">11.00 a.m</label>
+					<label class="control-label"><fmt:formatDate value="${trainStationScheduleDTO.arrivalAtDestinationTime}"  pattern="hh:mm a" /></label>
 				  </div>
 	        </div>
 		</div>
@@ -27,7 +29,7 @@
 					<label class="control-label">Total Distance of Journey :-</label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">11 km</label>
+					<label class="control-label">${item.distance}</label>
 				  </div>
 	        </div>
 		</div>
@@ -37,7 +39,7 @@
 					<label class="control-label">Total Duration of Journey :-</label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">30 Mins</label>
+					<label class="control-label">${item.duration}</label>
 				  </div>
 	        </div>
 		</div>

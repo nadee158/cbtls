@@ -27,6 +27,8 @@ public class TrainScheduleSearchDTO implements Serializable {
 	// //in dd/MM/yyyy
 	// private String currentDate;
 	
+	private long trainLineId;
+	
 	private String fromStationName;
 	private String toStationName;
 	private int searchTypeId;
@@ -192,6 +194,14 @@ public class TrainScheduleSearchDTO implements Serializable {
 
 	public void setSearchTypeText(String searchTypeText) {
 		this.searchTypeText = searchTypeText;
+	}
+
+	public long getTrainLineId() {
+		return trainLineId;
+	}
+
+	public void setTrainLineId(long trainLineId) {
+		this.trainLineId = trainLineId;
 	}
 	
 	

@@ -58,5 +58,10 @@ public class TrainLineServiceImpl implements TrainLineService {
 	public TrainLine getTrainLineByTrainLineIntegrationId(int trainLineIntegrationId) {
 		return trainLineDAO.getTrainLineByTrainLineIntegrationId(trainLineIntegrationId);
 	}
+	
+	@Override
+	public TrainLine getTrainLineById(long trainLineId) {
+		return commonDAO.getEntityById(TrainLine.class,trainLineId);
+	}
 
 }

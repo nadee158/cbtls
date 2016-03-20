@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dto.TrainStationDTO;
+import com.nadee.cbtls.model.GeoLocation;
 import com.nadee.cbtls.model.TrainStation;
 
 public interface TrainStationService {
@@ -23,5 +24,9 @@ public interface TrainStationService {
 	public TrainStation getTrainStationByName(String stationName)throws Exception;
 	
 	public TrainStation getTrainStationByCode(String stationCode)throws Exception;
+
+	public String updateTrainStation(TrainStation trainStation)throws Exception;
+
+	public GeoLocation getGeoLocationById(long geoLocationId)throws Exception;
 
 }

@@ -51,12 +51,6 @@
 	  	<div id="addNewStationForm" style="display: none;">
 		  <form:form cssClass="form-horizontal" role="form" action="saveTrainStation.htm" modelAttribute="trainStation" method="post" >
 			  <div class="form-group">
-			    <label for="trainStationReferenceId" class="col-sm-2 control-label">Reference Id</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="trainStationReferenceId" id="trainStationReferenceId" placeholder="Station Reference Id">
-			    </div>
-			  </div>
-			  <div class="form-group">
 			    <label for="trainStationCode" class="col-sm-2 control-label">Station Code</label>
 			    <div class="col-sm-10">
 			      <input type="text" class="form-control" name="trainStationCode" id="trainStationCode" placeholder="Station Code">
@@ -94,11 +88,59 @@
 			  </div>
 			</form:form>
 	  	</div>
+	  	<c:if test="${! empty  trainStationEdit}">
+	  		<div id="updateStationForm">
+				  <form:form cssClass="form-horizontal" role="form" action="updateTrainStation.htm" modelAttribute="trainStationEdit" method="post" >
+					  	<form:hidden path="trainStationId"/>
+					  	<form:hidden path="geoLocation.geoLocationId"/>
+					  <div class="form-group">
+					    <label for="trainStationCode" class="col-sm-2 control-label">Station Code</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" name="trainStationCode" id="trainStationCode" 
+					        value="${trainStationEdit.trainStationCode}"/>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="trainStationName" class="col-sm-2 control-label">Station Name</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" name="trainStationName" id="trainStationName" 
+					      	value="${trainStationEdit.trainStationName}"/>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="trainStationContactNumber" class="col-sm-2 control-label">Contact Number</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" name="trainStationContactNumber" id="trainStationContactNumber" 
+					       value="${trainStationEdit.trainStationContactNumber}"/>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="latitude" class="col-sm-2 control-label">Latitude</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" name="geoLocation.latitude" id="latitude" 
+					      	value="${trainStationEdit.geoLocation.latitude}"/>
+					    </div>
+					  </div>	
+					   <div class="form-group">
+					    <label for="longitude" class="col-sm-2 control-label">Longitude</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" name="geoLocation.longitude" id="longitude" 
+					      	value="${trainStationEdit.geoLocation.longitude}"/>
+					    </div>
+					  </div>			  
+					  <div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-5">
+					      <input type="submit" class="btn btn-primary" value="Update Station" />
+					      <input type="button" class="btn btn-primary" value="Cancel" onclick="return cancelEditing()" />
+					    </div>
+					  </div>
+					</form:form>
+			  	</div>
+	  	</c:if>
 	    <div class="table-responsive">
 			  <table class="table  table-striped">
 			  		<thead>
 			  			<tr>
-				  			<th>Station Reference Id</th>
 				  			<th>Station Code</th>
 				  			<th>Station Name</th>
 				  			<th>Station Contact Number</th>
@@ -113,14 +155,13 @@
 				  			<c:when test="${!empty trainStations}">
 					  			<c:forEach items="${trainStations}" var="trainStation">
 					  				<tr>
-					  					<td>${trainStation.trainStationReferenceId}</td>
 					  					<td>${trainStation.trainStationCode}</td>
 					  					<td>${trainStation.trainStationName}</td>
 					  					<td>${trainStation.trainStationContactNumber}</td>
 					  					<td>${trainStation.geoLocation.latitude}</td>
 					  					<td>${trainStation.geoLocation.longitude }</td>
 					  					<td>
-					  						<a href="#" class="btn btn-primary btn-sm">
+					  						<a href="getEditTrainStation.htm?id=${trainStation.trainStationId}" class="btn btn-primary btn-sm">
 									          <span class="glyphicon glyphicon-edit"></span> Edit 
 									        </a>
 					  					</td>
@@ -172,5 +213,10 @@ function bulkUpload(){
 	$('#addNewStationForm').hide();
 	$('#bulkUploadForm').show();
 }
+
+function cancelEditing(){
+	$('#updateStationForm').hide();
+}
+
 
 </script>

@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nadee.cbtls.constant.ApplicationConstants;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dao.TrainLineStationDAO;
 import com.nadee.cbtls.dao.TrainStationDAO;
 import com.nadee.cbtls.dto.TrainStationDTO;
+import com.nadee.cbtls.model.GeoLocation;
 import com.nadee.cbtls.model.TrainLineStation;
 import com.nadee.cbtls.model.TrainStation;
 
@@ -36,7 +38,15 @@ public class TrainStationServiceImpl implements TrainStationService {
 
 	@Override
 	public List<TrainStation> listAllTrainStations(YesNoStatus yesNoStatus) throws Exception {
-		return trainStationDAO.listAllTrainStations(yesNoStatus);
+		List<TrainStation> trainStations=new ArrayList<TrainStation>();
+		List<TrainLineStation> trainLineStations=trainLineStationDAO.listAllTrainLineStationsByTrainLine(3);
+		if(!(trainLineStations==null)){
+			for (TrainLineStation trainLineStation : trainLineStations) {
+				trainStations.add(trainLineStation.getTrainStation());
+			}
+		}
+		//return trainStationDAO.listAllTrainStations(yesNoStatus);
+		return trainStations;
 	}
 
 	@Override
@@ -80,6 +90,20 @@ public class TrainStationServiceImpl implements TrainStationService {
 	@Override
 	public TrainStation getTrainStationByCode(String stationCode) throws Exception {
 		return trainStationDAO.getTrainStationByCode(stationCode);
+	}
+	
+	@Override
+	public String updateTrainStation(TrainStation trainStation) throws Exception {
+		String status=ApplicationConstants.ERROR;
+		TrainStation trainStationFromDB=commonDAO.getEntityById(TrainStation.class, trainStation.getTrainStationId());
+		trainStationFromDB.updateFromTrainStation(trainStation);
+		status=commonDAO.updateEntity(trainStationFromDB);
+		return status;
+	}
+	
+	@Override
+	public GeoLocation getGeoLocationById(long geoLocationId) throws Exception {
+		return commonDAO.getEntityById(GeoLocation.class, geoLocationId);
 	}
 
 

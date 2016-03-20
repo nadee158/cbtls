@@ -82,18 +82,15 @@ function viewRecommendations(){
 }
 
 function viewTrainScheduleDetails(trainStationScheduleId){
-	var data = {}
-	data["tssid"] = trainStationScheduleId;
-	alert(trainStationScheduleId);
-     $.ajax({
+
+	 $.ajax({
 	        url: 'searchTrainScheduleDetails.json',
 	        type: 'POST',
 	        contentType: 'application/json',
-	        data: JSON.stringify(data),
+	        data: JSON.stringify(trainStationScheduleId),
 	        dataType: 'json',
 	        success: function (data) {
-// 	        	$('#mainForm').attr('action','searchTrain.htm');
-// 	        	$('#mainForm').submit();
+	        	$('#viewTrainScheduleDetails').submit();
 		    }
 	    });
 	

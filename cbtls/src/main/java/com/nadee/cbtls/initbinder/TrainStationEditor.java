@@ -20,7 +20,6 @@ public class TrainStationEditor extends PropertyEditorSupport {
 		try {
 			trainStation = trainStationService.getTrainStationById(Long.parseLong(trainStationId));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setValue(trainStation);

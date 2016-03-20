@@ -142,6 +142,7 @@ function validateForm(){
 }
 
 function loadNextTrain(){
+	var trainLineId=$('#trainLine').val();
 	var fromStationId=parseInt($.trim($('#startStation').val()));
 	var toStationId=parseInt($.trim($('#endStation').val()));
 	var searchTypeId=1;
@@ -159,7 +160,7 @@ function loadNextTrain(){
 			// in HH:mm
 			var toTime="23:59:59";
 			searchTrainSchedule(fromStationId, toStationId, searchedDate, fromTime, toTime
-					,fromStationName,toStationName,searchTypeId,searchTypeText);
+					,fromStationName,toStationName,searchTypeId,searchTypeText,trainLineId);
 			
 		}else{
 			alert('From and To Stations cant be same!');
@@ -170,6 +171,7 @@ function loadNextTrain(){
 }
 
 function advancedSerch(){
+	var trainLineId=$('#trainLine').val();
 	var fromStationId=parseInt($.trim($('#startStation').val()));
 	var toStationId=parseInt($.trim($('#endStation').val()));
 	var searchTypeId=3;
@@ -185,7 +187,7 @@ function advancedSerch(){
 			// in HH:mm
 			var toTime=$('#endTime').val();
 			searchTrainSchedule(fromStationId, toStationId, searchedDate, fromTime, toTime
-					,fromStationName,toStationName,searchTypeId,searchTypeText);
+					,fromStationName,toStationName,searchTypeId,searchTypeText,trainLineId);
 			
 		}else{
 			alert('From and To Stations cant be same!');
@@ -196,9 +198,9 @@ function advancedSerch(){
 }
 
 function searchTrainSchedule(fromStationId,toStationId,searchedDate,fromTime,toTime
-		,fromStationName,toStationName,searchTypeId,searchTypeText){
+		,fromStationName,toStationName,searchTypeId,searchTypeText,trainLineId){
 	var trainScheduleSearchDTO=new TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime
-			,fromStationName,toStationName,searchTypeId,searchTypeText);
+			,fromStationName,toStationName,searchTypeId,searchTypeText,trainLineId);
 	 	$.ajax({
 	        url: 'searchTrainSchedules.json',
 	        type: 'POST',
@@ -212,7 +214,7 @@ function searchTrainSchedule(fromStationId,toStationId,searchedDate,fromTime,toT
 	    });
 }
 
-function TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime,fromStationName,toStationName,searchTypeId,searchTypeText){
+function TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime,fromStationName,toStationName,searchTypeId,searchTypeText,trainLineId){
 	this.fromStationId=fromStationId;
 	this.toStationId=toStationId;
 	this.searchedDate=searchedDate;
@@ -222,9 +224,11 @@ function TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,
 	this.toStationName=toStationName;
 	this.searchTypeId=searchTypeId;
 	this.searchTypeText=searchTypeText;
+	this.trainLineId=trainLineId;
 }
 
 function loadTodaySchedule(){
+	var trainLineId=$('#trainLine').val();
 	var fromStationId=parseInt($.trim($('#startStation').val()));
 	var toStationId=parseInt($.trim($('#endStation').val()));
 	var searchTypeId=2;
@@ -240,7 +244,7 @@ function loadTodaySchedule(){
 			// in HH:mm
 			var toTime="23:59:59";
 			searchTrainSchedule(fromStationId, toStationId, searchedDate, fromTime, toTime
-					,fromStationName,toStationName,searchTypeId,searchTypeText);
+					,fromStationName,toStationName,searchTypeId,searchTypeText,trainLineId);
 			
 		}else{
 			alert('From and To Stations cant be same!');

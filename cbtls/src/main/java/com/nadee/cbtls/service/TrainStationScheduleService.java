@@ -23,6 +23,6 @@ public interface TrainStationScheduleService {
 
 	public List<TrainStationScheduleDTO> serachTrainStationSchedules(TrainScheduleSearchDTO trainScheduleSearchDTO)throws Exception;
 
-	public TrainStationScheduleDTO getTrainStationScheduleById(long trainStationScheduleId)throws Exception;
+	public TrainStationScheduleDTO getTrainStationScheduleById(long trainStationScheduleId,TrainScheduleSearchDTO trainScheduleSearchDTO)throws Exception;
 
 }

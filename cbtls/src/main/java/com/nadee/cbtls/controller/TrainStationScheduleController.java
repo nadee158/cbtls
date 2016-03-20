@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,12 +59,13 @@ public class TrainStationScheduleController {
 	
 	@RequestMapping(value = "/searchTrainScheduleDetails", method = RequestMethod.POST)
 	public @ResponseBody TrainStationScheduleDTO searchTrainScheduleDetails(
-			@RequestParam("tssid") long tssid ){
+			@RequestBody long tssid ){
 		TrainStationScheduleDTO trainStationScheduleDTO=null;
 		try {
-			
+			TrainScheduleSearchDTO trainScheduleSearchDTO=SessionUtil.getFromSession("SEARCHED_CRITERIA");
+			System.out.println("trainScheduleSearchDTO :" + trainScheduleSearchDTO);
 			System.out.println("tssid :" + tssid);
-			trainStationScheduleDTO=trainStationScheduleService.getTrainStationScheduleById(tssid);
+			trainStationScheduleDTO=trainStationScheduleService.getTrainStationScheduleById(tssid,trainScheduleSearchDTO);
 			SessionUtil.addToSession("SEARCHED_SCHEDULE_DETAIL", trainStationScheduleDTO);
 			SessionUtil.addToSession("SEARCHED_SCHEDULE_DETAIL_ID", tssid);
 		} catch (Exception e) {

@@ -12,11 +12,17 @@ public class TrainStationScheduleDTO implements Serializable {
 	
 	private long trainStationScheduleId;
 	
+	private TrainLineDTO trainLineDTO;
+	
 	private TrainScheduleDTO trainSchedule;
 	
 	private TrainStationDTO fromTrainStation;
 	
 	private TrainStationDTO toTrainStation;
+	
+	private TrainLineStationDTO fromTrainLineStation;
+	
+	private TrainLineStationDTO toTrainLineStation;
 	
 	private Date arrivalTime;	
 	
@@ -27,12 +33,15 @@ public class TrainStationScheduleDTO implements Serializable {
 	private List<TicketPriceDTO> ticketPrices;
 	
 	private String duration;
+	
+	private double distance;
 
 	public TrainStationScheduleDTO() {
 		super();
 	}
 	
-	public TrainStationScheduleDTO(TrainStationSchedule trainStationSchedule) {
+	public TrainStationScheduleDTO(TrainStationSchedule trainStationSchedule,
+			TrainLineStationDTO fromTrainLineStation,TrainLineStationDTO toTrainLineStation, TrainLineDTO trainLineDTO) {
 		this.trainStationScheduleId = trainStationSchedule.getTrainStationScheduleId();
 		this.trainSchedule = new TrainScheduleDTO(trainStationSchedule.getTrainSchedule());
 		this.fromTrainStation = new TrainStationDTO(trainStationSchedule.getFromTrainStation());
@@ -41,15 +50,26 @@ public class TrainStationScheduleDTO implements Serializable {
 		this.departureTime = trainStationSchedule.getDepartureTime();
 		this.arrivalAtDestinationTime = trainStationSchedule.getArrivalAtDestinationTime();
 		this.duration=calculateDuration();
+		this.trainLineDTO=trainLineDTO;
+		this.fromTrainLineStation=fromTrainLineStation;
+		this.toTrainLineStation=toTrainLineStation;
+		this.distance=calculateDistance();
 	}
 	
 
+	private double calculateDistance() {
+		return this.toTrainLineStation.getDistanceFromEndStation() - this.fromTrainLineStation.getDistanceFromStartStation();
+	}
+
 	private String calculateDuration() {
 		long duration=Math.abs(arrivalAtDestinationTime.getTime() - departureTime.getTime());
-		return String.format("%02d min, %02d sec", 
-			    TimeUnit.MILLISECONDS.toMinutes(duration),
-			    TimeUnit.MILLISECONDS.toSeconds(duration) - 
-			    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
+		return String.format("%02d h, %02d min", 
+				TimeUnit.MILLISECONDS.toHours(duration),
+			    
+				TimeUnit.MILLISECONDS.toMinutes(duration) -  
+			    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration))
+			    		
+			   
 			);
 	}
 
@@ -146,6 +166,30 @@ public class TrainStationScheduleDTO implements Serializable {
 
 	public void setDuration(String duration) {
 		this.duration = duration;
+	}
+
+	public TrainLineDTO getTrainLineDTO() {
+		return trainLineDTO;
+	}
+
+	public void setTrainLineDTO(TrainLineDTO trainLineDTO) {
+		this.trainLineDTO = trainLineDTO;
+	}
+
+	public TrainLineStationDTO getFromTrainLineStation() {
+		return fromTrainLineStation;
+	}
+
+	public void setFromTrainLineStation(TrainLineStationDTO fromTrainLineStation) {
+		this.fromTrainLineStation = fromTrainLineStation;
+	}
+
+	public TrainLineStationDTO getToTrainLineStation() {
+		return toTrainLineStation;
+	}
+
+	public void setToTrainLineStation(TrainLineStationDTO toTrainLineStation) {
+		this.toTrainLineStation = toTrainLineStation;
 	}
 
 	

@@ -186,6 +186,39 @@ public class TrainLineStation implements Serializable {
 		this.distanceToPreviousStation = distanceToPreviousStation;
 	}
 
+	public void updateFromTrainLineStation(TrainLineStation trainLineStation) {
+		this.distanceFromStartStation = trainLineStation.getDistanceFromStartStation();
+		this.distanceFromEndStation = trainLineStation.getDistanceFromEndStation();
+		this.trainLine = trainLineStation.getTrainLine();
+		this.trainStation = trainLineStation.getTrainStation();
+		this.nextStation = trainLineStation.getNextStation();
+		this.distanceToNextStation = trainLineStation.getDistanceToNextStation();
+		this.previousStation = trainLineStation.getPreviousStation();
+		this.distanceToPreviousStation = trainLineStation.getDistanceToPreviousStation();
+	}
+
+	public TrainLineStation(long trainLineStationId, double distanceFromStartStation, double distanceFromEndStation,
+			YesNoStatus activeStatus, TrainLine trainLine, TrainStation trainStation, TrainStation nextStation,
+			double distanceToNextStation, TrainStation previousStation, double distanceToPreviousStation,
+			int versionId) {
+		super();
+		this.trainLineStationId = trainLineStationId;
+		this.distanceFromStartStation = distanceFromStartStation;
+		this.distanceFromEndStation = distanceFromEndStation;
+		this.activeStatus = activeStatus;
+		this.trainLine = trainLine;
+		this.trainStation = trainStation;
+		this.nextStation = nextStation;
+		this.distanceToNextStation = distanceToNextStation;
+		this.previousStation = previousStation;
+		this.distanceToPreviousStation = distanceToPreviousStation;
+		this.versionId = versionId;
+	}
+	
+	public TrainLineStation() {
+		super();
+	}
+
 
 	
 	

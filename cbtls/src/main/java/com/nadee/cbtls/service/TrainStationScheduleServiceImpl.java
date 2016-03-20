@@ -11,11 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
+import com.nadee.cbtls.dao.TrainStationDAO;
 import com.nadee.cbtls.dao.TrainStationScheduleDAO;
 import com.nadee.cbtls.dto.TicketPriceDTO;
+import com.nadee.cbtls.dto.TrainLineDTO;
+import com.nadee.cbtls.dto.TrainLineStationDTO;
 import com.nadee.cbtls.dto.TrainScheduleSearchDTO;
 import com.nadee.cbtls.dto.TrainStationScheduleDTO;
 import com.nadee.cbtls.model.TicketPrice;
+import com.nadee.cbtls.model.TrainLine;
+import com.nadee.cbtls.model.TrainLineStation;
 import com.nadee.cbtls.model.TrainStationSchedule;
 
 @Service("trainStationScheduleService")
@@ -24,6 +29,9 @@ public class TrainStationScheduleServiceImpl implements TrainStationScheduleServ
 	
 	@Autowired
 	private TrainStationScheduleDAO trainStationScheduleDAO;
+	
+	@Autowired
+	private TrainStationDAO trainStationDAO;
 	
 	@Autowired
 	private CommonDAO commonDAO;
@@ -62,10 +70,31 @@ public class TrainStationScheduleServiceImpl implements TrainStationScheduleServ
 			throws Exception {
 		List<TrainStationSchedule> stationSchedules=trainStationScheduleDAO.serachTrainStationSchedules(trainScheduleSearchDTO);
 		if(!(stationSchedules==null)){
+			
+			TrainLine trainLine=commonDAO.getEntityById(TrainLine.class, trainScheduleSearchDTO.getTrainLineId());
+			TrainLineDTO trainLineDTO=null;
+			if(!(trainLine==null)){
+				trainLineDTO=new TrainLineDTO(trainLine, false);
+			}
+			TrainLineStation fromTrainLineStation=trainStationDAO.getTrainLineStationByStationAndTrainLine(
+					trainScheduleSearchDTO.getFromStationId(),trainScheduleSearchDTO.getTrainLineId());
+			TrainLineStationDTO fromDTO=null;
+			if(!(fromTrainLineStation==null)){
+				fromDTO=new TrainLineStationDTO(fromTrainLineStation);
+			}
+			
+			TrainLineStation toTrainLineStation=trainStationDAO.getTrainLineStationByStationAndTrainLine(
+					trainScheduleSearchDTO.getToStationId(),trainScheduleSearchDTO.getTrainLineId());
+			TrainLineStationDTO toDTO=null;
+			if(!(toTrainLineStation==null)){
+				toDTO=new TrainLineStationDTO(toTrainLineStation);
+			}
+			
+			
 			List<TrainStationScheduleDTO> list=new ArrayList<TrainStationScheduleDTO>();
 			for (TrainStationSchedule trainStationSchedule : stationSchedules) {
 				
-				TrainStationScheduleDTO trainStationScheduleDTO=new TrainStationScheduleDTO(trainStationSchedule);
+				TrainStationScheduleDTO trainStationScheduleDTO=new TrainStationScheduleDTO(trainStationSchedule,fromDTO,toDTO,trainLineDTO);
 				trainStationScheduleDTO.setTicketPrices(new ArrayList<TicketPriceDTO>());
 				List<TicketPrice> ticketPrices=trainStationScheduleDAO.getTicketPrices(trainStationSchedule.getTrainStationScheduleId());
 				for (TicketPrice ticketPrice : ticketPrices) {
@@ -79,9 +108,30 @@ public class TrainStationScheduleServiceImpl implements TrainStationScheduleServ
 	}
 
 	@Override
-	public TrainStationScheduleDTO getTrainStationScheduleById(long trainStationScheduleId) throws Exception {
+	public TrainStationScheduleDTO getTrainStationScheduleById(long trainStationScheduleId,TrainScheduleSearchDTO trainScheduleSearchDTO) throws Exception {
 		TrainStationSchedule trainStationSchedule=commonDAO.getEntityById(TrainStationSchedule.class, trainStationScheduleId);
-		TrainStationScheduleDTO trainStationScheduleDTO=new TrainStationScheduleDTO(trainStationSchedule);
+		
+		TrainLine trainLine=commonDAO.getEntityById(TrainLine.class, trainScheduleSearchDTO.getTrainLineId());
+		TrainLineDTO trainLineDTO=null;
+		if(!(trainLine==null)){
+			trainLineDTO=new TrainLineDTO(trainLine, false);
+		}
+		TrainLineStation fromTrainLineStation=trainStationDAO.getTrainLineStationByStationAndTrainLine(
+				trainScheduleSearchDTO.getFromStationId(),trainScheduleSearchDTO.getTrainLineId());
+		TrainLineStationDTO fromDTO=null;
+		if(!(fromTrainLineStation==null)){
+			fromDTO=new TrainLineStationDTO(fromTrainLineStation);
+		}
+		
+		TrainLineStation toTrainLineStation=trainStationDAO.getTrainLineStationByStationAndTrainLine(
+				trainScheduleSearchDTO.getToStationId(),trainScheduleSearchDTO.getTrainLineId());
+		TrainLineStationDTO toDTO=null;
+		if(!(toTrainLineStation==null)){
+			toDTO=new TrainLineStationDTO(toTrainLineStation);
+		}
+		
+		
+		TrainStationScheduleDTO trainStationScheduleDTO=new TrainStationScheduleDTO(trainStationSchedule,fromDTO,toDTO,trainLineDTO);
 		trainStationScheduleDTO.setTicketPrices(new ArrayList<TicketPriceDTO>());
 		List<TicketPrice> ticketPrices=trainStationScheduleDAO.getTicketPrices(trainStationSchedule.getTrainStationScheduleId());
 		for (TicketPrice ticketPrice : ticketPrices) {

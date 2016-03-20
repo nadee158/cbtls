@@ -196,6 +196,30 @@ public class TrainStation implements Serializable {
 		this.toTrainStationSchedules = toTrainStationSchedules;
 	}
 
+	public void updateFromTrainStation(TrainStation trainStation) {
+		this.geoLocation = trainStation.getGeoLocation();
+		this.trainStationCode = trainStation.getTrainStationCode();
+		this.trainStationName = trainStation.getTrainStationName();
+		this.trainStationContactNumber = trainStation.getTrainStationContactNumber();
+	}
+
+	public TrainStation(long trainStationId, GeoLocation geoLocation, String trainStationCode, String trainStationName,
+			String trainStationContactNumber, YesNoStatus activeStatus, List<TrainLineStation> trainLineStations,
+			List<TrainStationSchedule> fromTrainStationSchedules, List<TrainStationSchedule> toTrainStationSchedules,
+			int versionId) {
+		super();
+		this.trainStationId = trainStationId;
+		this.geoLocation = geoLocation;
+		this.trainStationCode = trainStationCode;
+		this.trainStationName = trainStationName;
+		this.trainStationContactNumber = trainStationContactNumber;
+		this.activeStatus = activeStatus;
+		this.trainLineStations = trainLineStations;
+		this.fromTrainStationSchedules = fromTrainStationSchedules;
+		this.toTrainStationSchedules = toTrainStationSchedules;
+		this.versionId = versionId;
+	}
+
 
 
 	

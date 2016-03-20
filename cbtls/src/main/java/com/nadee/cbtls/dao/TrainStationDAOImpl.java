@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
+import com.nadee.cbtls.model.TrainLineStation;
 import com.nadee.cbtls.model.TrainStation;
 
 @Repository(value="trainStationDAO")
@@ -46,6 +47,17 @@ public class TrainStationDAOImpl implements TrainStationDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TrainStation.class);
 		criteria.add(Restrictions.ilike("trainStationCode",trainStationCode,MatchMode.EXACT));
 		return (TrainStation) criteria.uniqueResult();
+	}
+
+	@Override
+	public TrainLineStation getTrainLineStationByStationAndTrainLine(long trainStationId, long trainLineId)
+			throws Exception {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TrainLineStation.class);
+		criteria.createAlias("trainStation", "trainStation");
+		criteria.createAlias("trainLine", "trainLine");
+		criteria.add(Restrictions.eq("trainStation.trainStationId",trainStationId));
+		criteria.add(Restrictions.eq("trainLine.trainLineId",trainLineId));
+		return (TrainLineStation) criteria.uniqueResult();
 	}
 
 }

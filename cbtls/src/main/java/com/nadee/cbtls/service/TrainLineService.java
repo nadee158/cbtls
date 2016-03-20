@@ -18,4 +18,6 @@ public interface TrainLineService {
 
 	public TrainLine getTrainLineByTrainLineIntegrationId(int trainLineIntegrationId);
 
+	public TrainLine getTrainLineById(long trainLineId);
+
 }
