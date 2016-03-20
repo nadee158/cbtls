@@ -6,27 +6,24 @@
   <div class="row">
 	<div class="col-md-8 col-sm-6 col-xs-12">
 		<div class="form-group">
-          <label class="col-lg-12 control-label" style="text-align:center;"><h3>${trainSearchDTO.startStationName} - ${trainSearchDTO.endStationName}</h3></label>
+          <label class="col-lg-12 control-label" style="text-align:center;">
+          	<h3>${trainScheduleSearchDTO.fromStationName} - ${trainScheduleSearchDTO.toStationName}</h3>
+          </label>
         </div>
-        <c:choose>
-        	<c:when test="${trainSearchDTO.searchType=='Next Train' || trainSearchDTO.searchType=='Today Schedule'}">
-	        	<div class="form-group">
-		          <label class="col-lg-12 control-label" style="text-align:center;"><h4>
-		          		${trainSearchDTO.searchType}
-		          </h4></label>
-		        </div>
-        	</c:when>
-        	<c:otherwise>
-	        	 <c:if test="${! empty trainSearchDTO.startDate}">
-			        <div class="form-group">
-			          <label class="col-lg-12 control-label" style="text-align:center;"><h4>
-			          		From <fmt:formatDate pattern="dd/MM/yyyy" value="${trainSearchDTO.startDate}" /> ${trainSearchDTO.startTime}
-			          		to <fmt:formatDate pattern="dd/MM/yyyy" value="${trainSearchDTO.endDate}" /> ${trainSearchDTO.endTime}
-			          </h4></label>
-			        </div>
-		        </c:if>
-        	</c:otherwise>
-        </c:choose>
+       	<div class="form-group">
+          <label class="col-lg-12 control-label" style="text-align:center;"><h4>
+          		${trainScheduleSearchDTO.searchTypeText}
+          </h4></label>
+        </div>
+       	 <c:if test="${! empty trainScheduleSearchDTO.fromTime}">
+	        <div class="form-group">
+	          <label class="col-lg-12 control-label" style="text-align:center;"><h4>
+	          		(From ${trainScheduleSearchDTO.fromTime}
+	          		to ${trainScheduleSearchDTO.toTime}
+	          		On ${trainScheduleSearchDTO.searchedDate})
+	          </h4></label>
+	        </div>
+        </c:if>
 		
 		
 		<div class="col-lg-12" style="max-width: 100%;">	
@@ -34,39 +31,25 @@
 				<table class="table table-bordered" style="max-width: 100%;">
 					<thead>
 						<tr>
-							<th class="text-center"><strong>Daparture</strong></th>
-							<th class="text-center"><strong>Arrival</strong></th>
+							<th class="text-center"><strong>Arrival at Station</strong></th>
+							<th class="text-center"><strong>Daparture from Station</strong></th>
+							<th class="text-center"><strong>Arrival at Destination</strong></th>
 							<th class="text-center"><strong>Duration(h)</strong></th>	
 							<th class="text-center"><strong>View</strong></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="text-center">10.30 a.m</td>
-							<td class="text-center">11.30 a.m</td>
-							<td class="text-center">0.30</td>	
-							<td class="text-center"><input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails()" type="button"></td>
-						</tr>
-						<c:if test="${! (trainSearchDTO.searchType=='Next Train')}">
+						<c:forEach items="${list}" var="item">
 							<tr>
-								<td class="text-center">11.30 a.m</td>
-								<td class="text-center">12.30 a.m</td>
-								<td class="text-center">0.20</td>	
-								<td class="text-center"><input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails()" type="button"></td>
+								<td><fmt:formatDate value="${item.arrivalTime}"  pattern="hh:mm a" /></td>
+								<td><fmt:formatDate value="${item.departureTime}"  pattern="hh:mm a" /></td>
+								<td><fmt:formatDate value="${item.arrivalAtDestinationTime}"  pattern="hh:mm a" /></td>
+								<td>${item.duration}</td>
+								<td>
+									<input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails(${item.trainStationScheduleId})" type="button">
+								</td>
 							</tr>
-							<tr>
-								<td class="text-center">9.30 a.m</td>
-								<td class="text-center">10.20 a.m</td>
-								<td class="text-center">0.20</td>	
-								<td class="text-center"><input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails()" type="button"></td>
-							</tr>
-							<tr>
-								<td class="text-center">10.30 a.m</td>
-								<td class="text-center">11.30 a.m</td>
-								<td class="text-center">0.30</td>	
-								<td class="text-center"><input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails()" type="button"></td>
-							</tr>
-						</c:if>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -98,7 +81,21 @@ function viewRecommendations(){
 	$('#viewRecommendations').submit();
 }
 
-function viewTrainScheduleDetails(){
-	$('#viewTrainScheduleDetails').submit();
+function viewTrainScheduleDetails(trainStationScheduleId){
+	var data = {}
+	data["tssid"] = trainStationScheduleId;
+	alert(trainStationScheduleId);
+     $.ajax({
+	        url: 'searchTrainScheduleDetails.json',
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify(data),
+	        dataType: 'json',
+	        success: function (data) {
+// 	        	$('#mainForm').attr('action','searchTrain.htm');
+// 	        	$('#mainForm').submit();
+		    }
+	    });
+	
 }
 </script>

@@ -79,7 +79,7 @@
 $(function() {
     $('#datepairExample .time').timepicker({
         'showDuration': true,
-        'timeFormat': 'g:ia'
+        'timeFormat': 'H:i:s'
     });
 
     $('#datepairExample .date').datepicker({
@@ -98,7 +98,7 @@ $(function() {
   });
 
 function loadTrainLines(){
-	$('#trainLine').append('<option value="0">Select</option>')
+	$('#trainLine').html('<option value="0">Select</option>')
 	$.getJSON( "listTrainLines.json", function( data ) {
 		var appendText='';
 		$(data).each(function(index,item) {
@@ -111,8 +111,8 @@ function loadTrainLines(){
 
 function loadTrainStations(trainLineId){
 	if(!(trainLineId<=0)){
-		$('#startStation').append('<option value="0">Select</option>');
-		$('#endStation').append('<option value="0">Select</option>');
+		$('#startStation').html('<option value="0">Select</option>');
+		$('#endStation').html('<option value="0">Select</option>');
 		
 		$.getJSON( "listTrainStationsByTrainLine.json",{trainLineId : trainLineId}, function( data ) {
 			var appendText='';
@@ -144,6 +144,10 @@ function validateForm(){
 function loadNextTrain(){
 	var fromStationId=parseInt($.trim($('#startStation').val()));
 	var toStationId=parseInt($.trim($('#endStation').val()));
+	var searchTypeId=1;
+	var searchTypeText="Next Train";
+	var fromStationName=$("#startStation option:selected").text();
+	var toStationName=$("#endStation option:selected").text();	
 	if(!(fromStationId==0 || toStationId==0)){
 		if(!(fromStationId==toStationId)){
 			// in dd/MM/yyyy
@@ -154,7 +158,8 @@ function loadNextTrain(){
 			var fromTime=$('#hiddenpicker').val();
 			// in HH:mm
 			var toTime="23:59:59";
-			searchTrainSchedule(fromStationId, toStationId, searchedDate, fromTime, toTime);
+			searchTrainSchedule(fromStationId, toStationId, searchedDate, fromTime, toTime
+					,fromStationName,toStationName,searchTypeId,searchTypeText);
 			
 		}else{
 			alert('From and To Stations cant be same!');
@@ -162,21 +167,38 @@ function loadNextTrain(){
 	}else{
 		alert('Please select from station and to station!');
 	}
-	
-	
-
-	//$('#datepairExample .date').datepicker( "setDate", new Date());
-	//$('#searchType').val('Next Train');
-	//$('#mainForm').attr('action','searchTrain.htm');
-	//$('#mainForm').submit();
 }
 
 function advancedSerch(){
-	
+	var fromStationId=parseInt($.trim($('#startStation').val()));
+	var toStationId=parseInt($.trim($('#endStation').val()));
+	var searchTypeId=3;
+	var searchTypeText="Advanced Search";
+	var fromStationName=$("#startStation option:selected").text();
+	var toStationName=$("#endStation option:selected").text();	
+	if(!(fromStationId==0 || toStationId==0)){
+		if(!(fromStationId==toStationId)){
+			// in dd/MM/yyyy
+			var searchedDate=$('#startDate').val();
+			// in HH:mm
+			var fromTime=$('#startTime').val();
+			// in HH:mm
+			var toTime=$('#endTime').val();
+			searchTrainSchedule(fromStationId, toStationId, searchedDate, fromTime, toTime
+					,fromStationName,toStationName,searchTypeId,searchTypeText);
+			
+		}else{
+			alert('From and To Stations cant be same!');
+		}
+	}else{
+		alert('Please select from station and to station!');
+	}
 }
 
-function searchTrainSchedule(fromStationId,toStationId,searchedDate,fromTime,toTime){
-	var trainScheduleSearchDTO=new TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime);
+function searchTrainSchedule(fromStationId,toStationId,searchedDate,fromTime,toTime
+		,fromStationName,toStationName,searchTypeId,searchTypeText){
+	var trainScheduleSearchDTO=new TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime
+			,fromStationName,toStationName,searchTypeId,searchTypeText);
 	 	$.ajax({
 	        url: 'searchTrainSchedules.json',
 	        type: 'POST',
@@ -184,24 +206,48 @@ function searchTrainSchedule(fromStationId,toStationId,searchedDate,fromTime,toT
 	        data: JSON.stringify(trainScheduleSearchDTO),
 	        dataType: 'json',
 	        success: function (data) {
-				console.log(data);
+	        	$('#mainForm').attr('action','searchTrain.htm');
+	        	$('#mainForm').submit();
 		    }
 	    });
 }
 
-function TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime){
+function TrainScheduleSearchDTO(fromStationId,toStationId,searchedDate,fromTime,toTime,fromStationName,toStationName,searchTypeId,searchTypeText){
 	this.fromStationId=fromStationId;
 	this.toStationId=toStationId;
 	this.searchedDate=searchedDate;
 	this.fromTime=fromTime;
 	this.toTime=toTime;
+	this.fromStationName=fromStationName;
+	this.toStationName=toStationName;
+	this.searchTypeId=searchTypeId;
+	this.searchTypeText=searchTypeText;
 }
 
 function loadTodaySchedule(){
-	$('#datepairExample .date').datepicker( "setDate", new Date());
-	$('#searchType').val('Today Schedule');
-	$('#mainForm').attr('action','searchTrain.htm');
-	$('#mainForm').submit();
+	var fromStationId=parseInt($.trim($('#startStation').val()));
+	var toStationId=parseInt($.trim($('#endStation').val()));
+	var searchTypeId=2;
+	var searchTypeText="Today's Schedule";
+	var fromStationName=$("#startStation option:selected").text();
+	var toStationName=$("#endStation option:selected").text();	
+	if(!(fromStationId==0 || toStationId==0)){
+		if(!(fromStationId==toStationId)){
+			// in dd/MM/yyyy
+			var searchedDate=$.datepicker.formatDate('dd/mm/yy', new Date());
+			// in HH:mm
+			var fromTime="00:00:00";
+			// in HH:mm
+			var toTime="23:59:59";
+			searchTrainSchedule(fromStationId, toStationId, searchedDate, fromTime, toTime
+					,fromStationName,toStationName,searchTypeId,searchTypeText);
+			
+		}else{
+			alert('From and To Stations cant be same!');
+		}
+	}else{
+		alert('Please select from station and to station!');
+	}
 }
 
 </script>

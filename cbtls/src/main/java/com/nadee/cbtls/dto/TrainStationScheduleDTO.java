@@ -3,6 +3,7 @@ package com.nadee.cbtls.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.model.TrainStationSchedule;
@@ -24,6 +25,8 @@ public class TrainStationScheduleDTO implements Serializable {
 	private Date arrivalAtDestinationTime;
 	
 	private List<TicketPriceDTO> ticketPrices;
+	
+	private String duration;
 
 	public TrainStationScheduleDTO() {
 		super();
@@ -37,8 +40,18 @@ public class TrainStationScheduleDTO implements Serializable {
 		this.arrivalTime = trainStationSchedule.getArrivalTime();
 		this.departureTime = trainStationSchedule.getDepartureTime();
 		this.arrivalAtDestinationTime = trainStationSchedule.getArrivalAtDestinationTime();
+		this.duration=calculateDuration();
 	}
 	
+
+	private String calculateDuration() {
+		long duration=Math.abs(arrivalAtDestinationTime.getTime() - departureTime.getTime());
+		return String.format("%02d min, %02d sec", 
+			    TimeUnit.MILLISECONDS.toMinutes(duration),
+			    TimeUnit.MILLISECONDS.toSeconds(duration) - 
+			    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
+			);
+	}
 
 	public TrainStationScheduleDTO(long trainStationScheduleId, TrainScheduleDTO trainSchedule,
 			TrainStationDTO fromTrainStation, TrainStationDTO toTrainStation, YesNoStatus activeStatus,
@@ -125,6 +138,14 @@ public class TrainStationScheduleDTO implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 
 	

@@ -78,4 +78,15 @@ public class TrainStationScheduleServiceImpl implements TrainStationScheduleServ
 		return null;
 	}
 
+	@Override
+	public TrainStationScheduleDTO getTrainStationScheduleById(long trainStationScheduleId) throws Exception {
+		TrainStationSchedule trainStationSchedule=commonDAO.getEntityById(TrainStationSchedule.class, trainStationScheduleId);
+		TrainStationScheduleDTO trainStationScheduleDTO=new TrainStationScheduleDTO(trainStationSchedule);
+		trainStationScheduleDTO.setTicketPrices(new ArrayList<TicketPriceDTO>());
+		List<TicketPrice> ticketPrices=trainStationScheduleDAO.getTicketPrices(trainStationSchedule.getTrainStationScheduleId());
+		for (TicketPrice ticketPrice : ticketPrices) {
+			trainStationScheduleDTO.getTicketPrices().add(new TicketPriceDTO(ticketPrice));
+		}
+		return trainStationScheduleDTO;
+	}
 }

@@ -26,6 +26,11 @@ public class TrainScheduleSearchDTO implements Serializable {
 	private String toTime;
 	// //in dd/MM/yyyy
 	// private String currentDate;
+	
+	private String fromStationName;
+	private String toStationName;
+	private int searchTypeId;
+	private String searchTypeText;
 
 	public Date retieveFromTime() {
 		Date fromTimeDate = null;
@@ -65,19 +70,6 @@ public class TrainScheduleSearchDTO implements Serializable {
 		}
 		return searchedDateDate;
 	}
-
-	// public Date retieveCurrentDate(){
-	// Date currentDateDate=null;
-	// if(StringUtils.isNotEmpty(currentDate)){
-	// SimpleDateFormat tf=new SimpleDateFormat("dd/MM/yyyy");
-	// try {
-	// currentDateDate=tf.parse(currentDate);
-	// } catch (ParseException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// return currentDateDate;
-	// }
 
 	public List<TrainFrequency> retrieveTrainFrequencies() {
 		List<TrainFrequency> frequencies = new ArrayList<TrainFrequency>();
@@ -162,17 +154,44 @@ public class TrainScheduleSearchDTO implements Serializable {
 	public void setToTime(String toTime) {
 		this.toTime = toTime;
 	}
-	// public String getCurrentDate() {
-	// return currentDate;
-	// }
-	// public void setCurrentDate(String currentDate) {
-	// this.currentDate = currentDate;
-	// }
+	
 
 	@Override
 	public String toString() {
 		return "TrainScheduleSearchDTO [fromStationId=" + fromStationId + ", toStationId=" + toStationId
 				+ ", searchedDate=" + searchedDate + ", fromTime=" + fromTime + ", toTime=" + toTime + "]";
+	}
+
+	public String getFromStationName() {
+		return fromStationName;
+	}
+
+	public void setFromStationName(String fromStationName) {
+		this.fromStationName = fromStationName;
+	}
+
+	public String getToStationName() {
+		return toStationName;
+	}
+
+	public void setToStationName(String toStationName) {
+		this.toStationName = toStationName;
+	}
+
+	public int getSearchTypeId() {
+		return searchTypeId;
+	}
+
+	public void setSearchTypeId(int searchTypeId) {
+		this.searchTypeId = searchTypeId;
+	}
+
+	public String getSearchTypeText() {
+		return searchTypeText;
+	}
+
+	public void setSearchTypeText(String searchTypeText) {
+		this.searchTypeText = searchTypeText;
 	}
 	
 	

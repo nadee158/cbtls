@@ -52,6 +52,7 @@ public class TrainLineDTO implements Serializable{
 	}
 
 
+	
 	public TrainLineDTO(TrainLine trainLine, boolean full) {
 		super();
 		this.trainLineId = trainLine.getTrainLineId();
