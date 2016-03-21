@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nadee.cbtls.constant.ApplicationConstants;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
+import com.nadee.cbtls.model.GeoLocation;
 import com.nadee.cbtls.model.TrainLineStation;
+import com.nadee.cbtls.model.TrainStation;
 
 @Service("trainLineStationService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -66,6 +68,7 @@ public class TrainLineStationServiceImpl implements TrainLineStationService {
   }
 
   @Override
+  @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
   public String uploadMasterdataFromFile(String fileName) {
     String result = ApplicationConstants.SUCCESS;
     BufferedReader br = null;
@@ -77,24 +80,46 @@ public class TrainLineStationServiceImpl implements TrainLineStationService {
         // use comma as separator
         String[] properties = line.split(cvsSplitBy);
 
-        //TrainStation
-        
+        // TrainStation
         long trainStationId = Long.parseLong(properties[0]);// station_id
-        String stationName = properties[1];// Station
-        
-        =properties[2];// distance_from_start_station
-        =properties[3];// distance_from_end_station
-        
-        String trainStationContactNumber=properties[4];// Telephone No.
-        // next_station_id
-        // previous_station_id
-        // distance_to_next_station
-        // distance_to_previous_station
-        // geo_location_id
-        // latitude
-        // longitude
-        // train_line_station_id
+        String trainStationName = properties[1];// Station
+        long geoLocationId = Long.parseLong(properties[9]);// geo_location_id
+        double latitude = Double.parseDouble(properties[10]);// latitude
+        double longitude = Double.parseDouble(properties[11]);// longitude
+        String trainStationContactNumber = properties[4];// Telephone No.
 
+        TrainStation trainStation = commonDAO.getEntityById(TrainStation.class, trainStationId);
+        trainStation.setTrainStationName(trainStationName);
+        GeoLocation geoLocation = trainStation.getGeoLocation();
+        System.out.println("geoLocation.getGeoLocationId() :" + geoLocation.getGeoLocationId());
+        System.out.println("geoLocationId :" + geoLocationId);
+        geoLocation.setLatitude(latitude);
+        geoLocation.setLongitude(longitude);
+        trainStation.setTrainStationContactNumber(trainStationContactNumber);
+        commonDAO.updateEntity(trainStation);
+
+        long trainLineStationId = Long.parseLong(properties[12]);// train_line_station_id
+        double distanceFromStartStation = Double.parseDouble(properties[2]);// distance_from_start_station
+        double distanceFromEndStation = Double.parseDouble(properties[3]);// distance_from_end_station
+        long nextStationId = Long.parseLong(properties[5]);// next_station_id
+        long previousStationId = Long.parseLong(properties[6]);// previous_station_id
+        double distanceToNextStation = Double.parseDouble(properties[7]);// distance_to_next_station
+        double distanceToPreviousStation = Double.parseDouble(properties[8]);// distance_to_previous_station
+
+        TrainLineStation lineStation =
+            commonDAO.getEntityById(TrainLineStation.class, trainLineStationId);
+        lineStation.setDistanceFromEndStation(distanceFromEndStation);
+        lineStation.setDistanceFromStartStation(distanceFromStartStation);
+        lineStation.setDistanceToNextStation(distanceToNextStation);
+        lineStation.setDistanceToPreviousStation(distanceToPreviousStation);
+
+        TrainStation nextStation = commonDAO.getEntityById(TrainStation.class, nextStationId);
+        lineStation.setNextStation(nextStation);
+
+        TrainStation previousStation =
+            commonDAO.getEntityById(TrainStation.class, previousStationId);
+        lineStation.setPreviousStation(previousStation);
+        commonDAO.updateEntity(lineStation);
 
 
       }
