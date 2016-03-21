@@ -29,7 +29,7 @@
 					<label class="control-label">Total Distance of Journey :-</label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">${item.distance}</label>
+					<label class="control-label">${trainStationScheduleDTO.distance}</label>
 				  </div>
 	        </div>
 		</div>
@@ -39,7 +39,7 @@
 					<label class="control-label">Total Duration of Journey :-</label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">${item.duration}</label>
+					<label class="control-label">${trainStationScheduleDTO.duration}</label>
 				  </div>
 	        </div>
 		</div>

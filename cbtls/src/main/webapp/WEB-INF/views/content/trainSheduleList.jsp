@@ -32,7 +32,7 @@
 					<thead>
 						<tr>
 							<th class="text-center"><strong>Arrival at Station</strong></th>
-							<th class="text-center"><strong>Daparture from Station</strong></th>
+							<th class="text-center"><strong>Departure from Station</strong></th>
 							<th class="text-center"><strong>Arrival at Destination</strong></th>
 							<th class="text-center"><strong>Duration(h)</strong></th>	
 							<th class="text-center"><strong>View</strong></th>
