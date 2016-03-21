@@ -15,6 +15,9 @@ public class TrainStationScheduleDTO implements Serializable {
   private TrainLineDTO trainLineDTO;
 
   private TrainScheduleDTO trainSchedule;
+  
+  
+  add train schedule
 
   private TrainStationDTO fromTrainStation;
 
@@ -59,7 +62,7 @@ public class TrainStationScheduleDTO implements Serializable {
 
 
   private double calculateDistance() {
-    return this.toTrainLineStation.getDistanceFromEndStation()
+    return this.toTrainLineStation.getDistanceFromStartStation()
         - this.fromTrainLineStation.getDistanceFromStartStation();
   }
 

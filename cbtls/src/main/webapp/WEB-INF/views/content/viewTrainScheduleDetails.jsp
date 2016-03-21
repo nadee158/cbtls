@@ -3,6 +3,26 @@
 <div class="container" style="padding-top: 0px;">
   <h1 class="page-header">Train Schedule Details</h1>
   <div class="row">
+  		<div class="col-lg-12">
+			<div class="form-group">
+				  <div class="col-md-4">
+					<label class="control-label">Start Station :- </label>
+				  </div>
+				  <div class="col-md-3">
+					<label class="control-label">${trainStationScheduleDTO.fromTrainStation.trainStationName}</label>
+				  </div>
+	        </div>
+		</div>
+		<div class="col-lg-12">
+			<div class="form-group">
+				  <div class="col-md-4">
+					<label class="control-label">Destination Station :- </label>
+				  </div>
+				  <div class="col-md-3">
+					<label class="control-label">${trainStationScheduleDTO.toTrainStation.trainStationName}</label>
+				  </div>
+	        </div>
+		</div>
 		<div class="col-lg-12">
 			<div class="form-group">
 				  <div class="col-md-4">
@@ -29,7 +49,7 @@
 					<label class="control-label">Total Distance of Journey :-</label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">${trainStationScheduleDTO.distance}</label>
+					<label class="control-label">${trainStationScheduleDTO.distance} Km</label>
 				  </div>
 	        </div>
 		</div>
