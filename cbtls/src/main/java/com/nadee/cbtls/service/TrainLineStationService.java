@@ -6,10 +6,12 @@ import com.nadee.cbtls.model.TrainLineStation;
 
 public interface TrainLineStationService {
 
-	String saveTrainLineStations(List<TrainLineStation> trainLineStations);
+  String saveTrainLineStations(List<TrainLineStation> trainLineStations);
 
-	String updateTrainLineStations(List<TrainLineStation> trainLineStations);
+  String updateTrainLineStations(List<TrainLineStation> trainLineStations);
 
-	String deleteTrainLineStation(long trainLineStationId);
+  String deleteTrainLineStation(long trainLineStationId);
+
+  String uploadMasterdataFromFile(String fileName);
 
 }
