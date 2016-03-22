@@ -29,8 +29,12 @@
             android:label="@string/title_activity_view_train_schedules" >
         </activity>
         <activity
-            android:name="com.nadee.cbtls.activity.ViewRecommendationActivity"
+            android:name=".activity.ViewRecommendationActivity"
             android:label="@string/title_activity_view_recommendation" >
+        </activity>
+        <activity
+            android:name="com.nadee.cbtls.activity.ViewTrainScheduleDetailsActivity"
+            android:label="@string/title_activity_view_train_schedule_details" >
         </activity>
     </application>
 

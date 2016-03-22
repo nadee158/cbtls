@@ -3,33 +3,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/txt_departure_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/txt_arrival_time" />
+     <LinearLayout
+         android:id="@+id/laoyout_linear_wrap"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/txt_arrival_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/txt_duration" />
+         <LinearLayout
+             android:id="@+id/laoyout_txt_views"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:orientation="vertical" >
+             
+             <LinearLayout
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content"
+		         android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/txt_duration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/btn_select" />
+                 <TextView
+                     android:id="@+id/textView1"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Arrival at station :"
+                     android:textAppearance="?android:attr/textAppearanceSmall" />
+                 
+                 <TextView
+	                 android:id="@+id/txt_arrival_time"
+	                 android:layout_width="match_parent"
+	                 android:layout_height="wrap_content"
+	                 android:textStyle="bold"
+	                 android:text="txt_arrival_time" />
+		         
+              </LinearLayout>
+              
+             <LinearLayout
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content"
+		         android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/btn_select"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/global_button"
-        android:padding="2dip"
-        android:text="@string/select"
-        android:textColor="@color/white"
-        android:textSize="12sp" />
+                 <TextView
+                     android:id="@+id/textView2"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Departure from Station :"
+                     android:textAppearance="?android:attr/textAppearanceSmall" />
+                 
+                 <TextView
+	                 android:id="@+id/txt_departure_time"
+	                 android:layout_width="match_parent"
+	                 android:layout_height="wrap_content"
+	                 android:textStyle="bold"
+	                 android:text="txt_departure_time" />
+		         
+              </LinearLayout>
+              
+              <LinearLayout
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content"
+		         android:orientation="horizontal" >
+
+                 <TextView
+                     android:id="@+id/textView3"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Arrival at Destination :"
+                     android:textAppearance="?android:attr/textAppearanceSmall" />
+                 
+                 <TextView
+	                 android:id="@+id/txt_arrival_at_destination"
+	                 android:layout_width="match_parent"
+	                 android:layout_height="wrap_content"
+	                 android:textStyle="bold"
+	                 android:text="txt_departure_time" />
+		         
+              </LinearLayout>
+              
+              <LinearLayout
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content"
+		         android:orientation="horizontal" >
+
+                 <TextView
+                     android:id="@+id/textView4"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Duration (h) :"
+                     android:textAppearance="?android:attr/textAppearanceSmall" />
+                 
+                <TextView
+                 android:id="@+id/txt_duration"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textStyle="bold"
+                 android:text="txt_duration" />
+		         
+              </LinearLayout>
+
+             
+         </LinearLayout>
+
+         <Button
+             android:id="@+id/btn_select"
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:background="@drawable/global_button"
+             android:text="@string/select"
+             android:textColor="@color/white"
+             android:textSize="12sp" />
+     </LinearLayout>
 
 </RelativeLayout>

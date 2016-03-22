@@ -67,6 +67,7 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		setTitle("Search Trains - CBTLS");
 		context = this;
 		initializeControllers();
 		// Download JSON file AsyncTask
@@ -109,7 +110,14 @@ public class MainActivity extends FragmentActivity {
 							trainScheduleSearchDTO.setSearchTypeId(1);
 							trainScheduleSearchDTO
 									.setSearchTypeText("Next Train");
+							trainScheduleSearchDTO
+									.setFromStationName(selecetdFromStation
+											.getTrainStationName());
+							trainScheduleSearchDTO
+									.setToStationName(selecetdToStation
+											.getTrainStationName());
 							searchTrainSchedule(trainScheduleSearchDTO);
+
 						} else {
 							Toast.makeText(context,
 									"From and to stations can't be the same!",
@@ -152,6 +160,13 @@ public class MainActivity extends FragmentActivity {
 							trainScheduleSearchDTO.setSearchTypeId(2);
 							trainScheduleSearchDTO
 									.setSearchTypeText("Today's Schedule");
+							trainScheduleSearchDTO
+									.setFromStationName(selecetdFromStation
+											.getTrainStationName());
+							trainScheduleSearchDTO
+									.setToStationName(selecetdToStation
+											.getTrainStationName());
+
 							searchTrainSchedule(trainScheduleSearchDTO);
 						} else {
 							Toast.makeText(context,
@@ -199,6 +214,12 @@ public class MainActivity extends FragmentActivity {
 								trainScheduleSearchDTO.setSearchTypeId(3);
 								trainScheduleSearchDTO
 										.setSearchTypeText("Advanced Search");
+								trainScheduleSearchDTO
+										.setFromStationName(selecetdFromStation
+												.getTrainStationName());
+								trainScheduleSearchDTO
+										.setToStationName(selecetdToStation
+												.getTrainStationName());
 								searchTrainSchedule(trainScheduleSearchDTO);
 							} else {
 								Toast.makeText(

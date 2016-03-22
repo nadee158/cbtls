@@ -9,14 +9,18 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nadee.cbtls.R;
@@ -42,6 +46,7 @@ public class ViewTrainSchedulesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_train_schedules);
+		setTitle("Train Schedule List - CBTLS");
 		Bundle extras = getIntent().getExtras();
 		context = this;
 		if (extras != null) {
@@ -49,6 +54,46 @@ public class ViewTrainSchedulesActivity extends Activity {
 					.get("TRAIN_SCHEDULE_SEARCH_DTO");
 
 		}
+		TextView textViewStationTitle = (TextView) findViewById(R.id.textView_StationTitle);
+		String stationTitle = trainScheduleSearchDTO.getFromStationName()
+				+ " - " + trainScheduleSearchDTO.getToStationName();
+		textViewStationTitle.setText(stationTitle);
+
+		TextView textViewSearchType = (TextView) findViewById(R.id.textView_SearchType);
+		textViewSearchType.setText(trainScheduleSearchDTO.getSearchTypeText());
+
+		TextView textViewTimeTitle = (TextView) findViewById(R.id.textView_TimeTitle);
+		String timeTitle = "(From " + trainScheduleSearchDTO.getFromTime()
+				+ "to " + trainScheduleSearchDTO.getToTime() + " On "
+				+ trainScheduleSearchDTO.getSearchedDate() + ")";
+		textViewTimeTitle.setText(timeTitle);
+
+		Button button = (Button) findViewById(R.id.btn_search_again);
+		button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getBaseContext(), MainActivity.class);
+				intent.putExtra("TRAIN_SCHEDULE_SEARCH_DTO",
+						trainScheduleSearchDTO);
+				startActivity(intent);
+				ViewTrainSchedulesActivity.this.finish();
+
+			}
+		});
+
+		Button button1 = (Button) findViewById(R.id.btn_view_recommendations);
+		button1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getBaseContext(),
+						ViewRecommendationActivity.class);
+				intent.putExtra("TRAIN_SCHEDULE_SEARCH_DTO",
+						trainScheduleSearchDTO);
+				startActivity(intent);
+				ViewTrainSchedulesActivity.this.finish();
+			}
+		});
+
 		new SearchTrainSchedulesJSON().execute();
 	}
 
