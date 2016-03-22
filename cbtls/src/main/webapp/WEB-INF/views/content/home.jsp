@@ -209,7 +209,7 @@ function searchTrainSchedule(fromStationId,toStationId,searchedDate,fromTime,toT
 	        dataType: 'json',
 	        success: function (data) {
 	        	$('#mainForm').attr('action','searchTrain.htm');
-	        	//$('#mainForm').submit();
+	        	$('#mainForm').submit();
 		    }
 	    });
 }

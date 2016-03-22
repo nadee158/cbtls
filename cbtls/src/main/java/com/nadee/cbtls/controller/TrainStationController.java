@@ -111,6 +111,7 @@ public class TrainStationController {
 		return new ModelAndView("manageTrainStations", modelMap);
 	}
 	
+	
 	@RequestMapping(value = "/listTrainStationsByTrainLine", method = RequestMethod.GET)
 	public @ResponseBody List<TrainStationDTO> listAllTrainStationsByTrainLine(@RequestParam("trainLineId") long trainLineId){
 		List<TrainStationDTO> trainStations=new ArrayList<TrainStationDTO>();
