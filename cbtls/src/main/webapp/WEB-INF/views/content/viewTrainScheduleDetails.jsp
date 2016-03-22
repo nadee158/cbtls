@@ -6,6 +6,20 @@
   		<div class="col-lg-12">
 			<div class="form-group">
 				  <div class="col-md-4">
+					<label class="control-label">Train Details :- </label>
+				  </div>
+				  <div class="col-md-3">
+					<label class="control-label">
+						Train no. ${trainStationScheduleDTO.trainSchedule.trainNumber}
+						From ${trainStationScheduleDTO.trainSchedule.startStation.trainStationName} 
+						to ${trainStationScheduleDTO.trainSchedule.endStation.trainStationName}
+					</label>
+				  </div>
+	        </div>
+		</div>
+  		<div class="col-lg-12">
+			<div class="form-group">
+				  <div class="col-md-4">
 					<label class="control-label">Start Station :- </label>
 				  </div>
 				  <div class="col-md-3">
@@ -69,7 +83,7 @@
 					<label class="control-label">Train Type :- </label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">Long Distance</label>
+					<label class="control-label">${trainStationScheduleDTO.trainSchedule.trainType}</label>
 				  </div>
 	        </div>
 		</div>
@@ -79,7 +93,7 @@
 					<label class="control-label">Train Frequency :- </label>
 				  </div>
 				  <div class="col-md-3">
-					<label class="control-label">Daily</label>
+					<label class="control-label">${trainStationScheduleDTO.trainSchedule.trainFrequency}</label>
 				  </div>
 	        </div>
 		</div>

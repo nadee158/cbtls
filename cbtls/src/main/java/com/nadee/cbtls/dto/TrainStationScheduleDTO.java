@@ -15,9 +15,6 @@ public class TrainStationScheduleDTO implements Serializable {
   private TrainLineDTO trainLineDTO;
 
   private TrainScheduleDTO trainSchedule;
-  
-  
-  add train schedule
 
   private TrainStationDTO fromTrainStation;
 

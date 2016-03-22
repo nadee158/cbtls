@@ -3,7 +3,6 @@ package com.nadee.cbtls.dto;
 import java.io.Serializable;
 
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
-import com.nadee.cbtls.model.GeoLocation;
 import com.nadee.cbtls.model.TrainStation;
 
 public class TrainStationDTO implements Serializable {
@@ -13,7 +12,7 @@ public class TrainStationDTO implements Serializable {
 
 	private long trainStationId;
 
-	private GeoLocation geoLocation;
+	private GeoLocationDTO geoLocation;
 
 	private String trainStationCode;
 
@@ -31,11 +30,12 @@ public class TrainStationDTO implements Serializable {
 		this.trainStationId = trainStationId;
 	}
 
-	public GeoLocation getGeoLocation() {
+
+	public GeoLocationDTO getGeoLocation() {
 		return geoLocation;
 	}
 
-	public void setGeoLocation(GeoLocation geoLocation) {
+	public void setGeoLocation(GeoLocationDTO geoLocation) {
 		this.geoLocation = geoLocation;
 	}
 
@@ -79,7 +79,7 @@ public class TrainStationDTO implements Serializable {
 		super();
 		if(!(trainStation==null)){
 			this.trainStationId = trainStation.getTrainStationId();
-			this.geoLocation = trainStation.getGeoLocation();
+			this.geoLocation = new GeoLocationDTO(trainStation.getGeoLocation());
 			this.trainStationCode = trainStation.getTrainStationCode();
 			this.trainStationName = trainStation.getTrainStationName();
 			this.trainStationContactNumber = trainStation.getTrainStationContactNumber();
