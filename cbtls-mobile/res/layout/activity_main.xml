@@ -29,6 +29,13 @@
 	            android:gravity="center_horizontal"
 	            android:text="@string/search_train"
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <Spinner
+                android:id="@+id/spinner_train_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:prompt="@string/train_line_prompt" />
 
             <Spinner
                 android:id="@+id/spinner_from_station"
@@ -143,18 +150,22 @@
                     android:padding="5dip"
                     android:text="@string/to_time"
                     android:textColor="@color/white" />
+                
+                
+                 
             </LinearLayout>
+            
+             <Button
+		            android:id="@+id/btn_search"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/global_button"
+		            android:text="@string/search"
+		            android:textColor="@color/white" />
+            
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/global_button"
-            android:text="@string/search"
-            android:textColor="@color/white" />
+       
 
         
         

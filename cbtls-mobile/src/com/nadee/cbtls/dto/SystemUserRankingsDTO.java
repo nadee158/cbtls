@@ -63,6 +63,14 @@ public class SystemUserRankingsDTO implements Serializable {
 		this.averageRate = averageRate;
 	}
 
+	public String getActiveStatus() {
+		return activeStatus;
+	}
+
+	public void setActiveStatus(String activeStatus) {
+		this.activeStatus = activeStatus;
+	}
+
 	public long getSystemUserId() {
 		return systemUserId;
 	}
@@ -77,14 +85,6 @@ public class SystemUserRankingsDTO implements Serializable {
 
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
-	}
-
-	public String getActiveStatus() {
-		return activeStatus;
-	}
-
-	public void setActiveStatus(String activeStatus) {
-		this.activeStatus = activeStatus;
 	}
 
 }

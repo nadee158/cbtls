@@ -8,7 +8,7 @@ public class TrainStationDTO implements Serializable {
 
 	private long trainStationId;
 
-	private GeoLocation geoLocation;
+	private GeoLocationDTO geoLocation;
 
 	private String trainStationCode;
 
@@ -26,11 +26,11 @@ public class TrainStationDTO implements Serializable {
 		this.trainStationId = trainStationId;
 	}
 
-	public GeoLocation getGeoLocation() {
+	public GeoLocationDTO getGeoLocation() {
 		return geoLocation;
 	}
 
-	public void setGeoLocation(GeoLocation geoLocation) {
+	public void setGeoLocation(GeoLocationDTO geoLocation) {
 		this.geoLocation = geoLocation;
 	}
 

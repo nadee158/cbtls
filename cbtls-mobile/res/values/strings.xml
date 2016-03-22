@@ -4,6 +4,7 @@
     <string name="app_name">CbtlsMobile</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="train_line_prompt">Select Train Line</string>
     <string name="from_station_prompt">Select From Station</string>
     <string name="to_station_prompt">Select To Station</string>
     <string name="next_train">Next train</string>
