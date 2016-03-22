@@ -12,3 +12,8 @@ mysql -u root -p cbtlsdb  < F:/MSCFinalProject/WebApplicationWorkspace/cbtls/Des
 
 
 mysql -u root -p cbtlsdb  < F:/MSCFinalProject/WebApplicationWorkspace/cbtls/DesignDiagrams/MasterDataFiles/db_trainlines_trainstations.sql
+
+
+mysqldump -u root -p cbtlsdb > F:/MSCFinalProject/WebApplicationWorkspace/cbtls/db_backups/latest_database.sql
+
+mysql -u root -p cbtlsdb < F:/MSCFinalProject/WebApplicationWorkspace/cbtls/db_backups/latest_database_v1.sql
