@@ -38,26 +38,7 @@ public class HomeController {
   //
   //
 
-  //
-  // @RequestMapping(value = "/activeUpdateLocation", method = RequestMethod.POST)
-  // public ModelAndView activeUpdateLocation(HttpServletRequest request) {
-  // ModelMap modelMap = new ModelMap();
-  // TrainSearchDTO trainSearchDTO = (TrainSearchDTO)
-  // request.getSession().getAttribute("trainSearchDTO");
-  // System.out.println(trainSearchDTO.getStartDate());
-  // modelMap.put("trainSearchDTO", trainSearchDTO);
-  // return new ModelAndView("activeUpdateLocation", modelMap);
-  // }
-  //
-  // @RequestMapping(value = "/passiveUpdateLocation", method = RequestMethod.POST)
-  // public ModelAndView passiveUpdateLocation(HttpServletRequest request) {
-  // ModelMap modelMap = new ModelMap();
-  // TrainSearchDTO trainSearchDTO = (TrainSearchDTO)
-  // request.getSession().getAttribute("trainSearchDTO");
-  // System.out.println(trainSearchDTO.getStartDate());
-  // modelMap.put("trainSearchDTO", trainSearchDTO);
-  // return new ModelAndView("passiveUpdateLocation", modelMap);
-  // }
+  
   //
   //
   // @RequestMapping(value = "/viewAnalysisOfTrain", method = RequestMethod.POST)
@@ -70,15 +51,7 @@ public class HomeController {
   // return new ModelAndView("viewAnalysisOfTrain", modelMap);
   // }
   //
-  // @RequestMapping(value = "/updateCompartmentDetails", method = RequestMethod.POST)
-  // public ModelAndView updateCompartmentDetails(HttpServletRequest request) {
-  // ModelMap modelMap = new ModelMap();
-  // TrainSearchDTO trainSearchDTO = (TrainSearchDTO)
-  // request.getSession().getAttribute("trainSearchDTO");
-  // System.out.println(trainSearchDTO.getStartDate());
-  // modelMap.put("trainSearchDTO", trainSearchDTO);
-  // return new ModelAndView("updateCompartmentDetails", modelMap);
-  // }
+ 
   //
   // @RequestMapping(value = "/setNotificationAlarm", method = RequestMethod.POST)
   // public ModelAndView setNotificationAlarm(HttpServletRequest request) {

@@ -37,6 +37,12 @@ public class TrainScheduleTurnLocationPassiveUpdate implements Serializable{
 	@JoinColumn(name="train_schedule_turn_id",nullable=false)
 	private TrainScheduleTurn trainScheduleTurn;
 	
+	@Column(name = "latitude", nullable = false)
+	private float latitude;
+
+	@Column(name = "longitude", nullable = false)
+	private float longitude;
+	
 	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="last_station_id",nullable=false)
 	private TrainStation lastStation;
@@ -134,6 +140,22 @@ public class TrainScheduleTurnLocationPassiveUpdate implements Serializable{
 
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+
+	public float getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
+
+	public float getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
 	}
 
 	

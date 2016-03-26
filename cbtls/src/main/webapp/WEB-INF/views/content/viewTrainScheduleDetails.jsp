@@ -129,8 +129,8 @@
 	</div>
     
   </div>
-  	<form action="activeUpdateLocation.htm" id="activeUpdateLocation" method="post"></form>
-  	<form action="passiveUpdateLocation.htm" id="passiveUpdateLocation" method="post"></form>
+  	<form action="getActiveUpdateLocation.htm" id="activeUpdateLocation" method="post"></form>
+  	<form action="getPassiveUpdateLocation.htm" id="passiveUpdateLocation" method="post"></form>
     <form action="viewTrainScheduleDetails.htm" id="viewTrainScheduleDetails" method="post"></form>
     <form action="viewAnalysisOfTrain.htm" id="viewAnalysisOfTrain" method="post"></form>
     <form action="viewTrainLocation.htm" id="viewTrainLocation" method="post"></form>
