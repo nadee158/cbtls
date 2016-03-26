@@ -66,6 +66,10 @@ public class TrainScheduleTurn implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private List<TrainScheduleTurnLocationPassiveUpdate> trainScheduleTurnLocationPassiveUpdates;
 	
+	@OneToMany(mappedBy = "trainScheduleTurn", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private List<TrainScheduleTurnCompartmentUpdate> trainScheduleTurnCompartmentUpdates;
+	
 	@Enumerated(EnumType.STRING)
     @Column(name="active_status")
 	private YesNoStatus activeStatus;
@@ -175,6 +179,15 @@ public class TrainScheduleTurn implements Serializable {
 	public void setTrainScheduleTurnLocationPassiveUpdates(
 			List<TrainScheduleTurnLocationPassiveUpdate> trainScheduleTurnLocationPassiveUpdates) {
 		this.trainScheduleTurnLocationPassiveUpdates = trainScheduleTurnLocationPassiveUpdates;
+	}
+
+	public List<TrainScheduleTurnCompartmentUpdate> getTrainScheduleTurnCompartmentUpdates() {
+		return trainScheduleTurnCompartmentUpdates;
+	}
+
+	public void setTrainScheduleTurnCompartmentUpdates(
+			List<TrainScheduleTurnCompartmentUpdate> trainScheduleTurnCompartmentUpdates) {
+		this.trainScheduleTurnCompartmentUpdates = trainScheduleTurnCompartmentUpdates;
 	}
 
 	

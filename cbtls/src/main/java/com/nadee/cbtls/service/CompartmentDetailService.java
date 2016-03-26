@@ -4,6 +4,6 @@ import com.nadee.cbtls.dto.CompartmentDetailUpdateDTO;
 
 public interface CompartmentDetailService {
 
-	String updateCompartmentDetails(CompartmentDetailUpdateDTO compartmentDetailUpdateDTO);
+	String updateCompartmentDetails(CompartmentDetailUpdateDTO compartmentDetailUpdateDTO) throws Exception;
 
 }

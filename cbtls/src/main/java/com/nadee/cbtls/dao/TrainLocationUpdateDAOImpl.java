@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nadee.cbtls.model.TrainScheduleTurn;
+import com.nadee.cbtls.model.TrainScheduleTurnCompartmentUpdate;
 import com.nadee.cbtls.model.TrainScheduleTurnLocationPassiveUpdate;
 import com.nadee.cbtls.model.TrainScheduleTurnLocationUpdate;
 import com.nadee.cbtls.model.TrainStationScheduleTurn;
@@ -49,8 +50,14 @@ public class TrainLocationUpdateDAOImpl implements TrainLocationUpdateDAO{
 		}
 		
 		if(!(trainScheduleTurn.getTrainStationScheduleTurn()==null)){
-			for (TrainStationScheduleTurn locationUpdate : trainScheduleTurn.getTrainStationScheduleTurn()) {
-				System.out.println(locationUpdate.getTrainStationScheduleTurnId());
+			for (TrainStationScheduleTurn trainStationScheduleTurn : trainScheduleTurn.getTrainStationScheduleTurn()) {
+				System.out.println(trainStationScheduleTurn.getTrainStationScheduleTurnId());
+			}
+		}
+		
+		if(!(trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()==null)){
+			for (TrainScheduleTurnCompartmentUpdate update : trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()) {
+				System.out.println(update.getId());
 			}
 		}
 		return trainScheduleTurn;
