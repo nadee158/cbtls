@@ -153,7 +153,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 		
 		LocatedType locatedType=LocatedType.fromCode(dto.getLocatedType());
 		update.setLocatedType(locatedType);
-		TrainScheduleTurn trainScheduleTurn=trainLocationUpdateDAO.fetchTrainScheduleTurn(dto.getTrainScheduleId(), dto.getLocatedTimeAsDate());
+		TrainScheduleTurn trainScheduleTurn=trainLocationUpdateDAO.fetchTrainScheduleTurn(dto.getTrainScheduleId(), Calendar.getInstance().getTime());
 		System.out.println("trainScheduleTurn :"  + trainScheduleTurn);
 		
 		

@@ -38,7 +38,6 @@ public class TrainLocationUpdateController {
 		ModelMap modelMap = new ModelMap();
 		long tssid=SessionUtil.getFromSession("SEARCHED_SCHEDULE_DETAIL_ID");
 		modelMap.put("tssid", tssid);
-		
 		modelMap.put("trainStationScheduleDTO", SessionUtil.getFromSession("SEARCHED_SCHEDULE_DETAIL"));
 		return new ModelAndView("activeUpdateLocation", modelMap);
 	}
