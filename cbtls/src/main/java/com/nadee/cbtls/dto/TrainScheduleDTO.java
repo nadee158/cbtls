@@ -33,29 +33,32 @@ public class TrainScheduleDTO implements Serializable {
 
 	public TrainScheduleDTO(TrainSchedule trainSchedule) {
 		super();
-		this.trainScheduleId = trainSchedule.getTrainScheduleId();
-		switch (trainSchedule.getTrainFrequency()) {
-		case DAILY:
-			this.trainFrequency = DAILY;
-			break;
-		case MONDAY_TO_FRIDAY:	
-			this.trainFrequency = MONDAY_TO_FRIDAY;
-			break;
-		case SATURDAY_AND_SUNDAY:
-			this.trainFrequency = SATURDAY_AND_SUNDAY;
-			break;
-		case SUNDAYS_AND_HOLIDAYS:
-			this.trainFrequency = SUNDAYS_AND_HOLIDAYS;
-			break;
-		default:
-			break;
+		if(!(trainSchedule==null)){
+			this.trainScheduleId = trainSchedule.getTrainScheduleId();
+			switch (trainSchedule.getTrainFrequency()) {
+			case DAILY:
+				this.trainFrequency = DAILY;
+				break;
+			case MONDAY_TO_FRIDAY:	
+				this.trainFrequency = MONDAY_TO_FRIDAY;
+				break;
+			case SATURDAY_AND_SUNDAY:
+				this.trainFrequency = SATURDAY_AND_SUNDAY;
+				break;
+			case SUNDAYS_AND_HOLIDAYS:
+				this.trainFrequency = SUNDAYS_AND_HOLIDAYS;
+				break;
+			default:
+				break;
+			}
+			
+			this.trainName = trainSchedule.getTrainName();
+			this.trainNumber = trainSchedule.getTrainNumber();
+			this.startStation = new TrainStationDTO(trainSchedule.getStartStation());
+			this.endStation = new TrainStationDTO(trainSchedule.getEndStation());
+			this.trainType = trainSchedule.getTrainType().getTrainTypeName();
 		}
 		
-		this.trainName = trainSchedule.getTrainName();
-		this.trainNumber = trainSchedule.getTrainNumber();
-		this.startStation = new TrainStationDTO(trainSchedule.getStartStation());
-		this.endStation = new TrainStationDTO(trainSchedule.getEndStation());
-		this.trainType = trainSchedule.getTrainType().getTrainTypeName();
 	}
 
 	public TrainScheduleDTO(long trainScheduleId, String trainFrequency, String trainName, String trainNumber,

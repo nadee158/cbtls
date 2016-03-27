@@ -18,6 +18,7 @@ import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dao.SystemUserDAO;
 import com.nadee.cbtls.model.MobileDevice;
 import com.nadee.cbtls.model.SystemUser;
+import com.nadee.cbtls.model.SystemUserFavouriteSchedules;
 import com.nadee.cbtls.model.SystemUserMobileDevice;
 import com.nadee.cbtls.model.UserRole;
 
@@ -102,6 +103,11 @@ public class SystemUserServiceImpl implements SystemUserService {
 		long userId = commonDAO.createEntity(systemUser);
 		systemUser.setUserId(userId);
 		return systemUser;
+	}
+	
+	@Override
+	public List<SystemUserFavouriteSchedules> listFavouriteSchedules(long userId) {
+		return systemUserDAO.listFavouriteSchedules(userId);
 	}
 
 

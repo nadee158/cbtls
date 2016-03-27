@@ -1,5 +1,7 @@
 package com.nadee.cbtls.dao;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nadee.cbtls.model.SystemUser;
+import com.nadee.cbtls.model.SystemUserFavouriteSchedules;
 import com.nadee.cbtls.model.SystemUserMobileDevice;
 
 @Repository(value="systemUserDAO")
@@ -57,6 +60,23 @@ public class SystemUserDAOImpl implements SystemUserDAO{
 		}
 		//System.out.println("systemUser :" + systemUser);
 		return systemUserMobileDevice;
+	}
+	
+	@Override
+	public List<SystemUserFavouriteSchedules> listFavouriteSchedules(long userId) {
+		Criteria criteria=sessionFactory.getCurrentSession().createCriteria(SystemUserFavouriteSchedules.class);
+		criteria.createAlias("systemUser", "systemUser");
+		criteria.add(Restrictions.eq("systemUser.userId", userId));
+		List<SystemUserFavouriteSchedules> systemUserFavouriteSchedules=criteria.list();
+		if(!(systemUserFavouriteSchedules==null || systemUserFavouriteSchedules.isEmpty())){
+			for (SystemUserFavouriteSchedules systemUserFavouriteSchedule: systemUserFavouriteSchedules) {
+				if(!(systemUserFavouriteSchedule.getTrainStationSchedule()==null)){
+					Hibernate.initialize(systemUserFavouriteSchedule.getTrainStationSchedule());
+				}
+			}
+		}
+		//System.out.println("systemUser :" + systemUser);
+		return systemUserFavouriteSchedules;
 	}
 
 }

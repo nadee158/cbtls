@@ -1,8 +1,6 @@
 package com.nadee.cbtls.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,9 +35,9 @@ public class SystemUserFavouriteSchedules implements Serializable {
 	private long systemUserFavouriteScheduleId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "train_schedule_id", referencedColumnName = "train_schedule_id")
+    @JoinColumn(name = "train_station_schedule_id", referencedColumnName = "train_station_schedule_id")
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)	
-	private TrainSchedule trainSchedule;
+	private TrainStationSchedule trainStationSchedule;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "system_user_id", referencedColumnName = "user_id")
@@ -54,22 +52,14 @@ public class SystemUserFavouriteSchedules implements Serializable {
     @Column(name = "version_id")
 	private int versionId;
 	
-	public Map<String,Object> toBasicMap(){
-		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("systemUserFavouriteScheduleId", systemUserFavouriteScheduleId);
-		map.put("trainSchedule", trainSchedule);
-		map.put("activeStatus", activeStatus);
-		map.put("systemUser", systemUser);
-		map.put("versionId", versionId);
-		return map;
-	}
+	
 	
 	@Override
 	public String toString() {
-		return this.toBasicMap().toString();
+		return "SystemUserFavouriteSchedules [systemUserFavouriteScheduleId=" + systemUserFavouriteScheduleId
+				+ ", trainStationSchedule=" + trainStationSchedule + ", systemUser=" + systemUser + ", activeStatus="
+				+ activeStatus + ", versionId=" + versionId + "]";
 	}
-	
-	
 	public SystemUser getSystemUser() {
 		return systemUser;
 	}
@@ -96,14 +86,13 @@ public class SystemUserFavouriteSchedules implements Serializable {
 	public void setSystemUserFavouriteScheduleId(long systemUserFavouriteScheduleId) {
 		this.systemUserFavouriteScheduleId = systemUserFavouriteScheduleId;
 	}
-
-	public TrainSchedule getTrainSchedule() {
-		return trainSchedule;
+	public TrainStationSchedule getTrainStationSchedule() {
+		return trainStationSchedule;
+	}
+	public void setTrainStationSchedule(TrainStationSchedule trainStationSchedule) {
+		this.trainStationSchedule = trainStationSchedule;
 	}
 
-	public void setTrainSchedule(TrainSchedule trainSchedule) {
-		this.trainSchedule = trainSchedule;
-	}
 
 	
 	

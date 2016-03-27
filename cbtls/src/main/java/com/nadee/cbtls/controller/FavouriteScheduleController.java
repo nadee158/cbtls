@@ -1,6 +1,8 @@
 package com.nadee.cbtls.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nadee.cbtls.constant.ApplicationConstants;
 import com.nadee.cbtls.dto.FavouriteScheduleDTO;
+import com.nadee.cbtls.dto.TrainStationScheduleDTO;
 import com.nadee.cbtls.service.FavouriteScheduleService;
 
 @Controller
@@ -42,6 +45,20 @@ public class FavouriteScheduleController {
 		}
 		map.put(ApplicationConstants.RESULT, ApplicationConstants.ERROR);
 		return map;
+	}
+	
+	
+	@RequestMapping(value = "/listFavourites", method = RequestMethod.POST)
+	public @ResponseBody List<TrainStationScheduleDTO> listFavourites(
+			@RequestBody FavouriteScheduleDTO favouriteScheduleDTO ){
+		List<TrainStationScheduleDTO> list=new ArrayList<TrainStationScheduleDTO>();
+		try {
+			System.out.println("favouriteScheduleDTO :" + favouriteScheduleDTO);
+			list=favouriteScheduleService.listFavourites(favouriteScheduleDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

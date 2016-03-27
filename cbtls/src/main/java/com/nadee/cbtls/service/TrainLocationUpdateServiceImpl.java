@@ -29,7 +29,7 @@ import com.nadee.cbtls.model.TrainStation;
 import com.nadee.cbtls.model.TrainStationSchedule;
 import com.nadee.cbtls.model.TrainStationScheduleTurn;
 
-@Service("trainScheduleService")
+@Service("trainLocationUpdateService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateService {
 	
