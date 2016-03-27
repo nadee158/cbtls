@@ -23,6 +23,8 @@ public class CompartmentDetailUpdateDTO implements Serializable {
 	private long trainScheduleId;
 	
 	private long updatedUser;
+	
+	private String systemUserMobileDevice;
 
 	public int getCompartmentNumber() {
 		return compartmentNumber;
@@ -94,6 +96,14 @@ public class CompartmentDetailUpdateDTO implements Serializable {
 
 	public void setUpdatedUser(long updatedUser) {
 		this.updatedUser = updatedUser;
+	}
+
+	public String getSystemUserMobileDevice() {
+		return systemUserMobileDevice;
+	}
+
+	public void setSystemUserMobileDevice(String systemUserMobileDevice) {
+		this.systemUserMobileDevice = systemUserMobileDevice;
 	}
 	
 	

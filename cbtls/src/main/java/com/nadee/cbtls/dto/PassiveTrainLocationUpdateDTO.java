@@ -27,6 +27,8 @@ public class PassiveTrainLocationUpdateDTO implements Serializable {
 	private int locatedType;
 	
 	private String locatedTime;
+	
+	private String systemUserMobileDevice;
 
 	public long getTrainStationScheduleId() {
 		return trainStationScheduleId;
@@ -104,6 +106,14 @@ public class PassiveTrainLocationUpdateDTO implements Serializable {
 
 	public void setLocatedTime(String locatedTime) {
 		this.locatedTime = locatedTime;
+	}
+
+	public String getSystemUserMobileDevice() {
+		return systemUserMobileDevice;
+	}
+
+	public void setSystemUserMobileDevice(String systemUserMobileDevice) {
+		this.systemUserMobileDevice = systemUserMobileDevice;
 	}
 	
 	

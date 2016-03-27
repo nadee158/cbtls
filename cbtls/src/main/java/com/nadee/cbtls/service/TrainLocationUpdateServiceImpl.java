@@ -3,12 +3,16 @@ package com.nadee.cbtls.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nadee.cbtls.constant.ApplicationConstants;
 import com.nadee.cbtls.constant.GeneralEnumConstants.LocatedType;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
@@ -16,6 +20,7 @@ import com.nadee.cbtls.dao.TrainLocationUpdateDAO;
 import com.nadee.cbtls.dto.ActiveTrainLocationUpdateDTO;
 import com.nadee.cbtls.dto.PassiveTrainLocationUpdateDTO;
 import com.nadee.cbtls.model.SystemUser;
+import com.nadee.cbtls.model.SystemUserMobileDevice;
 import com.nadee.cbtls.model.TrainSchedule;
 import com.nadee.cbtls.model.TrainScheduleTurn;
 import com.nadee.cbtls.model.TrainScheduleTurnLocationPassiveUpdate;
@@ -33,9 +38,14 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 	
 	@Autowired
 	private TrainLocationUpdateDAO trainLocationUpdateDAO;
+	
+	@Autowired
+	private SystemUserService systemUserService;
 
 	@Override
-	public String activeUpdateTrainLocation(ActiveTrainLocationUpdateDTO dto)throws Exception {
+	public Map<String,Object> activeUpdateTrainLocation(ActiveTrainLocationUpdateDTO dto)throws Exception {
+		Map<String,Object> resultMap=new HashMap<String,Object>();
+		
 		TrainScheduleTurnLocationUpdate trainScheduleTurnLocationUpdate=new TrainScheduleTurnLocationUpdate();
 		TrainStation lastStation=commonDAO.getEntityById(TrainStation.class, dto.getLastStationId());
 		trainScheduleTurnLocationUpdate.setLastStation(lastStation);
@@ -65,10 +75,28 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 		
 		trainScheduleTurnLocationUpdate.setTrainScheduleTurn(trainScheduleTurn);
 		trainScheduleTurnLocationUpdate.setUpdatedTime(Calendar.getInstance().getTime());
+		
 		SystemUser systemUser=null;
-		if(!(dto.getUpdatedUser()==0)){
-			systemUser=commonDAO.getEntityById(SystemUser.class, dto.getUpdatedUser());
+		
+		if(StringUtils.isNotEmpty(dto.getSystemUserMobileDevice())){
+			SystemUserMobileDevice systemUserMobileDevice=systemUserService.getSystemUserMobileDeviceByUniqueId(dto.getSystemUserMobileDevice());
+			if(systemUserMobileDevice==null){
+				systemUserMobileDevice=systemUserService.createMobileUser(dto.getSystemUserMobileDevice());
+			}
+			systemUser=systemUserMobileDevice.getSystemUser();
+			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.MOBILE_USER);
+			resultMap.put(ApplicationConstants.USER_ID,systemUserMobileDevice.getMobileDevice().getUniqueMobileDeviceNumber());
+		}else{
+			if(!(dto.getUpdatedUser()==0)){
+				systemUser=commonDAO.getEntityById(SystemUser.class, dto.getUpdatedUser());
+			}
+			if(systemUser==null){
+				systemUser=systemUserService.createWebUser();
+			}
+			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.WEB_USER);
+			resultMap.put(ApplicationConstants.USER_ID,systemUser.getUserId());
 		}
+		
 		trainScheduleTurnLocationUpdate.setUpdatedUser(systemUser);
 		
 		trainScheduleTurn.getTrainScheduleTurnLocationUpdates().add(trainScheduleTurnLocationUpdate);
@@ -100,13 +128,16 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 			trainScheduleTurn.getTrainStationScheduleTurn().add(trainStationScheduleTurn);
 			
 		}
+		String result=commonDAO.saveOrUpdateEntity(trainScheduleTurn);
+		resultMap.put(ApplicationConstants.RESULT, result);
 		
-		return commonDAO.saveOrUpdateEntity(trainScheduleTurn);
+		return resultMap;
 	}
 	
 	
 	@Override
-	public String passiveUpdateTrainLocation(PassiveTrainLocationUpdateDTO dto)throws Exception {
+	public Map<String,Object> passiveUpdateTrainLocation(PassiveTrainLocationUpdateDTO dto)throws Exception {
+		Map<String,Object> resultMap=new HashMap<String,Object>();
 		
 		TrainScheduleTurnLocationPassiveUpdate update=new TrainScheduleTurnLocationPassiveUpdate();
 		TrainStation lastStation=commonDAO.getEntityById(TrainStation.class, dto.getLastStationId());
@@ -139,10 +170,28 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 		
 		update.setTrainScheduleTurn(trainScheduleTurn);
 		update.setLocatedTime(dto.getLocatedTimeAsDate());
+		
 		SystemUser systemUser=null;
-		if(!(dto.getUpdatedUser()==0)){
-			systemUser=commonDAO.getEntityById(SystemUser.class, dto.getUpdatedUser());
+		
+		if(StringUtils.isNotEmpty(dto.getSystemUserMobileDevice())){
+			SystemUserMobileDevice systemUserMobileDevice=systemUserService.getSystemUserMobileDeviceByUniqueId(dto.getSystemUserMobileDevice());
+			if(systemUserMobileDevice==null){
+				systemUserMobileDevice=systemUserService.createMobileUser(dto.getSystemUserMobileDevice());
+			}
+			systemUser=systemUserMobileDevice.getSystemUser();
+			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.MOBILE_USER);
+			resultMap.put(ApplicationConstants.USER_ID,systemUserMobileDevice.getMobileDevice().getUniqueMobileDeviceNumber());
+		}else{
+			if(!(dto.getUpdatedUser()==0)){
+				systemUser=commonDAO.getEntityById(SystemUser.class, dto.getUpdatedUser());
+			}
+			if(systemUser==null){
+				systemUser=systemUserService.createWebUser();
+			}
+			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.WEB_USER);
+			resultMap.put(ApplicationConstants.USER_ID,systemUser.getUserId());
 		}
+		
 		update.setUpdatedUser(systemUser);
 		
 		trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates().add(update);
@@ -175,7 +224,10 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 			
 		}
 		
-		return commonDAO.saveOrUpdateEntity(trainScheduleTurn);
+		String result=commonDAO.saveOrUpdateEntity(trainScheduleTurn);
+		resultMap.put(ApplicationConstants.RESULT, result);
+		
+		return resultMap;
 	}
 
 

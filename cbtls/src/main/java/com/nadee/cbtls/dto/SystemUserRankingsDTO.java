@@ -25,6 +25,8 @@ public class SystemUserRankingsDTO implements Serializable {
 	private long systemUserId;
 	
 	private int versionId;
+	
+	private String systemUserMobileDevice;
 
 	public SystemUserRankingsDTO(SystemUserRankings systemUserRankings) {
 		this.systemUserRankingId=systemUserRankings.getSystemUserRankingId();
@@ -99,6 +101,14 @@ public class SystemUserRankingsDTO implements Serializable {
 
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+
+	public String getSystemUserMobileDevice() {
+		return systemUserMobileDevice;
+	}
+
+	public void setSystemUserMobileDevice(String systemUserMobileDevice) {
+		this.systemUserMobileDevice = systemUserMobileDevice;
 	}
 	
 	

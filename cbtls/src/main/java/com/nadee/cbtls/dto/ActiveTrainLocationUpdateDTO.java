@@ -19,6 +19,8 @@ public class ActiveTrainLocationUpdateDTO implements Serializable {
 	private int locatedType;
 	
 	private long updatedUser;
+	
+	private String systemUserMobileDevice;
 
 	public float getLatitude() {
 		return latitude;
@@ -74,6 +76,14 @@ public class ActiveTrainLocationUpdateDTO implements Serializable {
 
 	public void setTrainStationScheduleId(long trainStationScheduleId) {
 		this.trainStationScheduleId = trainStationScheduleId;
+	}
+
+	public String getSystemUserMobileDevice() {
+		return systemUserMobileDevice;
+	}
+
+	public void setSystemUserMobileDevice(String systemUserMobileDevice) {
+		this.systemUserMobileDevice = systemUserMobileDevice;
 	}
 	
 	

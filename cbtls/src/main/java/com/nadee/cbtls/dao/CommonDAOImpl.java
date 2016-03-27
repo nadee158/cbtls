@@ -26,6 +26,7 @@ public class CommonDAOImpl implements CommonDAO {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public <Entity> long createEntity(Entity entity) {
 		Object obj=sessionFactory.getCurrentSession().save(entity);
+		sessionFactory.getCurrentSession().flush();
 		if(!(obj==null))
 		return (Long) obj;
 		return 0;
@@ -35,7 +36,7 @@ public class CommonDAOImpl implements CommonDAO {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public <Entity> String deleteEntity(Entity entity) {
 		sessionFactory.getCurrentSession().delete(entity);
-		return "success";
+		return ApplicationConstants.SUCCESS;
 	}
 
 	@Override

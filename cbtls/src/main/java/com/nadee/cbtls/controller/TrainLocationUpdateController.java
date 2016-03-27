@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nadee.cbtls.constant.ApplicationConstants;
 import com.nadee.cbtls.dto.ActiveTrainLocationUpdateDTO;
 import com.nadee.cbtls.dto.PassiveTrainLocationUpdateDTO;
 import com.nadee.cbtls.service.TrainLocationUpdateService;
@@ -39,11 +40,11 @@ public class TrainLocationUpdateController {
 		Map<String,Object> map=new HashMap<String,Object>();
 		try {
 			System.out.println("activeTrainLocationUpdateDTO :" + activeTrainLocationUpdateDTO);
-			String result=trainLocationUpdateService.activeUpdateTrainLocation(activeTrainLocationUpdateDTO);
-			map.put("RESULT", result);
+			return trainLocationUpdateService.activeUpdateTrainLocation(activeTrainLocationUpdateDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		map.put(ApplicationConstants.RESULT, ApplicationConstants.ERROR);
 		return map;
 	}
 
@@ -60,11 +61,11 @@ public class TrainLocationUpdateController {
 		Map<String,Object> map=new HashMap<String,Object>();
 		try {
 			System.out.println("passiveTrainLocationUpdateDTO :" + passiveTrainLocationUpdateDTO);
-			String result=trainLocationUpdateService.passiveUpdateTrainLocation(passiveTrainLocationUpdateDTO);
-			map.put("RESULT", result);
+			return trainLocationUpdateService.passiveUpdateTrainLocation(passiveTrainLocationUpdateDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		map.put(ApplicationConstants.RESULT, ApplicationConstants.ERROR);
 		return map;
 	}
 
