@@ -36,7 +36,7 @@
 					<div class="col-md-12">
 						<input class="btn btn-primary" onclick="updateTrainLocationOnce()" value="Update Once" type="button"/>
 						<span></span>
-						<input class="btn btn-primary" value="Update And Track Train" type="button"/>
+						<input class="btn btn-primary" onclick="updateAndTrackTrain()" value="Update And Track Train" type="button"/>
 						<span></span>
 						<input class="btn btn-primary" value="Update Compartment Details" onclick="updateCompartmentDetails()" type="button"/>
 						<span></span>
@@ -57,16 +57,14 @@
 
 </div>
 <form action="viewTrainScheduleDetails.htm" id="viewTrainScheduleDetails" method="post"></form>
-<form action="updateCompartmentDetails.htm" id="updateCompartmentDetails" method="post"></form>
-<form action="setNotificationAlarm.htm" id="setNotificationAlarm" method="post"></form>
+<form action="getUpdateCompartmentDetails.htm" id="updateCompartmentDetails" method="post"></form>
+<form action="getNotificationAlarm.htm" id="setNotificationAlarm" method="post"></form>
  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>   
 <script type="text/javascript">
 $(function() {
-
 	var trainLineId=$('#trainLineId').val();
 	loadTrainStations(trainLineId);
 	getLocation();
-	
 });
 
 function goBack(){
@@ -98,6 +96,10 @@ function loadTrainStations(trainLineId){
 
 function updateTrainLocationOnce(){
 	updateTrainLocation();
+}
+//every 5 mins
+function updateAndTrackTrain(){
+	setInterval(updateTrainLocation, (((1*1000)*60)*5));
 }
 
 function ActiveTrainLocationUpdateDTO(trainStationScheduleId,latitude,longitude,trainScheduleId,lastStationId,locatedType){

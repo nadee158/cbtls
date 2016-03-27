@@ -93,7 +93,7 @@ public class PassiveTrainLocationUpdateDTO implements Serializable {
 	public Date getLocatedTimeAsDate() {
 		Date fromTimeDate = Calendar.getInstance().getTime();
 		if (StringUtils.isNotEmpty(locatedTime)) {
-			SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+			SimpleDateFormat tf = new SimpleDateFormat("hh:mm a");
 			try {
 				fromTimeDate = tf.parse(locatedTime);
 			} catch (ParseException e) {
