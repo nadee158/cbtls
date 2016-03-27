@@ -4,11 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nadee.cbtls.model.TrainSchedule;
 import com.nadee.cbtls.model.TrainScheduleTurn;
 import com.nadee.cbtls.model.TrainScheduleTurnCompartmentUpdate;
 import com.nadee.cbtls.model.TrainScheduleTurnLocationPassiveUpdate;
@@ -37,30 +39,49 @@ public class TrainLocationUpdateDAOImpl implements TrainLocationUpdateDAO{
 		criteria.add(Restrictions.ge("trainScheduleTurnDate", fromDate));
 		criteria.add(Restrictions.le("trainScheduleTurnDate", toDate));
 		TrainScheduleTurn trainScheduleTurn= (TrainScheduleTurn) criteria.uniqueResult();
-		if(!(trainScheduleTurn.getTrainScheduleTurnLocationUpdates()==null)){
-			for (TrainScheduleTurnLocationUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationUpdates()) {
-				System.out.println(locationUpdate.getId());
+		if(!(trainScheduleTurn==null)){
+			if(!(trainScheduleTurn.getTrainScheduleTurnLocationUpdates()==null)){
+				for (TrainScheduleTurnLocationUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationUpdates()) {
+					System.out.println(locationUpdate.getId());
+				}
+			}
+			
+			if(!(trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()==null)){
+				for (TrainScheduleTurnLocationPassiveUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()) {
+					System.out.println(locationUpdate.getId());
+				}
+			}
+			
+			if(!(trainScheduleTurn.getTrainStationScheduleTurn()==null)){
+				for (TrainStationScheduleTurn trainStationScheduleTurn : trainScheduleTurn.getTrainStationScheduleTurn()) {
+					System.out.println(trainStationScheduleTurn.getTrainStationScheduleTurnId());
+				}
+			}
+			
+			if(!(trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()==null)){
+				for (TrainScheduleTurnCompartmentUpdate update : trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()) {
+					System.out.println(update.getId());
+				}
 			}
 		}
 		
-		if(!(trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()==null)){
-			for (TrainScheduleTurnLocationPassiveUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()) {
-				System.out.println(locationUpdate.getId());
-			}
-		}
-		
-		if(!(trainScheduleTurn.getTrainStationScheduleTurn()==null)){
-			for (TrainStationScheduleTurn trainStationScheduleTurn : trainScheduleTurn.getTrainStationScheduleTurn()) {
-				System.out.println(trainStationScheduleTurn.getTrainStationScheduleTurnId());
-			}
-		}
-		
-		if(!(trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()==null)){
-			for (TrainScheduleTurnCompartmentUpdate update : trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()) {
-				System.out.println(update.getId());
-			}
-		}
 		return trainScheduleTurn;
+	}
+	
+	@Override
+	public TrainSchedule getTrainScheduleById(long trainScheduleId) throws Exception {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TrainSchedule.class);
+		criteria.add(Restrictions.eq("trainScheduleId",trainScheduleId));
+		TrainSchedule  trainSchedule= (TrainSchedule) criteria.uniqueResult();
+		if(!(trainSchedule==null)){
+			if(!(trainSchedule.getStartStation()==null)){
+				Hibernate.initialize(trainSchedule.getStartStation());
+			}
+			if(!(trainSchedule.getEndStation()==null)){
+				Hibernate.initialize(trainSchedule.getEndStation());
+			}
+		}
+		return trainSchedule;
 	}
 	
 	@Override

@@ -21,6 +21,8 @@ public class ApplicationConstants {
 	public static final String WEB_USER = "WEB_USER";
 	public static final String NO_RESULTS = "NO_RESULTS";
 	public static final String RESULTS_FOUND = "RESULTS_FOUND";
+	public static final String SYSTEM_USER = "SYSTEM_USER";
+	public static final String CBTLS_USER_COOKIE = "CBTLS_USER_COOKIE";
 	
 	
 

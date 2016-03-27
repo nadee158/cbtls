@@ -72,7 +72,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 		systemUser.getSystemUserMobileDevices().add(systemUserMobileDevice);
 		systemUserMobileDevice.setSystemUser(systemUser);
 		systemUser.setUserDisplayName(ApplicationConstants.ANNONYMOUS_MOBILE_USER);
-		systemUser.setUserName(ApplicationConstants.ANNONYMOUS_MOBILE_USER);
+		systemUser.setUserName(ApplicationConstants.ANNONYMOUS_MOBILE_USER + "_" + mobileUniqueId);
 		List<UserRole> userRoles=new ArrayList<UserRole>();
 		userRoles.add(new UserRole(UserRoleType.ROLE_GUEST));
 		userRoles.add(new UserRole(UserRoleType.ROLE_PASSENGER));
@@ -98,7 +98,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 		userRoles.add(new UserRole(UserRoleType.ROLE_GUEST));
 		userRoles.add(new UserRole(UserRoleType.ROLE_PASSENGER));
 		systemUser.setUserDisplayName(ApplicationConstants.ANNONYMOUS_WEB_USER);
-		systemUser.setUserName(ApplicationConstants.ANNONYMOUS_WEB_USER);
+		systemUser.setUserName(ApplicationConstants.ANNONYMOUS_WEB_USER + "_"  + userUniqueId);
 		systemUser.setUserRoles(userRoles);
 		long userId = commonDAO.createEntity(systemUser);
 		systemUser.setUserId(userId);
@@ -110,6 +110,10 @@ public class SystemUserServiceImpl implements SystemUserService {
 		return systemUserDAO.listFavouriteSchedules(userId);
 	}
 
+	@Override
+	public SystemUser getSystemUserById(long systemUserId) {
+		return commonDAO.getEntityById(SystemUser.class, systemUserId);
+	}
 
 	
 	

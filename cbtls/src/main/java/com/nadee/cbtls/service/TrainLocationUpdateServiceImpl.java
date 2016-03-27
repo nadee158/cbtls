@@ -43,6 +43,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 	private SystemUserService systemUserService;
 
 	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
 	public Map<String,Object> activeUpdateTrainLocation(ActiveTrainLocationUpdateDTO dto)throws Exception {
 		Map<String,Object> resultMap=new HashMap<String,Object>();
 		
@@ -64,7 +65,8 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 			isNewRecord=true;
 			trainScheduleTurn=new TrainScheduleTurn();
 			trainScheduleTurn.setActiveStatus(YesNoStatus.YES);
-			TrainSchedule trainSchedule=commonDAO.getEntityById(TrainSchedule.class, dto.getTrainScheduleId());
+			TrainSchedule trainSchedule=trainLocationUpdateDAO.getTrainScheduleById(dto.getTrainScheduleId());
+			System.out.println("trainSchedule :" + trainSchedule);
 			trainScheduleTurn.setTrainSchedule(trainSchedule);
 			trainScheduleTurn.setTrainScheduleTurnDate(Calendar.getInstance().getTime());
 		}
@@ -96,7 +98,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.WEB_USER);
 			resultMap.put(ApplicationConstants.USER_ID,systemUser.getUserId());
 		}
-		
+		resultMap.put(ApplicationConstants.SYSTEM_USER, systemUser);
 		trainScheduleTurnLocationUpdate.setUpdatedUser(systemUser);
 		
 		trainScheduleTurn.getTrainScheduleTurnLocationUpdates().add(trainScheduleTurnLocationUpdate);
@@ -108,11 +110,14 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 		Date arrivalTime=Calendar.getInstance().getTime();
 		Date departureTime=Calendar.getInstance().getTime();
 		
-		if(trainScheduleTurn.getTrainSchedule().getStartStation().getTrainStationId()==dto.getLastStationId()){
-			trainScheduleTurn.setDepartureTime(departureTime);
-		}else if(trainScheduleTurn.getTrainSchedule().getEndStation().getTrainStationId()==dto.getLastStationId()){
-			trainScheduleTurn.setArrivalTime(arrivalTime);
+		if(!(trainScheduleTurn.getTrainSchedule().getStartStation()==null || trainScheduleTurn.getTrainSchedule().getEndStation()==null)){
+			if(trainScheduleTurn.getTrainSchedule().getStartStation().getTrainStationId()==dto.getLastStationId()){
+				trainScheduleTurn.setDepartureTime(departureTime);
+			}else if(trainScheduleTurn.getTrainSchedule().getEndStation().getTrainStationId()==dto.getLastStationId()){
+				trainScheduleTurn.setArrivalTime(arrivalTime);
+			}
 		}
+		
 		
 		if(trainStationScheduleTurn==null){
 			if(trainScheduleTurn.getTrainStationScheduleTurn()==null){
@@ -193,7 +198,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 		}
 		
 		update.setUpdatedUser(systemUser);
-		
+		resultMap.put(ApplicationConstants.SYSTEM_USER, systemUser);
 		trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates().add(update);
 		
 		TrainStationScheduleTurn trainStationScheduleTurn=null;

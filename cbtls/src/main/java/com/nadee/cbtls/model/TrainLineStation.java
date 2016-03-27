@@ -95,7 +95,7 @@ public class TrainLineStation implements Serializable {
 	
 	@Override
 	public String toString() {
-		return this.toBasicMap().toString();
+		return this.trainLineStationId + "";
 	}
 
 	public long getTrainLineStationId() {

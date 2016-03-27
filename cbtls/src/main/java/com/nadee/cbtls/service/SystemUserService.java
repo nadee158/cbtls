@@ -22,6 +22,8 @@ public interface SystemUserService {
 
 	public List<SystemUserFavouriteSchedules> listFavouriteSchedules(long userId);
 
+	public SystemUser getSystemUserById(long systemUserId);
+
 	
 	
 	

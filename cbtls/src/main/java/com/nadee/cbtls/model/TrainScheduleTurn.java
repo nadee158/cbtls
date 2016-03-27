@@ -95,7 +95,7 @@ public class TrainScheduleTurn implements Serializable {
 	
 	@Override
 	public String toString() {
-		return this.toBasicMap().toString();
+		return this.trainScheduleTurnId + "";
 	}
 
 	public TrainSchedule getTrainSchedule() {
