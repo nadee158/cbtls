@@ -13,6 +13,8 @@ public class NotificationAlarmDTO implements Serializable {
 	private int alarmType;
 	
 	private float distanceToStation;
+	
+	private long updatedUser;
 
 	public String getSystemUserMobileDevice() {
 		return systemUserMobileDevice;
@@ -44,6 +46,14 @@ public class NotificationAlarmDTO implements Serializable {
 
 	public void setDistanceToStation(float distanceToStation) {
 		this.distanceToStation = distanceToStation;
+	}
+
+	public long getUpdatedUser() {
+		return updatedUser;
+	}
+
+	public void setUpdatedUser(long updatedUser) {
+		this.updatedUser = updatedUser;
 	}
 	
 	

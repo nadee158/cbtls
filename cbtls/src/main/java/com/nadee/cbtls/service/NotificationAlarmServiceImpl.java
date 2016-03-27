@@ -3,6 +3,7 @@ package com.nadee.cbtls.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,6 +14,7 @@ import com.nadee.cbtls.constant.GeneralEnumConstants.AlarmType;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dto.NotificationAlarmDTO;
+import com.nadee.cbtls.model.SystemUser;
 import com.nadee.cbtls.model.SystemUserAlarm;
 import com.nadee.cbtls.model.SystemUserMobileDevice;
 import com.nadee.cbtls.model.TrainStation;
@@ -55,22 +57,38 @@ public class NotificationAlarmServiceImpl implements NotificationAlarmService {
 			alarm.setDestinationStation(destinationStation);
 		}
 		alarm.setDistanceToStation(notificationAlarmDTO.getDistanceToStation());
-		SystemUserMobileDevice systemUserMobileDevice=null;
-		systemUserMobileDevice=systemUserService.getSystemUserMobileDeviceByUniqueId(notificationAlarmDTO.getSystemUserMobileDevice());
 		
-		if(systemUserMobileDevice==null){
-			systemUserMobileDevice=systemUserService.createMobileUser(notificationAlarmDTO.getSystemUserMobileDevice());
+		SystemUser systemUser=null;
+		
+		if(StringUtils.isNotEmpty(notificationAlarmDTO.getSystemUserMobileDevice())){
+			SystemUserMobileDevice systemUserMobileDevice=systemUserService.getSystemUserMobileDeviceByUniqueId(notificationAlarmDTO.getSystemUserMobileDevice());
+			if(systemUserMobileDevice==null){
+				systemUserMobileDevice=systemUserService.createMobileUser(notificationAlarmDTO.getSystemUserMobileDevice());
+			}
+			alarm.setSystemUserMobileDevice(systemUserMobileDevice);
+			systemUser=systemUserMobileDevice.getSystemUser();
+			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.MOBILE_USER);
+			resultMap.put(ApplicationConstants.USER_ID,systemUserMobileDevice.getMobileDevice().getUniqueMobileDeviceNumber());
+		}else{
+			if(!(notificationAlarmDTO.getUpdatedUser()==0)){
+				systemUser=commonDAO.getEntityById(SystemUser.class, notificationAlarmDTO.getUpdatedUser());
+			}
+			if(systemUser==null){
+				systemUser=systemUserService.createWebUser();
+			}
+			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.WEB_USER);
+			resultMap.put(ApplicationConstants.USER_ID,systemUser.getUserId());
 		}
+		resultMap.put(ApplicationConstants.SYSTEM_USER, systemUser);
+		alarm.setSystemUser(systemUser);
 		
-		alarm.setSystemUserMobileDevice(systemUserMobileDevice);
+		
 		long id=commonDAO.createEntity(alarm);
 		if(id>0){
 			resultMap.put(ApplicationConstants.RESULT, ApplicationConstants.SUCCESS);
 		}else{
 			resultMap.put(ApplicationConstants.RESULT, ApplicationConstants.ERROR);
 		}
-		resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.MOBILE_USER);
-		resultMap.put(ApplicationConstants.USER_ID,systemUserMobileDevice.getMobileDevice().getUniqueMobileDeviceNumber());
 		return resultMap;
 	}
 	

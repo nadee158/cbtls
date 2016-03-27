@@ -43,6 +43,11 @@ public class SystemUserAlarm implements Serializable {
 	private SystemUserMobileDevice systemUserMobileDevice;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+	private SystemUser systemUser;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "train_station_id", referencedColumnName = "train_station_id")
     @Cascade(org.hibernate.annotations.CascadeType.MERGE)
 	private TrainStation destinationStation;
@@ -133,6 +138,14 @@ public class SystemUserAlarm implements Serializable {
 
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+
+	public SystemUser getSystemUser() {
+		return systemUser;
+	}
+
+	public void setSystemUser(SystemUser systemUser) {
+		this.systemUser = systemUser;
 	}
 	
 

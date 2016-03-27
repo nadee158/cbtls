@@ -78,6 +78,8 @@ $(function() {
     	center: true
      });
 
+    getLocation();
+
   });
 
 function goBack(){
