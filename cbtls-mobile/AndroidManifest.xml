@@ -33,8 +33,12 @@
             android:label="@string/title_activity_view_recommendation" >
         </activity>
         <activity
-            android:name="com.nadee.cbtls.activity.ViewTrainScheduleDetailsActivity"
+            android:name=".activity.ViewTrainScheduleDetailsActivity"
             android:label="@string/title_activity_view_train_schedule_details" >
+        </activity>
+        <activity
+            android:name="com.nadee.cbtls.activity.ActiveUpdateLocationActivity"
+            android:label="@string/title_activity_active_update_location" >
         </activity>
     </application>
 
