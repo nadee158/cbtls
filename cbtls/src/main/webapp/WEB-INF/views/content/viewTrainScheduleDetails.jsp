@@ -117,14 +117,14 @@
 					<span></span>
 					<input class="btn btn-primary" value="View analysis of the train" onclick="viewAnalysisOfTrain()" type="button">
 					<span></span>
-					<input class="btn btn-primary" value="Add to Favorites" type="button">
+					<input class="btn btn-primary" onclick="addToFavourites()" value="Add to Favorites" type="button">
 					<span></span>
 					<input class="btn btn-primary" value="Search Again"  onclick="serchAgain()" type="button">
 				 
 	        </div>
 		</div>
 		
-		
+		<input type="hidden" id="trainStationScheduleId" value="${trainStationScheduleDTO.trainStationScheduleId}" />
 		
 	</div>
     
@@ -134,6 +134,7 @@
     <form action="viewTrainScheduleDetails.htm" id="viewTrainScheduleDetails" method="post"></form>
     <form action="viewAnalysisOfTrain.htm" id="viewAnalysisOfTrain" method="post"></form>
     <form action="viewTrainLocation.htm" id="viewTrainLocation" method="post"></form>
+     <form action="getFavourites.htm" id="getFavourites" method="post"></form>
     
 <script type="text/javascript">
 function activeUpdateLocation(){
@@ -165,6 +166,30 @@ function viewTrainLocation(){
 
 function serchAgain(){
 	window.location='home.htm';
-	
+}
+
+function addToFavourites(){
+	var trainStationScheduleId=$('#trainStationScheduleId').val();
+	var dto=new FavouriteScheduleDTO(trainStationScheduleId);
+	//alert(JSON.stringify(dto));
+	 $.ajax({
+	        url: 'addToFavourite.json',
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify(dto),
+	        dataType: 'json',
+	        success: function (data) {
+		        if(data.RESULT=='success' || data.RESULT=='SUCCESS'){
+					alert('Successfully added to favourites! Thank you.')
+					$('#getFavourites').submit();
+				}else{
+					alert('Could not add to favourites! Please try later.')
+				}
+		    }
+	  });
+}
+
+function FavouriteScheduleDTO(trainStationScheduleId){
+	this.trainStationScheduleId=trainStationScheduleId;
 }
 </script>
