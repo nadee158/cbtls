@@ -61,7 +61,7 @@ public class CommonDAOImpl implements CommonDAO {
 	@Override
 	public <Entity> String saveOrUpdateEntity(Entity entity) {
 		sessionFactory.getCurrentSession().saveOrUpdate(entity);
-		sessionFactory.getCurrentSession().flush();
+		//sessionFactory.getCurrentSession().flush();
 		return ApplicationConstants.SUCCESS;
 	}
 	
