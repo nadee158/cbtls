@@ -4,109 +4,109 @@ import java.io.Serializable;
 
 public class CompartmentDetailUpdateDTO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private int compartmentNumber;
-	
-	private int compartmentDensity;
-	
-	private int totalCompartments;
-	
-	private int overallDensity;
-	
-	private long trainStationScheduleId;
-	
-	private float latitude;
+  private static final long serialVersionUID = 1L;
 
-	private float longitude;
-	
-	private long trainScheduleId;
-	
-	private long updatedUser;
-	
-	private String systemUserMobileDevice;
+  private int compartmentNumber;
 
-	public int getCompartmentNumber() {
-		return compartmentNumber;
-	}
+  private int compartmentDensity;
 
-	public void setCompartmentNumber(int compartmentNumber) {
-		this.compartmentNumber = compartmentNumber;
-	}
+  private int totalCompartments;
 
-	public int getCompartmentDensity() {
-		return compartmentDensity;
-	}
+  private int overallDensity;
 
-	public void setCompartmentDensity(int compartmentDensity) {
-		this.compartmentDensity = compartmentDensity;
-	}
+  private long trainStationScheduleId;
 
-	public int getTotalCompartments() {
-		return totalCompartments;
-	}
+  private double latitude;
 
-	public void setTotalCompartments(int totalCompartments) {
-		this.totalCompartments = totalCompartments;
-	}
+  private double longitude;
 
-	public int getOverallDensity() {
-		return overallDensity;
-	}
+  private long trainScheduleId;
 
-	public void setOverallDensity(int overallDensity) {
-		this.overallDensity = overallDensity;
-	}
+  private long updatedUser;
 
-	public long getTrainStationScheduleId() {
-		return trainStationScheduleId;
-	}
+  private String systemUserMobileDevice;
 
-	public void setTrainStationScheduleId(long trainStationScheduleId) {
-		this.trainStationScheduleId = trainStationScheduleId;
-	}
+  public int getCompartmentNumber() {
+    return compartmentNumber;
+  }
 
-	public float getLatitude() {
-		return latitude;
-	}
+  public void setCompartmentNumber(int compartmentNumber) {
+    this.compartmentNumber = compartmentNumber;
+  }
 
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
-	}
+  public int getCompartmentDensity() {
+    return compartmentDensity;
+  }
 
-	public float getLongitude() {
-		return longitude;
-	}
+  public void setCompartmentDensity(int compartmentDensity) {
+    this.compartmentDensity = compartmentDensity;
+  }
 
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
+  public int getTotalCompartments() {
+    return totalCompartments;
+  }
 
-	public long getTrainScheduleId() {
-		return trainScheduleId;
-	}
+  public void setTotalCompartments(int totalCompartments) {
+    this.totalCompartments = totalCompartments;
+  }
 
-	public void setTrainScheduleId(long trainScheduleId) {
-		this.trainScheduleId = trainScheduleId;
-	}
+  public int getOverallDensity() {
+    return overallDensity;
+  }
 
-	public long getUpdatedUser() {
-		return updatedUser;
-	}
+  public void setOverallDensity(int overallDensity) {
+    this.overallDensity = overallDensity;
+  }
 
-	public void setUpdatedUser(long updatedUser) {
-		this.updatedUser = updatedUser;
-	}
+  public long getTrainStationScheduleId() {
+    return trainStationScheduleId;
+  }
 
-	public String getSystemUserMobileDevice() {
-		return systemUserMobileDevice;
-	}
+  public void setTrainStationScheduleId(long trainStationScheduleId) {
+    this.trainStationScheduleId = trainStationScheduleId;
+  }
 
-	public void setSystemUserMobileDevice(String systemUserMobileDevice) {
-		this.systemUserMobileDevice = systemUserMobileDevice;
-	}
-	
-	
-	
+
+  public double getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(double latitude) {
+    this.latitude = latitude;
+  }
+
+  public double getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(double longitude) {
+    this.longitude = longitude;
+  }
+
+  public long getTrainScheduleId() {
+    return trainScheduleId;
+  }
+
+  public void setTrainScheduleId(long trainScheduleId) {
+    this.trainScheduleId = trainScheduleId;
+  }
+
+  public long getUpdatedUser() {
+    return updatedUser;
+  }
+
+  public void setUpdatedUser(long updatedUser) {
+    this.updatedUser = updatedUser;
+  }
+
+  public String getSystemUserMobileDevice() {
+    return systemUserMobileDevice;
+  }
+
+  public void setSystemUserMobileDevice(String systemUserMobileDevice) {
+    this.systemUserMobileDevice = systemUserMobileDevice;
+  }
+
+
 
 }

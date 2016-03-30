@@ -1,0 +1,158 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    tools:context="com.nadee.cbtls.activity.UpdateCompartmentDetailsActivity" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical" >
+            
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="@string/update_compartment_details"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            
+            <LinearLayout
+                android:id="@+id/linearLayouth1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal" >
+                
+                <LinearLayout
+	                android:id="@+id/linearLayoutv1"
+	               android:layout_width="0dp"
+                    android:layout_weight="1"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="5dp"
+	                android:orientation="vertical" >
+	                
+                    <TextView
+	                android:id="@+id/textView2"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center_vertical"
+	                android:text="@string/compartment_number"
+	                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	                <NumberPicker
+	                    android:id="@+id/numberPicker_compartment_number"
+	                    android:layout_width="wrap_content"
+	                    android:layout_gravity="center"
+	                	android:gravity="center"
+	                    android:layout_height="wrap_content" />
+                
+                </LinearLayout>
+                
+                <LinearLayout
+	                android:id="@+id/linearLayoutv2"
+	                android:layout_width="0dp"
+                    android:layout_weight="1"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="5dp"
+	                android:orientation="vertical" >
+	                
+                    <TextView
+	                android:id="@+id/textView3"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="center_vertical"
+	                android:gravity="center_vertical"
+	                android:text="@string/total_compartments"
+	                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	                <NumberPicker
+	                    android:id="@+id/numberPicker_total_compartments"
+	                    android:layout_width="wrap_content"
+	                    android:layout_gravity="center"
+	                	android:gravity="center"
+	                    android:layout_height="wrap_content" />
+                
+                </LinearLayout>
+                
+                
+                
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:text="@string/crowd_density_of_compartment" />
+
+            <Spinner
+                android:id="@+id/spinner_crowd_density_of_compartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:prompt="@string/crowd_density_of_compartment" />
+            
+             <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:text="@string/overall_crowd_density" />
+
+            <Spinner
+                android:id="@+id/spinner_overall_crowd_density"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:prompt="@string/overall_crowd_density" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btn_update"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/global_button"
+                    android:padding="5dip"
+                    android:text="@string/update"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btn_go_back"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/global_button"
+                    android:padding="5dip"
+                    android:text="@string/go_back"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

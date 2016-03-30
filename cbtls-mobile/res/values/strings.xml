@@ -2,7 +2,6 @@
 <resources>
 
     <string name="base_app_url">http://192.168.1.104:8080/cbtls/</string>
-    
     <string name="app_name">CbtlsMobile</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -51,21 +50,26 @@
     <string name="view_analysis_of_the_train">View analysis</string>
     <string name="add_to_favourites">Add to Favorites</string>
     <string name="title_activity_active_update_location">ActiveUpdateLocationActivity</string>
-    
     <string name="active_update_location_title">Update Train Location (I\'m in the train)</string>
     <string name="previous_station">Previous Station</string>
     <string name="update_once">Update Once</string>
     <string name="update_and_track">Update and Track</string>
     <string name="update_compartment_details">Update Compartment Details</string>
     <string name="set_alarm_clock">Set Alarm Clock</string>
-    
     <string name="GPSAlertDialogTitle">GPS is setting</string>
     <string name="GPSAlertDialogMessage">GPS is not enabled. Do you want to go to setting menu</string>
-    
-	<string name="settings">Settings</string>
+    <string name="settings">Settings</string>
     <string name="cancel">Cancel</string>
-    
     <string name="latitude">Latitude : </string>
     <string name="longitude">Longitude : </string>
+    <string name="title_activity_update_compartment_details">Update Compartment Details - CBTLS</string>
+    <string name="title_activity_notification_alarm">Set Notification Alarm - CBTLS</string>
+    
+    <string name="compartment_number">Compartment Number</string>
+    <string name="total_compartments">Total Compartments</string>
+    <string name="crowd_density_of_compartment">Crowd Density of Compartment</string>
+    <string name="overall_crowd_density">Overall Crowd Density</string>
+    <string name="update">Update</string>
+    <string name="go_back">Go Back</string>
 
 </resources>

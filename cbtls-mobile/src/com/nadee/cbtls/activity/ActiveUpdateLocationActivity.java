@@ -1,6 +1,8 @@
 package com.nadee.cbtls.activity;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,9 +11,11 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,33 +71,38 @@ public class ActiveUpdateLocationActivity extends Activity {
     setupButtons();
   }
 
+
+
+  private void updateTrainLocation() {
+    activeTrainLocationUpdateDTO = new ActiveTrainLocationUpdateDTO();
+    activeTrainLocationUpdateDTO.setLastStationId(selecetdStation.getTrainStationId());
+
+    GPSTracker gpsTracker = new GPSTracker(ActiveUpdateLocationActivity.this);
+
+    if (gpsTracker.getIsGPSTrackingEnabled()) {
+      activeTrainLocationUpdateDTO.setLatitude(gpsTracker.getLatitude());
+      activeTrainLocationUpdateDTO.setLongitude(gpsTracker.getLongitude());
+    } else {
+      gpsTracker.showSettingsAlert();
+    }
+
+    activeTrainLocationUpdateDTO.setLocatedType(selectedLocation);
+    String systemUserMobileDeviceId = loadSystemUserMobileDeviceId();
+    activeTrainLocationUpdateDTO.setSystemUserMobileDevice(systemUserMobileDeviceId);
+    activeTrainLocationUpdateDTO.setTrainScheduleId(selectedDTO.getTrainSchedule().getTrainScheduleId());
+    activeTrainLocationUpdateDTO.setTrainStationScheduleId(trainStationScheduleId);
+
+    new PostActiveUpdateLocationJson().execute();
+
+  }
+
   private void setupButtons() {
     Button btnUpdateOnce = (Button) findViewById(R.id.btn_update_once);
     btnUpdateOnce.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        activeTrainLocationUpdateDTO = new ActiveTrainLocationUpdateDTO();
-        activeTrainLocationUpdateDTO.setLastStationId(selecetdStation.getTrainStationId());
-
-        GPSTracker gpsTracker = new GPSTracker(ActiveUpdateLocationActivity.this);
-
-        if (gpsTracker.getIsGPSTrackingEnabled()) {
-          activeTrainLocationUpdateDTO.setLatitude(gpsTracker.getLatitude());
-          activeTrainLocationUpdateDTO.setLongitude(gpsTracker.getLongitude());
-        } else {
-          gpsTracker.showSettingsAlert();
-        }
-
-        activeTrainLocationUpdateDTO.setLocatedType(selectedLocation);
-        String systemUserMobileDeviceId = loadSystemUserMobileDeviceId();
-        activeTrainLocationUpdateDTO.setSystemUserMobileDevice(systemUserMobileDeviceId);
-        activeTrainLocationUpdateDTO.setTrainScheduleId(selectedDTO.getTrainSchedule().getTrainScheduleId());
-        activeTrainLocationUpdateDTO.setTrainStationScheduleId(trainStationScheduleId);
-
-        new PostActiveUpdateLocationJson().execute();
-
+        updateTrainLocation();
       }
-
 
     });
 
@@ -103,7 +112,24 @@ public class ActiveUpdateLocationActivity extends Activity {
     btnUpdateAndTrack.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask() {
+          @Override
+          public void run() {
+            handler.post(new Runnable() {
+              @SuppressWarnings("unchecked3")
+              public void run() {
+                try {
+                  updateTrainLocation();
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            });
+          }
+        };
+        timer.schedule(doAsynchronousTask, (1000 * 60 * 5333));
       }
     });
 
@@ -112,7 +138,12 @@ public class ActiveUpdateLocationActivity extends Activity {
     btnUpdateCompartmentDetails.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        Intent intent = new Intent(getBaseContext(), UpdateCompartmentDetailsActivity.class);
+        System.out.println("selectedDTO in details" + selectedDTO);
+        intent.putExtra("TRAIN_SCHEDULE_SEARCH_DTO", selectedDTO);
+        intent.putExtra("TRAIN_SCHEDULE_DETAIL_ID", trainStationScheduleId);
+        startActivity(intent);
+        ActiveUpdateLocationActivity.this.finish();
       }
     });
 
@@ -121,10 +152,19 @@ public class ActiveUpdateLocationActivity extends Activity {
     btnSetAlarmClock.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        setAlarmClock();
       }
     });
 
+  }
+
+  private void setAlarmClock() {
+    Intent intent = new Intent(getBaseContext(), NotificationAlarmActivity.class);
+    System.out.println("selectedDTO in details" + selectedDTO);
+    intent.putExtra("TRAIN_SCHEDULE_SEARCH_DTO", selectedDTO);
+    intent.putExtra("TRAIN_SCHEDULE_DETAIL_ID", trainStationScheduleId);
+    startActivity(intent);
+    ActiveUpdateLocationActivity.this.finish();
   }
 
   private void saveSystemUserMobileDeviceId(String systemUserMobileDeviceId) {
