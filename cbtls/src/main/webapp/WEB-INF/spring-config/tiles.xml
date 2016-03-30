@@ -139,9 +139,16 @@
         <put-attribute name="body" value="/WEB-INF/views/content/viewTrainLocation.jsp" />		
     </definition>    
     
-     <definition name="viewCompartmentDetails" extends="home.common">
-        <put-attribute name="title" value="View Train Location" />
+    <definition name="viewCompartmentDetails" extends="home.common">
+        <put-attribute name="title" value="View Compartment Details" />
         <put-attribute name="body" value="/WEB-INF/views/content/viewCompartmentDetails.jsp" />		
-    </definition>      
+    </definition> 
+    
+    <definition name="favouriteList" extends="home.common">
+        <put-attribute name="title" value="View Train Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/favouriteList.jsp" />		
+    </definition>    
+    
+     
 
 </tiles-definitions>
