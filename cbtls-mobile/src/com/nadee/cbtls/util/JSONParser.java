@@ -16,109 +16,144 @@ import com.google.gson.Gson;
 
 public class JSONParser {
 
-	static JSONObject jObj = null;
-	static JSONArray jArr = null;
-	static String json = "";
-	public static final MediaType JSON = MediaType
-			.parse("application/json; charset=utf-8");
+  static JSONObject jObj = null;
+  static JSONArray jArr = null;
+  static String json = "";
+  public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-	// constructor
-	public JSONParser() {
+  // constructor
+  public JSONParser() {
 
-	}
+  }
 
-	public JSONObject getJSONFromUrl(String url) {
+  public JSONObject getJSONFromUrl(String url) {
 
-		try {
+    try {
 
-			OkHttpClient client = new OkHttpClient();
+      OkHttpClient client = new OkHttpClient();
 
-			Request request = new Request.Builder().url(url).build();
+      Request request = new Request.Builder().url(url).build();
 
-			Response response = client.newCall(request).execute();
+      Response response = client.newCall(request).execute();
 
-			json = response.body().string();
+      json = response.body().string();
 
-			System.out.println("json :" + json);
+      System.out.println("json :" + json);
 
-		} catch (Exception e) {
-			Log.e("Buffer Error", "Error converting result " + e.toString());
-		}
+    } catch (Exception e) {
+      Log.e("Buffer Error", "Error converting result " + e.toString());
+    }
 
-		// try parse the string to a JSON object
-		try {
-			jObj = new JSONObject(json);
-		} catch (JSONException e) {
-			Log.e("JSON Parser", "Error parsing data " + e.toString());
-		}
+    // try parse the string to a JSON object
+    try {
+      jObj = new JSONObject(json);
+    } catch (JSONException e) {
+      Log.e("JSON Parser", "Error parsing data " + e.toString());
+    }
 
-		// return JSON String
-		return jObj;
+    // return JSON String
+    return jObj;
 
-	}
+  }
 
-	public JSONArray getJSONArrayFromUrl(String url) {
+  public JSONArray getJSONArrayFromUrl(String url) {
 
-		try {
+    try {
 
-			OkHttpClient client = new OkHttpClient();
+      OkHttpClient client = new OkHttpClient();
 
-			Request request = new Request.Builder().url(url).build();
+      Request request = new Request.Builder().url(url).build();
 
-			Response response = client.newCall(request).execute();
+      Response response = client.newCall(request).execute();
 
-			json = response.body().string();
+      json = response.body().string();
 
-			System.out.println("json :" + json);
+      System.out.println("json :" + json);
 
-		} catch (Exception e) {
-			Log.e("Buffer Error", "Error converting result " + e.toString());
-		}
+    } catch (Exception e) {
+      Log.e("Buffer Error", "Error converting result " + e.toString());
+    }
 
-		// try parse the string to a JSON array
-		try {
-			jArr = new JSONArray(json);
-		} catch (JSONException e) {
-			Log.e("JSON Parser", "Error parsing data " + e.toString());
-		}
+    // try parse the string to a JSON array
+    try {
+      jArr = new JSONArray(json);
+    } catch (JSONException e) {
+      Log.e("JSON Parser", "Error parsing data " + e.toString());
+    }
 
-		// return JSON String
-		return jArr;
+    // return JSON String
+    return jArr;
 
-	}
+  }
 
-	public JSONArray postJSONArrayFromUrl(String url, Object object) {
+  public JSONArray postJSONArrayFromUrl(String url, Object object) {
 
-		try {
+    try {
 
-			Gson gson = new Gson();
+      Gson gson = new Gson();
 
-			String jsonPost = gson.toJson(object);
-			RequestBody body = RequestBody.create(JSON, jsonPost);
+      String jsonPost = gson.toJson(object);
+      RequestBody body = RequestBody.create(JSON, jsonPost);
 
-			OkHttpClient client = new OkHttpClient();
+      OkHttpClient client = new OkHttpClient();
 
-			Request request = new Request.Builder().url(url).post(body).build();
+      Request request = new Request.Builder().url(url).post(body).build();
 
-			Response response = client.newCall(request).execute();
+      Response response = client.newCall(request).execute();
 
-			json = response.body().string();
+      json = response.body().string();
 
-			System.out.println("json :" + json);
+      System.out.println("json :" + json);
 
-		} catch (Exception e) {
-			Log.e("Buffer Error", "Error converting result " + e.toString());
-		}
+    } catch (Exception e) {
+      Log.e("Buffer Error", "Error converting result " + e.toString());
+    }
 
-		// try parse the string to a JSON array
-		try {
-			jArr = new JSONArray(json);
-		} catch (JSONException e) {
-			Log.e("JSON Parser", "Error parsing data " + e.toString());
-		}
+    // try parse the string to a JSON array
+    try {
+      jArr = new JSONArray(json);
+    } catch (JSONException e) {
+      Log.e("JSON Parser", "Error parsing data " + e.toString());
+    }
 
-		// return JSON String
-		return jArr;
+    // return JSON String
+    return jArr;
 
-	}
+  }
+
+
+  public JSONObject postJSONFromUrl(String url, Object object) {
+
+    try {
+
+      Gson gson = new Gson();
+
+      String jsonPost = gson.toJson(object);
+      RequestBody body = RequestBody.create(JSON, jsonPost);
+
+      OkHttpClient client = new OkHttpClient();
+
+      Request request = new Request.Builder().url(url).post(body).build();
+
+      Response response = client.newCall(request).execute();
+
+      json = response.body().string();
+
+      System.out.println("json :" + json);
+
+    } catch (Exception e) {
+      Log.e("Buffer Error", "Error converting result " + e.toString());
+    }
+
+    // try parse the string to a JSON array
+    try {
+      jObj = new JSONObject(json);
+    } catch (JSONException e) {
+      Log.e("JSON Parser", "Error parsing data " + e.toString());
+    }
+
+    // return JSON String
+    return jObj;
+
+  }
 }

@@ -133,12 +133,15 @@ public final class R {
         public static final int view_train_schedules=0x7f090004;
     }
     public static final class string {
+        public static final int GPSAlertDialogMessage=0x7f070037;
+        public static final int GPSAlertDialogTitle=0x7f070036;
         public static final int action_settings=0x7f070003;
         public static final int active_update_location_title=0x7f070030;
         public static final int add_to_favourites=0x7f07002e;
         public static final int app_name=0x7f070001;
         public static final int arrival=0x7f070017;
         public static final int base_app_url=0x7f070000;
+        public static final int cancel=0x7f070039;
         public static final int depature=0x7f070016;
         public static final int destination_station=0x7f070023;
         public static final int duration=0x7f070018;
@@ -149,6 +152,8 @@ public final class R {
         public static final int from_time=0x7f07000d;
         public static final int hello_world=0x7f070002;
         public static final int hide_advanced_filter=0x7f07000a;
+        public static final int latitude=0x7f07003a;
+        public static final int longitude=0x7f07003b;
         public static final int next_train=0x7f070007;
         public static final int ok=0x7f07001f;
         public static final int pick_a_date=0x7f07000b;
@@ -159,6 +164,7 @@ public final class R {
         public static final int search_train=0x7f070010;
         public static final int select=0x7f07001c;
         public static final int set_alarm_clock=0x7f070035;
+        public static final int settings=0x7f070038;
         public static final int show_advanced_filter=0x7f070009;
         public static final int start_station=0x7f070022;
         public static final int title_activity_active_update_location=0x7f07002f;

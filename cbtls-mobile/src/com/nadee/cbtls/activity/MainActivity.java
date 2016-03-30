@@ -320,7 +320,10 @@ public class MainActivity extends FragmentActivity {
 
       JSONParser jParser = new JSONParser();
       // Getting JSON from URL
+      System.out.println("BASE_URL " + BASE_URL);
+      System.out.println("jagdagf " + BASE_URL + TRAIN_LINE_URL);
       JSONArray json = jParser.getJSONArrayFromUrl(BASE_URL + TRAIN_LINE_URL);
+      System.out.println("json " + json);
       return json;
     }
 
