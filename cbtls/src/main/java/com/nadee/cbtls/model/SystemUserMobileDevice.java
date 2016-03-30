@@ -38,7 +38,7 @@ public class SystemUserMobileDevice implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mobile_device_id", referencedColumnName = "mobile_device_id")
-    @Cascade(org.hibernate.annotations.CascadeType.MERGE)	
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)	
 	private MobileDevice mobileDevice;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
