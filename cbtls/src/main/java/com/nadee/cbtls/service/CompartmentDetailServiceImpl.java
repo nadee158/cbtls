@@ -34,154 +34,171 @@ import com.nadee.cbtls.model.TrainStationScheduleTurn;
 @Service("compartmentDetailService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class CompartmentDetailServiceImpl implements CompartmentDetailService {
-	
-	@Autowired
-	private CommonDAO commonDAO;
-	
-	@Autowired
-	private CompartmentDetailDAO compartmentDetailDAO;
-	
-	@Autowired
-	private TrainLocationUpdateDAO trainLocationUpdateDAO;
-	
-	@Autowired
-	private SystemUserService systemUserService;
 
-	@Override
-	public  Map<String,Object> updateCompartmentDetails(CompartmentDetailUpdateDTO dto) throws Exception {
-		Map<String,Object> resultMap=new HashMap<String,Object>();
-		
-		TrainScheduleTurnCompartmentUpdate update=new TrainScheduleTurnCompartmentUpdate();
-		
-		update.setCompartmentDensity(CrowdDensity.fromCode(dto.getCompartmentDensity()));
-		update.setCompartmentNumber(dto.getCompartmentNumber());
-		update.setOverallDensity(CrowdDensity.fromCode(dto.getOverallDensity()));
-		update.setTotalCompartments(dto.getTotalCompartments());
-		
-		TrainScheduleTurn trainScheduleTurn=trainLocationUpdateDAO.fetchTrainScheduleTurn(dto.getTrainScheduleId(), Calendar.getInstance().getTime());
-		System.out.println("trainScheduleTurn :"  + trainScheduleTurn);
-		
-		boolean isNewRecord=false;
-		
-		
-		if(trainScheduleTurn==null){
-			isNewRecord=true;
-			trainScheduleTurn=new TrainScheduleTurn();
-			trainScheduleTurn.setActiveStatus(YesNoStatus.YES);
-			TrainSchedule trainSchedule=commonDAO.getEntityById(TrainSchedule.class, dto.getTrainScheduleId());
-			trainScheduleTurn.setTrainSchedule(trainSchedule);
-			trainScheduleTurn.setTrainScheduleTurnDate(Calendar.getInstance().getTime());
-		}
-		
-		if(trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()==null){
-			trainScheduleTurn.setTrainScheduleTurnCompartmentUpdates(new ArrayList<TrainScheduleTurnCompartmentUpdate>());
-		}
-		
-		
-		SystemUser systemUser=null;
-		
-		if(StringUtils.isNotEmpty(dto.getSystemUserMobileDevice())){
-			SystemUserMobileDevice systemUserMobileDevice=systemUserService.getSystemUserMobileDeviceByUniqueId(dto.getSystemUserMobileDevice());
-			if(systemUserMobileDevice==null){
-				systemUserMobileDevice=systemUserService.createMobileUser(dto.getSystemUserMobileDevice());
-			}
-			systemUser=systemUserMobileDevice.getSystemUser();
-			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.MOBILE_USER);
-			resultMap.put(ApplicationConstants.USER_ID,systemUserMobileDevice.getMobileDevice().getUniqueMobileDeviceNumber());
-		}else{
-			if(!(dto.getUpdatedUser()==0)){
-				systemUser=commonDAO.getEntityById(SystemUser.class, dto.getUpdatedUser());
-			}
-			if(systemUser==null){
-				systemUser=systemUserService.createWebUser();
-			}
-			resultMap.put(ApplicationConstants.USER_TYPE,ApplicationConstants.WEB_USER);
-			resultMap.put(ApplicationConstants.USER_ID,systemUser.getUserId());
-		}
-		
-		update.setTrainScheduleTurn(trainScheduleTurn);
-		update.setUpdatedTime(Calendar.getInstance().getTime());
-		
-		update.setUpdatedUser(systemUser);
-		
-		trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates().add(update);
-		
-		TrainStationScheduleTurn trainStationScheduleTurn=null;
-		if(!(isNewRecord)){
-			trainStationScheduleTurn=trainLocationUpdateDAO.fetchTrainStationScheduleTurn(trainScheduleTurn.getTrainScheduleTurnId(),dto.getTrainStationScheduleId());
-		}
-		Date arrivalTime=Calendar.getInstance().getTime();
-		Date departureTime=Calendar.getInstance().getTime();
-		
-		
-		if(trainStationScheduleTurn==null){
-			if(trainScheduleTurn.getTrainStationScheduleTurn()==null){
-				trainScheduleTurn.setTrainStationScheduleTurn(new ArrayList<TrainStationScheduleTurn>());
-			}
-			trainStationScheduleTurn=new TrainStationScheduleTurn();
-			trainStationScheduleTurn.setActiveStatus(YesNoStatus.YES);
-			trainStationScheduleTurn.setArrivalTime(arrivalTime);
-			trainStationScheduleTurn.setDepartureTime(departureTime);
-			TrainStationSchedule trainStationSchedule=commonDAO.getEntityById(TrainStationSchedule.class, dto.getTrainStationScheduleId());
-			trainStationScheduleTurn.setTrainStationSchedule(trainStationSchedule);
-			trainStationScheduleTurn.setTrainTurn(trainScheduleTurn);
-			trainScheduleTurn.getTrainStationScheduleTurn().add(trainStationScheduleTurn);
-			
-		}
-		
-		String result=commonDAO.saveOrUpdateEntity(trainScheduleTurn);
-		resultMap.put(ApplicationConstants.RESULT, result);
-		
-		
-		return resultMap;
-	}
-	
-	@Override
-	public CompartmentDetailResponseDTO viewCompartmentDetails(
-			ViewCompartmentDetailRequestDTO dto) throws Exception {
-		CompartmentDetailResponseDTO compartmentDetailResponseDTO=null;
-		TrainScheduleTurn trainScheduleTurn=trainLocationUpdateDAO.fetchTrainScheduleTurn(dto.getTrainScheduleId(), dto.getDateAsDate());
-		System.out.println("trainScheduleTurn :"  + trainScheduleTurn);
-		if(!(trainScheduleTurn==null)){
-			if(!(trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()==null 
-					|| trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates().isEmpty())){
-				compartmentDetailResponseDTO=new CompartmentDetailResponseDTO(ApplicationConstants.RESULTS_FOUND);
-				int totalCompartments=0;
-				int overallCrowdDensity=0;
-				int noOfFeedBacks=0;
-				
-				Map<Integer,CompartmentDetailItemDTO> map=new HashMap<Integer,CompartmentDetailItemDTO>();
-				for (TrainScheduleTurnCompartmentUpdate update : trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()) {
-					totalCompartments=totalCompartments + update.getTotalCompartments();
-					overallCrowdDensity=overallCrowdDensity + update.getOverallDensity().getCode();
-					noOfFeedBacks++;
-					if(map.get(update.getCompartmentNumber())==null){
-						CompartmentDetailItemDTO compartmentDetailItemDTO=new CompartmentDetailItemDTO();
-						compartmentDetailItemDTO.setComaprtmentNumber(update.getCompartmentNumber());
-						compartmentDetailItemDTO.setCrowdDensity(update.getCompartmentDensity().getCode());
-						compartmentDetailItemDTO.setNoOfFeedBacks(1);
-						map.put(update.getCompartmentNumber(), compartmentDetailItemDTO);
-					}else{
-						CompartmentDetailItemDTO compartmentDetailItemDTO=map.get(update.getCompartmentNumber());
-						compartmentDetailItemDTO.setCrowdDensity(compartmentDetailItemDTO.getCrowdDensity() + update.getCompartmentDensity().getCode());
-						compartmentDetailItemDTO.setNoOfFeedBacks(compartmentDetailItemDTO.getNoOfFeedBacks() + 1);
-						map.put(update.getCompartmentNumber(), compartmentDetailItemDTO);
-					}
-				}
-				List<CompartmentDetailItemDTO> detailItems=new ArrayList<CompartmentDetailItemDTO>();
-				for (CompartmentDetailItemDTO compartmentDetailItemDTO : map.values()) {
-					compartmentDetailItemDTO.setCrowdDensity(compartmentDetailItemDTO.getCrowdDensity() / compartmentDetailItemDTO.getNoOfFeedBacks());
-					detailItems.add(compartmentDetailItemDTO);
-				}
-				
-				compartmentDetailResponseDTO.setNoOfFeedBacks(noOfFeedBacks);
-				compartmentDetailResponseDTO.setOverallCrowdDensity(overallCrowdDensity/noOfFeedBacks);
-				compartmentDetailResponseDTO.setTotalCompartments(totalCompartments/noOfFeedBacks);
-				System.out.println("compartmentDetailResponseDTO :" + compartmentDetailResponseDTO);
-				return compartmentDetailResponseDTO;
-			}
-		}
-		return new CompartmentDetailResponseDTO(ApplicationConstants.NO_RESULTS);
-	}
+  @Autowired
+  private CommonDAO commonDAO;
+
+  @Autowired
+  private CompartmentDetailDAO compartmentDetailDAO;
+
+  @Autowired
+  private TrainLocationUpdateDAO trainLocationUpdateDAO;
+
+  @Autowired
+  private SystemUserService systemUserService;
+
+  @Override
+  public Map<String, Object> updateCompartmentDetails(CompartmentDetailUpdateDTO dto)
+      throws Exception {
+    Map<String, Object> resultMap = new HashMap<String, Object>();
+
+    TrainScheduleTurnCompartmentUpdate update = new TrainScheduleTurnCompartmentUpdate();
+
+    update.setCompartmentDensity(CrowdDensity.fromCode(dto.getCompartmentDensity()));
+    update.setCompartmentNumber(dto.getCompartmentNumber());
+    update.setOverallDensity(CrowdDensity.fromCode(dto.getOverallDensity()));
+    update.setTotalCompartments(dto.getTotalCompartments());
+
+    TrainScheduleTurn trainScheduleTurn = trainLocationUpdateDAO
+        .fetchTrainScheduleTurn(dto.getTrainScheduleId(), Calendar.getInstance().getTime());
+    System.out.println("trainScheduleTurn :" + trainScheduleTurn);
+
+    boolean isNewRecord = false;
+
+
+    if (trainScheduleTurn == null) {
+      isNewRecord = true;
+      trainScheduleTurn = new TrainScheduleTurn();
+      trainScheduleTurn.setActiveStatus(YesNoStatus.YES);
+      TrainSchedule trainSchedule =
+          commonDAO.getEntityById(TrainSchedule.class, dto.getTrainScheduleId());
+      trainScheduleTurn.setTrainSchedule(trainSchedule);
+      trainScheduleTurn.setTrainScheduleTurnDate(Calendar.getInstance().getTime());
+    }
+
+    if (trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates() == null) {
+      trainScheduleTurn.setTrainScheduleTurnCompartmentUpdates(
+          new ArrayList<TrainScheduleTurnCompartmentUpdate>());
+    }
+
+
+    SystemUser systemUser = null;
+
+    if (StringUtils.isNotEmpty(dto.getSystemUserMobileDevice())) {
+      SystemUserMobileDevice systemUserMobileDevice =
+          systemUserService.getSystemUserMobileDeviceByUniqueId(dto.getSystemUserMobileDevice());
+      if (systemUserMobileDevice == null) {
+        systemUserMobileDevice =
+            systemUserService.createMobileUser(dto.getSystemUserMobileDevice(), null);
+      }
+      systemUser = systemUserMobileDevice.getSystemUser();
+      resultMap.put(ApplicationConstants.USER_TYPE, ApplicationConstants.MOBILE_USER);
+      resultMap.put(ApplicationConstants.USER_ID,
+          systemUserMobileDevice.getMobileDevice().getUniqueMobileDeviceNumber());
+    } else {
+      if (!(dto.getUpdatedUser() == 0)) {
+        systemUser = commonDAO.getEntityById(SystemUser.class, dto.getUpdatedUser());
+      }
+      if (systemUser == null) {
+        systemUser = systemUserService.createWebUser(null, null);
+      }
+      resultMap.put(ApplicationConstants.USER_TYPE, ApplicationConstants.WEB_USER);
+      resultMap.put(ApplicationConstants.USER_ID, systemUser.getUserId());
+    }
+
+    update.setTrainScheduleTurn(trainScheduleTurn);
+    update.setUpdatedTime(Calendar.getInstance().getTime());
+
+    update.setUpdatedUser(systemUser);
+
+    trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates().add(update);
+
+    TrainStationScheduleTurn trainStationScheduleTurn = null;
+    if (!(isNewRecord)) {
+      trainStationScheduleTurn = trainLocationUpdateDAO.fetchTrainStationScheduleTurn(
+          trainScheduleTurn.getTrainScheduleTurnId(), dto.getTrainStationScheduleId());
+    }
+    Date arrivalTime = Calendar.getInstance().getTime();
+    Date departureTime = Calendar.getInstance().getTime();
+
+
+    if (trainStationScheduleTurn == null) {
+      if (trainScheduleTurn.getTrainStationScheduleTurn() == null) {
+        trainScheduleTurn.setTrainStationScheduleTurn(new ArrayList<TrainStationScheduleTurn>());
+      }
+      trainStationScheduleTurn = new TrainStationScheduleTurn();
+      trainStationScheduleTurn.setActiveStatus(YesNoStatus.YES);
+      trainStationScheduleTurn.setArrivalTime(arrivalTime);
+      trainStationScheduleTurn.setDepartureTime(departureTime);
+      TrainStationSchedule trainStationSchedule =
+          commonDAO.getEntityById(TrainStationSchedule.class, dto.getTrainStationScheduleId());
+      trainStationScheduleTurn.setTrainStationSchedule(trainStationSchedule);
+      trainStationScheduleTurn.setTrainTurn(trainScheduleTurn);
+      trainScheduleTurn.getTrainStationScheduleTurn().add(trainStationScheduleTurn);
+
+    }
+
+    String result = commonDAO.saveOrUpdateEntity(trainScheduleTurn);
+    resultMap.put(ApplicationConstants.RESULT, result);
+
+
+    return resultMap;
+  }
+
+  @Override
+  public CompartmentDetailResponseDTO viewCompartmentDetails(ViewCompartmentDetailRequestDTO dto)
+      throws Exception {
+    CompartmentDetailResponseDTO compartmentDetailResponseDTO = null;
+    TrainScheduleTurn trainScheduleTurn = trainLocationUpdateDAO
+        .fetchTrainScheduleTurn(dto.getTrainScheduleId(), dto.getDateAsDate());
+    System.out.println("trainScheduleTurn :" + trainScheduleTurn);
+    if (!(trainScheduleTurn == null)) {
+      if (!(trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates() == null
+          || trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates().isEmpty())) {
+        compartmentDetailResponseDTO =
+            new CompartmentDetailResponseDTO(ApplicationConstants.RESULTS_FOUND);
+        int totalCompartments = 0;
+        int overallCrowdDensity = 0;
+        int noOfFeedBacks = 0;
+
+        Map<Integer, CompartmentDetailItemDTO> map =
+            new HashMap<Integer, CompartmentDetailItemDTO>();
+        for (TrainScheduleTurnCompartmentUpdate update : trainScheduleTurn
+            .getTrainScheduleTurnCompartmentUpdates()) {
+          totalCompartments = totalCompartments + update.getTotalCompartments();
+          overallCrowdDensity = overallCrowdDensity + update.getOverallDensity().getCode();
+          noOfFeedBacks++;
+          if (map.get(update.getCompartmentNumber()) == null) {
+            CompartmentDetailItemDTO compartmentDetailItemDTO = new CompartmentDetailItemDTO();
+            compartmentDetailItemDTO.setComaprtmentNumber(update.getCompartmentNumber());
+            compartmentDetailItemDTO.setCrowdDensity(update.getCompartmentDensity().getCode());
+            compartmentDetailItemDTO.setNoOfFeedBacks(1);
+            map.put(update.getCompartmentNumber(), compartmentDetailItemDTO);
+          } else {
+            CompartmentDetailItemDTO compartmentDetailItemDTO =
+                map.get(update.getCompartmentNumber());
+            compartmentDetailItemDTO.setCrowdDensity(compartmentDetailItemDTO.getCrowdDensity()
+                + update.getCompartmentDensity().getCode());
+            compartmentDetailItemDTO
+                .setNoOfFeedBacks(compartmentDetailItemDTO.getNoOfFeedBacks() + 1);
+            map.put(update.getCompartmentNumber(), compartmentDetailItemDTO);
+          }
+        }
+        List<CompartmentDetailItemDTO> detailItems = new ArrayList<CompartmentDetailItemDTO>();
+        for (CompartmentDetailItemDTO compartmentDetailItemDTO : map.values()) {
+          compartmentDetailItemDTO.setCrowdDensity(compartmentDetailItemDTO.getCrowdDensity()
+              / compartmentDetailItemDTO.getNoOfFeedBacks());
+          detailItems.add(compartmentDetailItemDTO);
+        }
+
+        compartmentDetailResponseDTO.setNoOfFeedBacks(noOfFeedBacks);
+        compartmentDetailResponseDTO.setOverallCrowdDensity(overallCrowdDensity / noOfFeedBacks);
+        compartmentDetailResponseDTO.setTotalCompartments(totalCompartments / noOfFeedBacks);
+        System.out.println("compartmentDetailResponseDTO :" + compartmentDetailResponseDTO);
+        return compartmentDetailResponseDTO;
+      }
+    }
+    return new CompartmentDetailResponseDTO(ApplicationConstants.NO_RESULTS);
+  }
 
 }

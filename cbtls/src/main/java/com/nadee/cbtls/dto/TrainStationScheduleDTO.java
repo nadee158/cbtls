@@ -59,8 +59,12 @@ public class TrainStationScheduleDTO implements Serializable {
 
 
   private double calculateDistance() {
-    return this.toTrainLineStation.getDistanceFromStartStation()
-        - this.fromTrainLineStation.getDistanceFromStartStation();
+    if (!(this.toTrainLineStation == null || this.fromTrainLineStation == null)) {
+      return this.toTrainLineStation.getDistanceFromStartStation()
+          - this.fromTrainLineStation.getDistanceFromStartStation();
+    }
+    return 0;
+
   }
 
   private String calculateDuration() {
