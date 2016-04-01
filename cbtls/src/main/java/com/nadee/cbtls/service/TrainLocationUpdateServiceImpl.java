@@ -47,7 +47,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 
   @Autowired
   private SystemUserService systemUserService;
-  
+
   @Autowired
   private SystemUserDAO systemUserDAO;
 
@@ -97,14 +97,16 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
     if (StringUtils.isNotEmpty(dto.getSystemUserMobileDevice())) {
       SystemUserMobileDevice systemUserMobileDevice =
           systemUserDAO.getSystemUserMobileDeviceByUniqueId(dto.getSystemUserMobileDevice());
-     
+
       if (systemUserMobileDevice == null) {
         systemUserMobileDevice =
             systemUserService.createMobileUser(dto.getSystemUserMobileDevice(), null);
-      }else{
-          System.out.println("systemUserMobileDevice.getSystemUserMobileDeviceId() " + systemUserMobileDevice.getSystemUserMobileDeviceId());
+      } else {
+        System.out.println("systemUserMobileDevice.getSystemUserMobileDeviceId() "
+            + systemUserMobileDevice.getSystemUserMobileDeviceId());
       }
-      System.out.println("systemUserMobileDevice.getSystemUserMobileDeviceId() " + systemUserMobileDevice.getSystemUserMobileDeviceId());
+      System.out.println("systemUserMobileDevice.getSystemUserMobileDeviceId() "
+          + systemUserMobileDevice.getSystemUserMobileDeviceId());
       systemUser = systemUserMobileDevice.getSystemUser();
       System.out.println("systemUser.getUserId() " + systemUser.getUserId());
       resultMap.put(ApplicationConstants.USER_TYPE, ApplicationConstants.MOBILE_USER);
@@ -169,6 +171,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 
 
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
   public Map<String, Object> passiveUpdateTrainLocation(PassiveTrainLocationUpdateDTO dto)
       throws Exception {
     Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -273,69 +276,73 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 
     return resultMap;
   }
-  
-  
+
+
   @Override
-  public ViewTrainlocationResponseDTO listTrainLocation(ViewTrainlocationRequestDTO requestDTO) throws Exception {
-    ViewTrainlocationResponseDTO dto=new ViewTrainlocationResponseDTO();
-    String status=ApplicationConstants.ERROR;
-    String message=null;
-    TrainScheduleTurn trainScheduleTurn=trainLocationUpdateDAO.fetchTrainScheduleTurn(requestDTO.getTrainScheduleId(), Calendar.getInstance().getTime());
-    if(trainScheduleTurn==null){
-      message="No data regading this schedule is curretly available!";
-    }else{
-      boolean isDataAvailable=false;
-      List<TrainLocationDTO> locationDTOs=new ArrayList<TrainLocationDTO>();
-      if(!(trainScheduleTurn.getTrainScheduleTurnLocationUpdates()==null 
-            || trainScheduleTurn.getTrainScheduleTurnLocationUpdates().isEmpty())){
-          isDataAvailable=true;
-          for (TrainScheduleTurnLocationUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationUpdates()) {
-            TrainLocationDTO trainLocationDTO=new TrainLocationDTO();
-            trainLocationDTO.setLatitude(locationUpdate.getLatitude());
-            trainLocationDTO.setLongitude(locationUpdate.getLongitude());
-            SystemUser systemUser=locationUpdate.getUpdatedUser();
-            trainLocationDTO.setProvidedUserName(systemUser.getUserDisplayName());
-            trainLocationDTO.setRank(systemUser.getAverageRanking());
-            SimpleDateFormat format=new SimpleDateFormat("hh:mm a");
-            trainLocationDTO.setUpdatedTime(format.format(locationUpdate.getUpdatedTime()));
-            trainLocationDTO.setUpdatedUserId(systemUser.getUserId());
-            trainLocationDTO.setNote(locationUpdate.getLocatedType().toString());
-            locationDTOs.add(trainLocationDTO);
-            dto.setTotalNoOfFeedbacks(dto.getTotalNoOfFeedbacks() + 1);
-          }
+  public ViewTrainlocationResponseDTO listTrainLocation(ViewTrainlocationRequestDTO requestDTO)
+      throws Exception {
+    ViewTrainlocationResponseDTO dto = new ViewTrainlocationResponseDTO();
+    String status = ApplicationConstants.ERROR;
+    String message = null;
+    TrainScheduleTurn trainScheduleTurn = trainLocationUpdateDAO
+        .fetchTrainScheduleTurn(requestDTO.getTrainScheduleId(), Calendar.getInstance().getTime());
+    if (trainScheduleTurn == null) {
+      message = "No data regading this schedule is curretly available!";
+    } else {
+      boolean isDataAvailable = false;
+      List<TrainLocationDTO> locationDTOs = new ArrayList<TrainLocationDTO>();
+      if (!(trainScheduleTurn.getTrainScheduleTurnLocationUpdates() == null
+          || trainScheduleTurn.getTrainScheduleTurnLocationUpdates().isEmpty())) {
+        isDataAvailable = true;
+        for (TrainScheduleTurnLocationUpdate locationUpdate : trainScheduleTurn
+            .getTrainScheduleTurnLocationUpdates()) {
+          TrainLocationDTO trainLocationDTO = new TrainLocationDTO();
+          trainLocationDTO.setLatitude(locationUpdate.getLatitude());
+          trainLocationDTO.setLongitude(locationUpdate.getLongitude());
+          SystemUser systemUser = locationUpdate.getUpdatedUser();
+          trainLocationDTO.setProvidedUserName(systemUser.getUserDisplayName());
+          trainLocationDTO.setRank(systemUser.getAverageRanking());
+          SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
+          trainLocationDTO.setUpdatedTime(format.format(locationUpdate.getUpdatedTime()));
+          trainLocationDTO.setUpdatedUserId(systemUser.getUserId());
+          trainLocationDTO.setNote(locationUpdate.getLocatedType().toString());
+          locationDTOs.add(trainLocationDTO);
+          dto.setTotalNoOfFeedbacks(dto.getTotalNoOfFeedbacks() + 1);
+        }
       }
-      
-      if(!(trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()==null 
-                || trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates().isEmpty())){
-          isDataAvailable=true;
-          for (TrainScheduleTurnLocationPassiveUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()) {
-            TrainLocationDTO trainLocationDTO=new TrainLocationDTO();
-            TrainStation trainStation=locationUpdate.getLastStation();
-            trainLocationDTO.setLatitude(trainStation.getGeoLocation().getLatitude());
-            trainLocationDTO.setLongitude(trainStation.getGeoLocation().getLongitude());
-            SystemUser systemUser=locationUpdate.getUpdatedUser();
-            trainLocationDTO.setProvidedUserName(systemUser.getUserDisplayName());
-            trainLocationDTO.setRank(systemUser.getAverageRanking());
-            SimpleDateFormat format=new SimpleDateFormat("hh:mm a");
-            trainLocationDTO.setUpdatedTime(format.format(locationUpdate.getLocatedTime()));
-            trainLocationDTO.setUpdatedUserId(systemUser.getUserId());
-            trainLocationDTO.setNote(locationUpdate.getLocatedType().toString());
-            locationDTOs.add(trainLocationDTO);
-            dto.setTotalNoOfFeedbacks(dto.getTotalNoOfFeedbacks() + 1);
-          }
+
+      if (!(trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates() == null
+          || trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates().isEmpty())) {
+        isDataAvailable = true;
+        for (TrainScheduleTurnLocationPassiveUpdate locationUpdate : trainScheduleTurn
+            .getTrainScheduleTurnLocationPassiveUpdates()) {
+          TrainLocationDTO trainLocationDTO = new TrainLocationDTO();
+          TrainStation trainStation = locationUpdate.getLastStation();
+          trainLocationDTO.setLatitude(trainStation.getGeoLocation().getLatitude());
+          trainLocationDTO.setLongitude(trainStation.getGeoLocation().getLongitude());
+          SystemUser systemUser = locationUpdate.getUpdatedUser();
+          trainLocationDTO.setProvidedUserName(systemUser.getUserDisplayName());
+          trainLocationDTO.setRank(systemUser.getAverageRanking());
+          SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
+          trainLocationDTO.setUpdatedTime(format.format(locationUpdate.getLocatedTime()));
+          trainLocationDTO.setUpdatedUserId(systemUser.getUserId());
+          trainLocationDTO.setNote(locationUpdate.getLocatedType().toString());
+          locationDTOs.add(trainLocationDTO);
+          dto.setTotalNoOfFeedbacks(dto.getTotalNoOfFeedbacks() + 1);
+        }
       }
       dto.setLocationDTOs(locationDTOs);
       System.out.println("locationDTOs :" + locationDTOs);
-      
-      if(!(isDataAvailable)){
-        message="No data regading this schedule is curretly available!";
-        status=ApplicationConstants.ERROR;
-      }else{
-        status=ApplicationConstants.SUCCESS;
+
+      if (!(isDataAvailable)) {
+        message = "No data regading this schedule is curretly available!";
+        status = ApplicationConstants.ERROR;
+      } else {
+        status = ApplicationConstants.SUCCESS;
       }
-      
+
     }
-   
+
     dto.setMessage(message);
     dto.setStatus(status);
     return dto;

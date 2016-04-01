@@ -80,7 +80,7 @@
     
   </div>
     <form action="viewTrainScheduleDetails.htm" id="viewTrainScheduleDetails" method="post"></form>
-    <form action="viewCompartmentDetails.htm" id="viewCompartmentDetails" method="post"></form>
+    <form action="getViewCompartmentDetails.htm" id="viewCompartmentDetails" method="post"></form>
     
     
 
@@ -128,6 +128,7 @@ function getTrainLocation(){
 				}else{
 					alert(data.message)
 				}
+				$('#modal_close').click();
 		    }
 	    });
 }

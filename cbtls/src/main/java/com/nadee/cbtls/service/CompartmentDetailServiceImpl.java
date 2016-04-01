@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class CompartmentDetailServiceImpl implements CompartmentDetailService {
   private SystemUserService systemUserService;
 
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
   public Map<String, Object> updateCompartmentDetails(CompartmentDetailUpdateDTO dto)
       throws Exception {
     Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -150,7 +152,7 @@ public class CompartmentDetailServiceImpl implements CompartmentDetailService {
       throws Exception {
     CompartmentDetailResponseDTO compartmentDetailResponseDTO = null;
     TrainScheduleTurn trainScheduleTurn = trainLocationUpdateDAO
-        .fetchTrainScheduleTurn(dto.getTrainScheduleId(), dto.getDateAsDate());
+        .fetchTrainScheduleTurn(dto.getTrainScheduleId(), Calendar.getInstance().getTime());
     System.out.println("trainScheduleTurn :" + trainScheduleTurn);
     if (!(trainScheduleTurn == null)) {
       if (!(trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates() == null
@@ -184,13 +186,15 @@ public class CompartmentDetailServiceImpl implements CompartmentDetailService {
             map.put(update.getCompartmentNumber(), compartmentDetailItemDTO);
           }
         }
+        System.out.println("map :" + map);
         List<CompartmentDetailItemDTO> detailItems = new ArrayList<CompartmentDetailItemDTO>();
-        for (CompartmentDetailItemDTO compartmentDetailItemDTO : map.values()) {
+        for (Entry<Integer, CompartmentDetailItemDTO> item : map.entrySet()) {
+          CompartmentDetailItemDTO compartmentDetailItemDTO = item.getValue();
           compartmentDetailItemDTO.setCrowdDensity(compartmentDetailItemDTO.getCrowdDensity()
               / compartmentDetailItemDTO.getNoOfFeedBacks());
           detailItems.add(compartmentDetailItemDTO);
         }
-
+        compartmentDetailResponseDTO.setDetailItems(detailItems);
         compartmentDetailResponseDTO.setNoOfFeedBacks(noOfFeedBacks);
         compartmentDetailResponseDTO.setOverallCrowdDensity(overallCrowdDensity / noOfFeedBacks);
         compartmentDetailResponseDTO.setTotalCompartments(totalCompartments / noOfFeedBacks);

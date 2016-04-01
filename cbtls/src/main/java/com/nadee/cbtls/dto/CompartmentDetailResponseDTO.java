@@ -5,69 +5,80 @@ import java.util.List;
 
 public class CompartmentDetailResponseDTO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private String resultsAvailableStatus;
-	
-	private int totalCompartments;
-	
-	private int overallCrowdDensity;
-	
-	private int noOfFeedBacks;
-	
-	private List<CompartmentDetailItemDTO> detailItems;
-	
-	public CompartmentDetailResponseDTO(String resultsAvailableStatus) {
-		this.resultsAvailableStatus=resultsAvailableStatus;
-	}
+  private static final long serialVersionUID = 1L;
 
-	public String getResultsAvailableStatus() {
-		return resultsAvailableStatus;
-	}
+  private String resultsAvailableStatus;
 
-	public void setResultsAvailableStatus(String resultsAvailableStatus) {
-		this.resultsAvailableStatus = resultsAvailableStatus;
-	}
+  private int totalCompartments;
 
-	public int getTotalCompartments() {
-		return totalCompartments;
-	}
+  private int overallCrowdDensity;
 
-	public void setTotalCompartments(int totalCompartments) {
-		this.totalCompartments = totalCompartments;
-	}
+  private int noOfFeedBacks;
 
-	public int getOverallCrowdDensity() {
-		return overallCrowdDensity;
-	}
+  private String status;
 
-	public void setOverallCrowdDensity(int overallCrowdDensity) {
-		this.overallCrowdDensity = overallCrowdDensity;
-	}
+  private List<CompartmentDetailItemDTO> detailItems;
 
-	public int getNoOfFeedBacks() {
-		return noOfFeedBacks;
-	}
+  public CompartmentDetailResponseDTO(String resultsAvailableStatus) {
+    this.resultsAvailableStatus = resultsAvailableStatus;
+  }
 
-	public void setNoOfFeedBacks(int noOfFeedBacks) {
-		this.noOfFeedBacks = noOfFeedBacks;
-	}
+  public String getResultsAvailableStatus() {
+    return resultsAvailableStatus;
+  }
 
-	public List<CompartmentDetailItemDTO> getDetailItems() {
-		return detailItems;
-	}
+  public void setResultsAvailableStatus(String resultsAvailableStatus) {
+    this.resultsAvailableStatus = resultsAvailableStatus;
+  }
 
-	public void setDetailItems(List<CompartmentDetailItemDTO> detailItems) {
-		this.detailItems = detailItems;
-	}
+  public int getTotalCompartments() {
+    return totalCompartments;
+  }
 
-	@Override
-	public String toString() {
-		return "CompartmentDetailResponseDTO [resultsAvailableStatus=" + resultsAvailableStatus + ", totalCompartments="
-				+ totalCompartments + ", overallCrowdDensity=" + overallCrowdDensity + ", noOfFeedBacks="
-				+ noOfFeedBacks + ", detailItems=" + detailItems + "]";
-	}
-	
-	
+  public void setTotalCompartments(int totalCompartments) {
+    this.totalCompartments = totalCompartments;
+  }
+
+  public int getOverallCrowdDensity() {
+    return overallCrowdDensity;
+  }
+
+  public void setOverallCrowdDensity(int overallCrowdDensity) {
+    this.overallCrowdDensity = overallCrowdDensity;
+  }
+
+  public int getNoOfFeedBacks() {
+    return noOfFeedBacks;
+  }
+
+  public void setNoOfFeedBacks(int noOfFeedBacks) {
+    this.noOfFeedBacks = noOfFeedBacks;
+  }
+
+  public List<CompartmentDetailItemDTO> getDetailItems() {
+    return detailItems;
+  }
+
+  public void setDetailItems(List<CompartmentDetailItemDTO> detailItems) {
+    this.detailItems = detailItems;
+  }
+
+  @Override
+  public String toString() {
+    return "CompartmentDetailResponseDTO [resultsAvailableStatus=" + resultsAvailableStatus
+        + ", totalCompartments=" + totalCompartments + ", overallCrowdDensity="
+        + overallCrowdDensity + ", noOfFeedBacks=" + noOfFeedBacks + ", detailItems=" + detailItems
+        + "]";
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+
 
 }
