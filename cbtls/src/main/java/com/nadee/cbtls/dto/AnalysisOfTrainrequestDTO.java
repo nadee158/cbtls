@@ -1,11 +1,8 @@
 package com.nadee.cbtls.dto;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class ViewCompartmentDetailRequestDTO implements Serializable {
+public class AnalysisOfTrainrequestDTO implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -13,12 +10,7 @@ public class ViewCompartmentDetailRequestDTO implements Serializable {
 
   private long trainStationScheduleId;
 
-  private String date;
-
-  public Date getDateAsDate() throws ParseException {
-    SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-    return format.parse(date);
-  }
+  private long trainLineId;
 
   public long getTrainScheduleId() {
     return trainScheduleId;
@@ -36,14 +28,19 @@ public class ViewCompartmentDetailRequestDTO implements Serializable {
     this.trainStationScheduleId = trainStationScheduleId;
   }
 
-  public String getDate() {
-    return date;
+  @Override
+  public String toString() {
+    return "AnalysisOfTrainrequestDTO [trainScheduleId=" + trainScheduleId
+        + ", trainStationScheduleId=" + trainStationScheduleId + "]";
   }
 
-  public void setDate(String date) {
-    this.date = date;
+  public long getTrainLineId() {
+    return trainLineId;
   }
 
+  public void setTrainLineId(long trainLineId) {
+    this.trainLineId = trainLineId;
+  }
 
 
 }
