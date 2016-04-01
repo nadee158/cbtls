@@ -28,7 +28,7 @@
 		
 		<div class="col-lg-12" style="max-width: 100%;">	
 			<div class="table-responsive" style="max-width: 100%;">
-				<table class="table table-bordered" style="max-width: 100%;">
+				<table class="table table-bordered table-striped" style="max-width: 100%;">
 					<thead>
 						<tr>
 							<th class="text-center"><strong>Arrival at Station</strong></th>
@@ -46,7 +46,7 @@
 								<td><fmt:formatDate value="${item.arrivalAtDestinationTime}"  pattern="hh:mm a" /></td>
 								<td>${item.duration}</td>
 								<td>
-									<input class="btn btn-primary" value="View" onclick="viewTrainScheduleDetails(${item.trainStationScheduleId})" type="button">
+									<input class="btn btn-primary" style="padding: 2px 4px;" value="View" onclick="viewTrainScheduleDetails(${item.trainStationScheduleId})" type="button">
 								</td>
 							</tr>
 						</c:forEach>

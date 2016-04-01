@@ -64,6 +64,7 @@ public class TrainLocationUpdateController {
 					}					
 				}
 			}
+			System.out.println("isUserNull :" + isUserNull);
 			map= trainLocationUpdateService.activeUpdateTrainLocation(activeTrainLocationUpdateDTO);
 			if(isUserNull){
 				SessionUtil.addToSession(ApplicationConstants.SYSTEM_USER, map.get(ApplicationConstants.SYSTEM_USER));
@@ -117,11 +118,13 @@ public class TrainLocationUpdateController {
 				SessionUtil.addToSession(ApplicationConstants.SYSTEM_USER, map.get(ApplicationConstants.SYSTEM_USER));
 				SessionUtil.addUserCookie(response,(SystemUser) map.get(ApplicationConstants.SYSTEM_USER));
 			}
+			System.out.println("CAME HERE :"  + map);
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		map.put(ApplicationConstants.RESULT, ApplicationConstants.ERROR);
+		System.out.println("CAME HERE fsfsdfsd :"  + map);
 		return map;
 	}
 

@@ -1,4 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<style type="text/css">
+#map_canvas{
+    width: 600px;
+    height: 500px;
+}
+</style>
 <div class="container" style="padding-top: 0px;">
   <h1 class="page-header">View Train Location (current/last known)</h1>
   <div class="row">
@@ -6,18 +12,7 @@
 		
 <div >
     
-    <div id="controls" style="display:none;">
-     <form onsubmit="start();return false" action="#" >
-      Enter start and end addresses.<br />
-      <input type="text" size="80" maxlength="200" id="startpoint" value="Maradana Railway Station, Jayantha Weerasekara Mawatha, Colombo" /><br />
-      <input type="text" size="80" maxlength="200" id="endpoint" value="Fort Railway Station, Colombo" /><br />
-      <input type="submit" value="Start"  />
-     </form>
-    </div>
-
-    <div id="map" style="width: 700px; height: 500px"></div>
-    <div id="step">&nbsp;</div>
-    <div id="distance">Miles: 0.00</div>
+    <div id="map_canvas"></div>
 
    
   </div>
@@ -34,17 +29,67 @@
 		
 		
 		
+		<input type="hidden" id="trainLineId" value="${trainStationScheduleDTO.trainLineDTO.trainLineId}" />
+		<input type="hidden" id="trainStationScheduleId" value="${trainStationScheduleDTO.trainStationScheduleId}" />
+		<input type="hidden" id="trainScheduleId" value="${trainStationScheduleDTO.trainSchedule.trainScheduleId}" />
 		
+		<input type="hidden" id="latitude" />
+		<input type="hidden" id="longitude" />
 		
 	</div>
+	
+	<!-- Trigger the modal with a button -->
+  	<button type="button" id="btn_modal_open" style="display: none;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+  		Open Modal
+  	</button>
+
+	  <!-- Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Rate User</h4>
+	        </div>
+	        <div class="modal-body">
+	          <table class="table">
+	          	<tr>
+	          		<td><label for="rating" class="control-label">Rate User <span id="userNameDiv"></span></label></td>
+	          		<td>
+						<input id="rating" class="rating rating-loading" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="1">
+						<input type="hidden" id="userIdHidden" />
+	          		</td>
+	          	</tr>
+	          	<tr>
+	          		<td><label for="rating" class="control-label">Comment</label></td>
+	          		<td>
+		          		<textarea rows="5" cols="60" id="comment"></textarea>
+	          		</td>
+	          	</tr>
+	          </table>
+	        </div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-primary" onclick="updateRankUser()">Update</button>
+	          	<button type="button" id="modal_close" class="btn btn-primary" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+	  </div>
     
   </div>
     <form action="viewTrainScheduleDetails.htm" id="viewTrainScheduleDetails" method="post"></form>
     <form action="viewCompartmentDetails.htm" id="viewCompartmentDetails" method="post"></form>
+    
+    
 
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAPDUET0Qt7p2VcSk6JNU1sBSM5jMcmVqUpI7aqV44cW1cEECiThQYkcZUPRJn9vy_TWxWvuLoOfSFBw" type="text/javascript"></script>
-  <script src='<c:url value="/js/epoly.js" />' type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false&.js" type="text/javascript"></script>
+<script src='<c:url value="/js/star-rating.js" />' type="text/javascript"></script>
+
 <script type="text/javascript">
+var map;
+var global_markers = [];  
 function goBack(){
 	$('#viewTrainScheduleDetails').submit();
 }
@@ -53,101 +98,142 @@ function viewCompartmentDetails(){
 	$('#viewCompartmentDetails').submit();
 }
 
-window.onunload = function() {
-	GUnload();
-};
-
-
 
 $(function() {
-	start();
-  });
+	initialize();
+});
 
-
-
-//<![CDATA[
-if (GBrowserIsCompatible()) {
-
-  var map = new GMap2(document.getElementById("map"));
-  map.addControl(new GMapTypeControl());
-  map.setCenter(new GLatLng(0,0),2);
-  var dirn = new GDirections();
-  var step = 5; // metres
-  var tick = 100; // milliseconds
-  var poly;
-  var eol;
-  var car = new GIcon();
-      car.image="images/caricon.png"
-      car.iconSize=new GSize(32,18);
-      car.iconAnchor=new GPoint(16,9);
-  var marker;
-  var k=0;
-  var stepnum=0;
-  var speed = "";   
-
-  function animate(d) {
-    if (d>eol) {
-      document.getElementById("step").innerHTML = "<b>Trip completed<\/b>";
-      document.getElementById("distance").innerHTML =  "Miles: "+(d/1609.344).toFixed(2);
-      return;
-    }
-    var p = poly.GetPointAtDistance(d);
-    if (k++>=180/step) {
-      map.panTo(p);
-      k=0;
-    }
-    marker.setPoint(p);
-    document.getElementById("distance").innerHTML =  "Miles: "+(d/1609.344).toFixed(2)+speed;
-    if (stepnum+1 < dirn.getRoute(0).getNumSteps()) {
-      if (dirn.getRoute(0).getStep(stepnum).getPolylineIndex() < poly.GetIndexAtDistance(d)) {
-        stepnum++;
-        var steptext = dirn.getRoute(0).getStep(stepnum).getDescriptionHtml();
-        document.getElementById("step").innerHTML = "<b>Next:<\/b> "+steptext;
-        var stepdist = dirn.getRoute(0).getStep(stepnum-1).getDistance().meters;
-        var steptime = dirn.getRoute(0).getStep(stepnum-1).getDuration().seconds;
-        var stepspeed = ((stepdist/steptime) * 2.24).toFixed(0);
-        step = stepspeed/2.5;
-        speed = "<br>Current speed: " + stepspeed +" mph";
-      }
-    } else {
-      if (dirn.getRoute(0).getStep(stepnum).getPolylineIndex() < poly.GetIndexAtDistance(d)) {
-        document.getElementById("step").innerHTML = "<b>Next: Arrive at your destination<\/b>";
-      }
-    }
-    setTimeout("animate("+(d+step)+")", tick);
-  }
-
-  GEvent.addListener(dirn,"load", function() {
-    document.getElementById("controls").style.display="none";
-    poly=dirn.getPolyline();
-    eol=poly.Distance();
-    map.setCenter(poly.getVertex(0),17);
-    map.addOverlay(new GMarker(poly.getVertex(0),G_START_ICON));
-    map.addOverlay(new GMarker(poly.getVertex(poly.getVertexCount()-1),G_END_ICON));
-    marker = new GMarker(poly.getVertex(0),{icon:car});
-    map.addOverlay(marker);
-    var steptext = dirn.getRoute(0).getStep(stepnum).getDescriptionHtml();
-    document.getElementById("step").innerHTML = steptext;
-    setTimeout("animate(0)",2000);  // Allow time for the initial map display
-  });
-
-  GEvent.addListener(dirn,"error", function() {
-    alert("Location(s) not recognised. Code: "+dirn.getStatus().code);
-  });
-
-  function start() {
-    var startpoint = document.getElementById("startpoint").value;
-    var endpoint = document.getElementById("endpoint").value;
-    dirn.loadFromWaypoints([startpoint,endpoint],{getPolyline:true,getSteps:true});
-  }
-
+function ViewTrainlocationRequestDTO(trainStationScheduleId,trainScheduleId,trainLineId){
+	this.trainStationScheduleId=trainStationScheduleId;
+	this.trainScheduleId=trainScheduleId;
+	this.trainLineId=trainLineId;
 }
 
-// This Javascript is based on code provided by the
-// Community Church Javascript Team
-// http://www.bisphamchurch.org.uk/   
-// http://econym.org.uk/gmap/
+function getTrainLocation(){
+	var trainStationScheduleId=$('#trainStationScheduleId').val();
+	var trainScheduleId=$('#trainScheduleId').val();
+	var trainLineId=$('#trainLineId').val();
+	var dto=new ViewTrainlocationRequestDTO(trainStationScheduleId, trainScheduleId, trainLineId);
+	//alert(JSON.stringify(dto));
+	 $.ajax({
+	        url: 'viewTrainLocation.json',
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify(dto),
+	        dataType: 'json',
+	        success: function (data) {
+		        if(data.status=='success' || data.status=='SUCCESS'){
+					console.log(data);
+					addMarker(data.locationDTOs);
+				}else{
+					alert(data.message)
+				}
+		    }
+	    });
+}
 
-//]]>
+var infowindow = new google.maps.InfoWindow({});
+
+function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(6.9270801544, 79.861198425);
+    var myOptions = {
+        zoom: 6,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    getTrainLocation();
+    window.setInterval(function () {
+    	getTrainLocation();
+    }, (100000));
+}
+
+function rankUser(updatedUserId){
+	//$('#userNameDiv').html(providedUserName);
+	$('#userIdHidden').val(updatedUserId);
+	$('#btn_modal_open').click();
+}
+
+function RankUserDTO(systemUserId,ranking,comment){
+	this.systemUserId=systemUserId;
+	this.ranking=ranking;
+	this.comment=comment;
+}
+
+function updateRankUser(){
+	var systemUserId=parseInt($('#userIdHidden').val());
+	var ranking=parseInt($('#rating').val());
+	var comment=$('#comment').val();
+	var dto=new RankUserDTO(systemUserId,ranking,comment);
+
+	 $.ajax({
+	        url: 'rankUser.json',
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify(dto),
+	        dataType: 'json',
+	        success: function (data) {
+		        if(data.RESULT=='success' || data.RESULT=='SUCCESS'){
+					alert('Rating is successfully submitted. Thank you!');					
+				}else{
+					alert('Could not submit rating, Please try again')
+				}
+		    }
+	    });
+
+	
+}
+
+function addMarker(locationDTOs) {
+	global_markers=[];
+    for (var i = 0; i < locationDTOs.length; i++) {
+        var locationDTO=locationDTOs[i];
+        // obtain the attribues of each marker
+        var lat = parseFloat(locationDTO.latitude);
+        var lng = parseFloat(locationDTO.longitude);
+        
+        var trailhead_name = locationDTO.providedUserName;
+
+        var myLatlng = new google.maps.LatLng(lat, lng);
+
+        var contentString = '<html><body><div>'
+			       	 + '<table class="table table-striped">'
+					 + '<tr>'
+						 + '<td>Updated User</td>'
+						 + '<td>' + locationDTO.providedUserName + '</td>'
+					 + '</tr>'
+					 + '<tr>'
+						 + '<td>Updated Time</td>'
+						 + '<td>' + locationDTO.updatedTime + '</td>'
+					 + '</tr>'
+					 + '<tr>'
+						 + '<td>Ranking</td>'
+						 + '<td>' + locationDTO.rank + '</td>'
+					 + '</tr>'
+					 + '<tr>'
+						 + '<td colspan="2"><input class="btn btn-primary" value="Rank User" onclick="rankUser(' + locationDTO.updatedUserId +')" type="button"/></td>'
+					 + '</tr>'
+				 + '</table>'
+			 + '</div></body></html>';
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: "Coordinates: " + lat + " , " + lng + " | Trailhead name: " + trailhead_name
+        });
+
+        marker['infowindow'] = contentString;
+
+        global_markers[i] = marker;
+
+        google.maps.event.addListener(global_markers[i], 'click', function() {
+            infowindow.setContent(this['infowindow']);
+            infowindow.open(map, this);
+        });
+    }
+}
+
+
 
 </script>

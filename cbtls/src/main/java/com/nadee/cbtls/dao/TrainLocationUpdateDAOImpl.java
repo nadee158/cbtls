@@ -41,26 +41,35 @@ public class TrainLocationUpdateDAOImpl implements TrainLocationUpdateDAO{
 		TrainScheduleTurn trainScheduleTurn= (TrainScheduleTurn) criteria.uniqueResult();
 		if(!(trainScheduleTurn==null)){
 			if(!(trainScheduleTurn.getTrainScheduleTurnLocationUpdates()==null)){
-				for (TrainScheduleTurnLocationUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationUpdates()) {
-					System.out.println(locationUpdate.getId());
+				for (TrainScheduleTurnLocationUpdate trainScheduleTurnLocationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationUpdates()) {
+					System.out.println("trainScheduleTurnLocationUpdate.getId() " + trainScheduleTurnLocationUpdate.getId());
+					if(!(trainScheduleTurnLocationUpdate.getUpdatedUser()==null)){
+                      Hibernate.initialize(trainScheduleTurnLocationUpdate.getUpdatedUser());
+                    }
 				}
 			}
 			
 			if(!(trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()==null)){
-				for (TrainScheduleTurnLocationPassiveUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()) {
-					System.out.println(locationUpdate.getId());
+				for (TrainScheduleTurnLocationPassiveUpdate trainScheduleTurnLocationPassiveUpdate : trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()) {
+					System.out.println("trainScheduleTurnLocationPassiveUpdate.getId() "+ trainScheduleTurnLocationPassiveUpdate.getId());
+					if(!(trainScheduleTurnLocationPassiveUpdate.getUpdatedUser()==null)){
+					  Hibernate.initialize(trainScheduleTurnLocationPassiveUpdate.getUpdatedUser());
+					}
 				}
 			}
 			
 			if(!(trainScheduleTurn.getTrainStationScheduleTurn()==null)){
 				for (TrainStationScheduleTurn trainStationScheduleTurn : trainScheduleTurn.getTrainStationScheduleTurn()) {
-					System.out.println(trainStationScheduleTurn.getTrainStationScheduleTurnId());
+					System.out.println("trainStationScheduleTurn.getTrainStationScheduleTurnId() " + trainStationScheduleTurn.getTrainStationScheduleTurnId());
 				}
 			}
 			
 			if(!(trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()==null)){
-				for (TrainScheduleTurnCompartmentUpdate update : trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()) {
-					System.out.println(update.getId());
+				for (TrainScheduleTurnCompartmentUpdate trainScheduleTurnCompartmentUpdate : trainScheduleTurn.getTrainScheduleTurnCompartmentUpdates()) {
+					System.out.println("trainScheduleTurnCompartmentUpdate.getId() " + trainScheduleTurnCompartmentUpdate.getId());
+					if(!(trainScheduleTurnCompartmentUpdate.getUpdatedUser()==null)){
+                      Hibernate.initialize(trainScheduleTurnCompartmentUpdate.getUpdatedUser());
+                    }
 				}
 			}
 		}
@@ -99,7 +108,6 @@ public class TrainLocationUpdateDAOImpl implements TrainLocationUpdateDAO{
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(turnDate);
 		cal.set(Calendar.HOUR_OF_DAY, cal.getActualMaximum(Calendar.HOUR_OF_DAY));
-		cal.set(Calendar.HOUR, cal.getActualMaximum(Calendar.HOUR));
 		cal.set(Calendar.MINUTE, cal.getActualMaximum(Calendar.MINUTE));
 		cal.set(Calendar.SECOND, cal.getActualMaximum(Calendar.SECOND));
 		cal.set(Calendar.MILLISECOND, cal.getActualMaximum(Calendar.MILLISECOND));
@@ -109,8 +117,7 @@ public class TrainLocationUpdateDAOImpl implements TrainLocationUpdateDAO{
 	private Date getMinTimedDate(Date turnDate) {
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(turnDate);
-		cal.set(Calendar.HOUR_OF_DAY, cal.getActualMinimum(Calendar.HOUR_OF_DAY));
-		cal.set(Calendar.HOUR, cal.getActualMinimum(Calendar.HOUR));
+		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, cal.getActualMinimum(Calendar.MINUTE));
 		cal.set(Calendar.SECOND, cal.getActualMinimum(Calendar.SECOND));
 		cal.set(Calendar.MILLISECOND, cal.getActualMinimum(Calendar.MILLISECOND));

@@ -132,8 +132,8 @@
   	<form action="getActiveUpdateLocation.htm" id="activeUpdateLocation" method="post"></form>
   	<form action="getPassiveUpdateLocation.htm" id="passiveUpdateLocation" method="post"></form>
     <form action="viewTrainScheduleDetails.htm" id="viewTrainScheduleDetails" method="post"></form>
-    <form action="viewAnalysisOfTrain.htm" id="viewAnalysisOfTrain" method="post"></form>
-    <form action="viewTrainLocation.htm" id="viewTrainLocation" method="post"></form>
+    <form action="getViewAnalysisOfTrain.htm" id="viewAnalysisOfTrain" method="post"></form>
+    <form action="getViewTrainLocation.htm" id="viewTrainLocation" method="post"></form>
      <form action="getFavourites.htm" id="getFavourites" method="post"></form>
     
 <script type="text/javascript">

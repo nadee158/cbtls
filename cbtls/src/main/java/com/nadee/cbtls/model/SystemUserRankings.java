@@ -51,6 +51,9 @@ public class SystemUserRankings implements Serializable {
 	@Column(name = "average_rate", nullable = false)
 	private float averageRate;
 	
+	@Column(name = "comment", nullable = true)
+    private String comment;
+	
 	@Enumerated(EnumType.STRING)
     @Column(name="active_status")
 	private YesNoStatus activeStatus;
@@ -135,11 +138,21 @@ public class SystemUserRankings implements Serializable {
 		super();
 		this.ranking = systemUserRankingsDTO.getRanking();
 		this.rankedUser = systemUserRankingsDTO.getRankedUser();
+		this.comment=systemUserRankingsDTO.getComment();
 	}
 
 	public SystemUserRankings() {
 		super();
 	}
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
+
 	
 	
 

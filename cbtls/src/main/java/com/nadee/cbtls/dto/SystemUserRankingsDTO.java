@@ -27,6 +27,11 @@ public class SystemUserRankingsDTO implements Serializable {
 	private int versionId;
 	
 	private String systemUserMobileDevice;
+	
+	private long updatedUser;
+	
+	private String comment;
+	  
 
 	public SystemUserRankingsDTO(SystemUserRankings systemUserRankings) {
 		this.systemUserRankingId=systemUserRankings.getSystemUserRankingId();
@@ -35,11 +40,25 @@ public class SystemUserRankingsDTO implements Serializable {
 		this.rankedDate=systemUserRankings.getRankedDate();
 		this.averageRate=systemUserRankings.getAverageRate();
 		this.activeStatus=systemUserRankings.getActiveStatus();
-		this.systemUserId=systemUserRankings.getSystemUser().getUserId();
+		if(!(systemUserRankings.getSystemUser()==null)){
+		  this.systemUserId=systemUserRankings.getSystemUser().getUserId();
+		}
 		this.versionId=systemUserRankings.getVersionId();
+		this.updatedUser=systemUserRankings.getRankedUser();
+		this.comment=systemUserRankings.getComment();
 	}
 
-	public long getSystemUserRankingId() {
+	public SystemUserRankingsDTO(UserRankDTO dtoUi) {
+	  this.ranking=dtoUi.getRanking();
+	  this.comment=dtoUi.getComment();
+	  this.systemUserId=dtoUi.getSystemUserId();
+  }
+	
+	public SystemUserRankingsDTO() {
+	    // TODO Auto-generated constructor stub
+	  }
+
+  public long getSystemUserRankingId() {
 		return systemUserRankingId;
 	}
 
@@ -110,6 +129,26 @@ public class SystemUserRankingsDTO implements Serializable {
 	public void setSystemUserMobileDevice(String systemUserMobileDevice) {
 		this.systemUserMobileDevice = systemUserMobileDevice;
 	}
+
+  public long getUpdatedUser() {
+    return updatedUser;
+  }
+
+  public void setUpdatedUser(long updatedUser) {
+    this.updatedUser = updatedUser;
+  }
+
+  public static long getSerialversionuid() {
+    return serialVersionUID;
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
 	
 	
 

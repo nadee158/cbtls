@@ -115,6 +115,13 @@ public class PassiveTrainLocationUpdateDTO implements Serializable {
 	public void setSystemUserMobileDevice(String systemUserMobileDevice) {
 		this.systemUserMobileDevice = systemUserMobileDevice;
 	}
+
+  @Override
+  public String toString() {
+    return "PassiveTrainLocationUpdateDTO [trainStationScheduleId=" + trainStationScheduleId + ", latitude=" + latitude + ", longitude=" + longitude
+        + ", trainScheduleId=" + trainScheduleId + ", lastStationId=" + lastStationId + ", updatedUser=" + updatedUser + ", locatedType="
+        + locatedType + ", locatedTime=" + locatedTime + ", systemUserMobileDevice=" + systemUserMobileDevice + "]";
+  }
 	
 	
 

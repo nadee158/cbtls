@@ -2,18 +2,23 @@ package com.nadee.cbtls.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nadee.cbtls.constant.ApplicationConstants;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dao.SystemUserRankingDAO;
 import com.nadee.cbtls.dto.SystemUserRankingsDTO;
 import com.nadee.cbtls.model.SystemUser;
+import com.nadee.cbtls.model.SystemUserMobileDevice;
 import com.nadee.cbtls.model.SystemUserRankings;
 
 @Service("systemUserRankingService")
@@ -23,15 +28,45 @@ public class SystemUserRankingServiceImpl implements SystemUserRankingService {
 	@Autowired
 	private SystemUserRankingDAO systemUserRankingDAO;
 	
+
+	  @Autowired
+	  private SystemUserService systemUserService;
+	
 	@Autowired
 	private CommonDAO commonDAO;
 
 	@Override
-	public String saveRanking(SystemUserRankingsDTO systemUserRankingsDTO) {
-		SystemUserRankings systemUserRankings=new SystemUserRankings(systemUserRankingsDTO);
+	public Map<String, Object> saveRanking(SystemUserRankingsDTO dto) throws Exception {
+	  Map<String, Object> resultMap = new HashMap<String, Object>();
+      
+      SystemUser updatedUser = null;
+
+      if (StringUtils.isNotEmpty(dto.getSystemUserMobileDevice())) {
+        SystemUserMobileDevice systemUserMobileDevice =
+            systemUserService.getSystemUserMobileDeviceByUniqueId(dto.getSystemUserMobileDevice());
+        if (systemUserMobileDevice == null) {
+          systemUserMobileDevice =
+              systemUserService.createMobileUser(dto.getSystemUserMobileDevice(), null);
+        }
+        updatedUser = systemUserMobileDevice.getSystemUser();
+        resultMap.put(ApplicationConstants.USER_TYPE, ApplicationConstants.MOBILE_USER);
+        resultMap.put(ApplicationConstants.USER_ID,
+            systemUserMobileDevice.getMobileDevice().getUniqueMobileDeviceNumber());
+      } else {
+        if (!(dto.getUpdatedUser() == 0)) {
+          updatedUser = commonDAO.getEntityById(SystemUser.class, dto.getUpdatedUser());
+        }
+        if (updatedUser == null) {
+          updatedUser = systemUserService.createWebUser(null, null);
+        }
+        resultMap.put(ApplicationConstants.USER_TYPE, ApplicationConstants.WEB_USER);
+        resultMap.put(ApplicationConstants.USER_ID, updatedUser.getUserId());
+      }
+	  
+		SystemUserRankings systemUserRankings=new SystemUserRankings(dto);
 		systemUserRankings.setActiveStatus(YesNoStatus.YES);
 		systemUserRankings.setRankedDate(Calendar.getInstance().getTime());
-		SystemUser systemUser=commonDAO.getEntityById(SystemUser.class, systemUserRankingsDTO.getSystemUserId());
+		SystemUser systemUser=commonDAO.getEntityById(SystemUser.class, dto.getSystemUserId());
 		if(systemUser.getSystemUserRankings()==null){
 			systemUser.setSystemUserRankings(new ArrayList<SystemUserRankings>());
 		}
@@ -41,7 +76,12 @@ public class SystemUserRankingServiceImpl implements SystemUserRankingService {
 		systemUserRankings.setAverageRate(averageRate);
 		systemUserRankings.setSystemUser(systemUser);
 		systemUser.setAverageRanking(averageRate);
-		return commonDAO.saveOrUpdateEntity(systemUser);
+		
+		commonDAO.saveOrUpdateEntity(systemUser);
+		
+		resultMap.put(ApplicationConstants.RESULT, ApplicationConstants.SUCCESS);
+		
+		return resultMap;
 	}
 
 	private List<SystemUserRankingsDTO> convertToDTOList(List<SystemUserRankings> systemUserRankingList) {
@@ -111,5 +151,5 @@ public class SystemUserRankingServiceImpl implements SystemUserRankingService {
 		List<SystemUserRankings> systemUserRankingList=  systemUserRankingDAO.getSystemUserRankingsByUserId(userId);
 		return convertToDTOList(systemUserRankingList);
 	}
-
+	
 }

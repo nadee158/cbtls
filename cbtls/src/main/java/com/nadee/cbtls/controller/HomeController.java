@@ -48,17 +48,7 @@ public class HomeController {
   //
  
   
-  //
-  // @RequestMapping(value = "/viewTrainLocation", method = RequestMethod.POST)
-  // public ModelAndView viewTrainLocation(HttpServletRequest request) {
-  // ModelMap modelMap = new ModelMap();
-  // TrainSearchDTO trainSearchDTO = (TrainSearchDTO)
-  // request.getSession().getAttribute("trainSearchDTO");
-  // System.out.println(trainSearchDTO.getStartDate());
-  // modelMap.put("trainSearchDTO", trainSearchDTO);
-  // return new ModelAndView("viewTrainLocation", modelMap);
-  // }
-  //
+ 
  
 
 

@@ -1,9 +1,11 @@
 package com.nadee.cbtls.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,9 +18,13 @@ import com.nadee.cbtls.constant.ApplicationConstants;
 import com.nadee.cbtls.constant.GeneralEnumConstants.LocatedType;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.dao.CommonDAO;
+import com.nadee.cbtls.dao.SystemUserDAO;
 import com.nadee.cbtls.dao.TrainLocationUpdateDAO;
 import com.nadee.cbtls.dto.ActiveTrainLocationUpdateDTO;
 import com.nadee.cbtls.dto.PassiveTrainLocationUpdateDTO;
+import com.nadee.cbtls.dto.TrainLocationDTO;
+import com.nadee.cbtls.dto.ViewTrainlocationRequestDTO;
+import com.nadee.cbtls.dto.ViewTrainlocationResponseDTO;
 import com.nadee.cbtls.model.SystemUser;
 import com.nadee.cbtls.model.SystemUserMobileDevice;
 import com.nadee.cbtls.model.TrainSchedule;
@@ -41,9 +47,12 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 
   @Autowired
   private SystemUserService systemUserService;
+  
+  @Autowired
+  private SystemUserDAO systemUserDAO;
 
   @Override
-  @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
+  @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
   public Map<String, Object> activeUpdateTrainLocation(ActiveTrainLocationUpdateDTO dto)
       throws Exception {
     Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -87,12 +96,17 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
 
     if (StringUtils.isNotEmpty(dto.getSystemUserMobileDevice())) {
       SystemUserMobileDevice systemUserMobileDevice =
-          systemUserService.getSystemUserMobileDeviceByUniqueId(dto.getSystemUserMobileDevice());
+          systemUserDAO.getSystemUserMobileDeviceByUniqueId(dto.getSystemUserMobileDevice());
+     
       if (systemUserMobileDevice == null) {
         systemUserMobileDevice =
             systemUserService.createMobileUser(dto.getSystemUserMobileDevice(), null);
+      }else{
+          System.out.println("systemUserMobileDevice.getSystemUserMobileDeviceId() " + systemUserMobileDevice.getSystemUserMobileDeviceId());
       }
+      System.out.println("systemUserMobileDevice.getSystemUserMobileDeviceId() " + systemUserMobileDevice.getSystemUserMobileDeviceId());
       systemUser = systemUserMobileDevice.getSystemUser();
+      System.out.println("systemUser.getUserId() " + systemUser.getUserId());
       resultMap.put(ApplicationConstants.USER_TYPE, ApplicationConstants.MOBILE_USER);
       resultMap.put(ApplicationConstants.USER_ID,
           systemUserMobileDevice.getMobileDevice().getUniqueMobileDeviceNumber());
@@ -103,6 +117,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
       if (systemUser == null) {
         systemUser = systemUserService.createWebUser(null, null);
       }
+      System.out.println("systemUser.getUserId() " + systemUser.getUserId());
       resultMap.put(ApplicationConstants.USER_TYPE, ApplicationConstants.WEB_USER);
       resultMap.put(ApplicationConstants.USER_ID, systemUser.getUserId());
     }
@@ -257,6 +272,73 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
     resultMap.put(ApplicationConstants.RESULT, result);
 
     return resultMap;
+  }
+  
+  
+  @Override
+  public ViewTrainlocationResponseDTO listTrainLocation(ViewTrainlocationRequestDTO requestDTO) throws Exception {
+    ViewTrainlocationResponseDTO dto=new ViewTrainlocationResponseDTO();
+    String status=ApplicationConstants.ERROR;
+    String message=null;
+    TrainScheduleTurn trainScheduleTurn=trainLocationUpdateDAO.fetchTrainScheduleTurn(requestDTO.getTrainScheduleId(), Calendar.getInstance().getTime());
+    if(trainScheduleTurn==null){
+      message="No data regading this schedule is curretly available!";
+    }else{
+      boolean isDataAvailable=false;
+      List<TrainLocationDTO> locationDTOs=new ArrayList<TrainLocationDTO>();
+      if(!(trainScheduleTurn.getTrainScheduleTurnLocationUpdates()==null 
+            || trainScheduleTurn.getTrainScheduleTurnLocationUpdates().isEmpty())){
+          isDataAvailable=true;
+          for (TrainScheduleTurnLocationUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationUpdates()) {
+            TrainLocationDTO trainLocationDTO=new TrainLocationDTO();
+            trainLocationDTO.setLatitude(locationUpdate.getLatitude());
+            trainLocationDTO.setLongitude(locationUpdate.getLongitude());
+            SystemUser systemUser=locationUpdate.getUpdatedUser();
+            trainLocationDTO.setProvidedUserName(systemUser.getUserDisplayName());
+            trainLocationDTO.setRank(systemUser.getAverageRanking());
+            SimpleDateFormat format=new SimpleDateFormat("hh:mm a");
+            trainLocationDTO.setUpdatedTime(format.format(locationUpdate.getUpdatedTime()));
+            trainLocationDTO.setUpdatedUserId(systemUser.getUserId());
+            trainLocationDTO.setNote(locationUpdate.getLocatedType().toString());
+            locationDTOs.add(trainLocationDTO);
+            dto.setTotalNoOfFeedbacks(dto.getTotalNoOfFeedbacks() + 1);
+          }
+      }
+      
+      if(!(trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()==null 
+                || trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates().isEmpty())){
+          isDataAvailable=true;
+          for (TrainScheduleTurnLocationPassiveUpdate locationUpdate : trainScheduleTurn.getTrainScheduleTurnLocationPassiveUpdates()) {
+            TrainLocationDTO trainLocationDTO=new TrainLocationDTO();
+            TrainStation trainStation=locationUpdate.getLastStation();
+            trainLocationDTO.setLatitude(trainStation.getGeoLocation().getLatitude());
+            trainLocationDTO.setLongitude(trainStation.getGeoLocation().getLongitude());
+            SystemUser systemUser=locationUpdate.getUpdatedUser();
+            trainLocationDTO.setProvidedUserName(systemUser.getUserDisplayName());
+            trainLocationDTO.setRank(systemUser.getAverageRanking());
+            SimpleDateFormat format=new SimpleDateFormat("hh:mm a");
+            trainLocationDTO.setUpdatedTime(format.format(locationUpdate.getLocatedTime()));
+            trainLocationDTO.setUpdatedUserId(systemUser.getUserId());
+            trainLocationDTO.setNote(locationUpdate.getLocatedType().toString());
+            locationDTOs.add(trainLocationDTO);
+            dto.setTotalNoOfFeedbacks(dto.getTotalNoOfFeedbacks() + 1);
+          }
+      }
+      dto.setLocationDTOs(locationDTOs);
+      System.out.println("locationDTOs :" + locationDTOs);
+      
+      if(!(isDataAvailable)){
+        message="No data regading this schedule is curretly available!";
+        status=ApplicationConstants.ERROR;
+      }else{
+        status=ApplicationConstants.SUCCESS;
+      }
+      
+    }
+   
+    dto.setMessage(message);
+    dto.setStatus(status);
+    return dto;
   }
 
 
