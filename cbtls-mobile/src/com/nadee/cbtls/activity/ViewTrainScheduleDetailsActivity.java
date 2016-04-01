@@ -56,7 +56,12 @@ public class ViewTrainScheduleDetailsActivity extends Activity {
     btn_passive_update.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        Intent intent = new Intent(getBaseContext(), PassiveUpdateLocationActivity.class);
+        System.out.println("selectedDTO in details" + selectedDTO);
+        intent.putExtra("TRAIN_SCHEDULE_SEARCH_DTO", selectedDTO);
+        intent.putExtra("TRAIN_SCHEDULE_DETAIL_ID", trainStationScheduleId);
+        startActivity(intent);
+        ViewTrainScheduleDetailsActivity.this.finish();
       }
     });
 

@@ -12,9 +12,9 @@ public class PassiveTrainLocationUpdateDTO implements Serializable {
 
   private long trainStationScheduleId;
 
-  private float latitude;
+  private double latitude;
 
-  private float longitude;
+  private double longitude;
 
   private long trainScheduleId;
 
@@ -36,19 +36,20 @@ public class PassiveTrainLocationUpdateDTO implements Serializable {
     this.trainStationScheduleId = trainStationScheduleId;
   }
 
-  public float getLatitude() {
+
+  public double getLatitude() {
     return latitude;
   }
 
-  public void setLatitude(float latitude) {
+  public void setLatitude(double latitude) {
     this.latitude = latitude;
   }
 
-  public float getLongitude() {
+  public double getLongitude() {
     return longitude;
   }
 
-  public void setLongitude(float longitude) {
+  public void setLongitude(double longitude) {
     this.longitude = longitude;
   }
 

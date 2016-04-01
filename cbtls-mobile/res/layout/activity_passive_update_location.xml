@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    tools:context="com.nadee.cbtls.activity.ActiveUpdateLocationActivity" >
+    tools:context="com.nadee.cbtls.activity.PassiveUpdateLocationActivity" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:text="@string/active_update_location_title"
+                android:text="@string/update_train_location_outside_train"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -35,14 +35,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
-                android:text="@string/previous_station" />
+                android:text="@string/last_station_passed" />
             
             <Spinner
                 android:id="@+id/spinner_station"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dip"
-                android:prompt="@string/previous_station" />
+                android:prompt="@string/last_station_passed" />
+            
+            
+            <Button
+                android:id="@+id/btn_located_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/global_button"
+                android:padding="5dip"
+                android:text="@string/select_located_time"
+                android:textColor="@color/white" />
+            
 
              <TextView
                 android:id="@+id/textView5"
@@ -64,51 +76,31 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/btn_update_once"
+                    android:id="@+id/btn_update_location"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/global_button"
                     android:padding="5dip"
-                    android:text="@string/update_once"
+                    android:text="@string/update"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/btn_update_and_track"
+                    android:id="@+id/btn_go_back"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/global_button"
                     android:padding="5dip"
-                    android:text="@string/update_and_track"
+                    android:text="@string/go_back"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_update_compartment_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/global_button"
-                android:padding="5dip"
-                android:text="@string/update_compartment_details"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/btn_set_alarm_clock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/global_button"
-                android:padding="5dip"
-                android:text="@string/set_alarm_clock"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+           
         </LinearLayout>
     </RelativeLayout>
 

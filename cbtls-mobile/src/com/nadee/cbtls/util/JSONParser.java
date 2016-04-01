@@ -139,7 +139,7 @@ public class JSONParser {
 
       json = response.body().string();
 
-      System.out.println("json :" + json);
+      System.out.println("post josn json :" + json);
 
     } catch (Exception e) {
       Log.e("Buffer Error", "Error converting result " + e.toString());

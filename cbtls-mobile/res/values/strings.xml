@@ -64,12 +64,18 @@
     <string name="longitude">Longitude : </string>
     <string name="title_activity_update_compartment_details">Update Compartment Details - CBTLS</string>
     <string name="title_activity_notification_alarm">Set Notification Alarm - CBTLS</string>
-    
     <string name="compartment_number">Compartment Number</string>
     <string name="total_compartments">Total Compartments</string>
     <string name="crowd_density_of_compartment">Crowd Density of Compartment</string>
     <string name="overall_crowd_density">Overall Crowd Density</string>
     <string name="update">Update</string>
     <string name="go_back">Go Back</string>
+    <string name="title_activity_passive_update_location">Update Train Location (Outside Train)</string>
 
+    <string name="train_current_status">Current Status of Train</string>
+    
+    <string name="update_train_location_outside_train">Update Train Location (I\'m outside the train)</string>
+    <string name="last_station_passed">Last Station Passed</string>
+    <string name="select_located_time">Select located Time</string>
+    
 </resources>
