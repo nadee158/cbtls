@@ -96,8 +96,8 @@ public class DataGenerationServiceImpl implements DataGenerationService {
 
 
       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-      Date startDate = formatter.parse("2016-01-01");
-      Date endDate = formatter.parse("2016-01-07");
+      Date startDate = formatter.parse("2016-03-01");
+      Date endDate = formatter.parse("2016-04-04");
       Calendar start = Calendar.getInstance();
       start.setTime(startDate);
       Calendar end = Calendar.getInstance();
@@ -106,7 +106,7 @@ public class DataGenerationServiceImpl implements DataGenerationService {
       for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date =
           start.getTime()) {
         // Do your job here with `date`.
-        System.out.println(date);
+        System.out.println("DATE ITERATION :" + date);
 
         Calendar calToday = Calendar.getInstance();
         calToday.setTime(date);
@@ -238,6 +238,7 @@ public class DataGenerationServiceImpl implements DataGenerationService {
     dto.setTrainScheduleId(trainScheduleId);
     dto.setTrainStationScheduleId(trainStationScheduleId);
     dto.setUpdatedUser(getRandomNumber(1, 157));
+    System.out.println("dto    --- " + dto);
     return dto;
   }
 
