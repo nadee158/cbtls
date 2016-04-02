@@ -383,7 +383,7 @@ public class DataGenerationServiceImpl implements DataGenerationService {
       TrainStationSchedule trainStationSchedule =
           commonDAO.getEntityById(TrainStationSchedule.class, dto.getTrainStationScheduleId());
       trainStationScheduleTurn.setTrainStationSchedule(trainStationSchedule);
-      trainStationScheduleTurn.setTrainTurn(trainScheduleTurn);
+      trainStationScheduleTurn.setTrainScheduleTurn(trainScheduleTurn);
       trainScheduleTurn.getTrainStationScheduleTurn().add(trainStationScheduleTurn);
 
     }

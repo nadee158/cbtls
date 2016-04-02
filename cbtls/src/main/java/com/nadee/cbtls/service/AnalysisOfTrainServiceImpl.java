@@ -1,7 +1,9 @@
 package com.nadee.cbtls.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +12,28 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nadee.cbtls.constant.ApplicationConstants;
+import com.nadee.cbtls.constant.GeneralEnumConstants.LocatedType;
+import com.nadee.cbtls.dao.CommonDAO;
 import com.nadee.cbtls.dao.TrainScheduleDAO;
+import com.nadee.cbtls.dao.TrainScheduleTurnDAO;
 import com.nadee.cbtls.dao.TrainStationDAO;
+import com.nadee.cbtls.dto.AdminSearchDTO;
+import com.nadee.cbtls.dto.AdminTrainAnalyticsResultDTO;
 import com.nadee.cbtls.dto.AnalysisOfTrainResponseDTO;
 import com.nadee.cbtls.dto.AnalysisOfTrainrequestDTO;
+import com.nadee.cbtls.dto.ChartItemDTO;
+import com.nadee.cbtls.dto.TrainLineDTO;
+import com.nadee.cbtls.dto.TrainLineStationDTO;
+import com.nadee.cbtls.dto.TrainStationScheduleDTO;
 import com.nadee.cbtls.model.TicketPrice;
+import com.nadee.cbtls.model.TrainLine;
 import com.nadee.cbtls.model.TrainLineStation;
 import com.nadee.cbtls.model.TrainSchedule;
+import com.nadee.cbtls.model.TrainScheduleTurn;
+import com.nadee.cbtls.model.TrainScheduleTurnLocationUpdate;
 import com.nadee.cbtls.model.TrainStation;
 import com.nadee.cbtls.model.TrainStationSchedule;
+import com.nadee.cbtls.model.TrainStationScheduleTurn;
 
 @Service("analysisOfTrainService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -29,6 +44,12 @@ public class AnalysisOfTrainServiceImpl implements AnalysisOfTrainService {
 
   @Autowired
   private TrainStationDAO trainStationDAO;
+
+  @Autowired
+  private TrainScheduleTurnDAO trainScheduleTurnDAO;
+
+  @Autowired
+  private CommonDAO commonDAO;
 
   @Override
   public AnalysisOfTrainResponseDTO viewAnalysisOfTrain(
@@ -124,6 +145,128 @@ public class AnalysisOfTrainServiceImpl implements AnalysisOfTrainService {
 
 
     );
+  }
+
+  @Override
+  public List<TrainStationScheduleDTO> searchTrainSchedulesList(AdminSearchDTO adminSearchDTO)
+      throws Exception {
+    List<TrainStationScheduleDTO> dtoList = new ArrayList<TrainStationScheduleDTO>();
+    List<TrainStationScheduleTurn> trainStationScheduleTurns =
+        trainScheduleTurnDAO.fetchTrainScheduleTurns(adminSearchDTO);
+
+    TrainLine trainLine = commonDAO.getEntityById(TrainLine.class, adminSearchDTO.getTrainLineId());
+    TrainLineDTO trainLineDTO = null;
+    if (!(trainLine == null)) {
+      trainLineDTO = new TrainLineDTO(trainLine, false);
+    }
+
+    TrainLineStation fromTrainLineStation =
+        trainStationDAO.getTrainLineStationByStationAndTrainLine(adminSearchDTO.getFromStationId(),
+            adminSearchDTO.getTrainLineId());
+    TrainLineStationDTO fromDTO = null;
+    if (!(fromTrainLineStation == null)) {
+      fromDTO = new TrainLineStationDTO(fromTrainLineStation);
+    }
+
+    TrainLineStation toTrainLineStation = trainStationDAO.getTrainLineStationByStationAndTrainLine(
+        adminSearchDTO.getToStationId(), adminSearchDTO.getTrainLineId());
+    TrainLineStationDTO toDTO = null;
+    if (!(toTrainLineStation == null)) {
+      toDTO = new TrainLineStationDTO(toTrainLineStation);
+    }
+
+
+    if (!(trainStationScheduleTurns == null || trainStationScheduleTurns.isEmpty())) {
+      for (TrainStationScheduleTurn trainStationScheduleTurn : trainStationScheduleTurns) {
+        dtoList.add(new TrainStationScheduleDTO(trainStationScheduleTurn.getTrainStationSchedule(),
+            fromDTO, toDTO, trainLineDTO));
+      }
+    }
+    return dtoList;
+  }
+
+
+  @Override
+  public AdminTrainAnalyticsResultDTO searchTrainSchedulesAnalytics(AdminSearchDTO adminSearchDTO)
+      throws Exception {
+
+    TrainLineStation fromTrainLineStation =
+        trainStationDAO.getTrainLineStationByStationAndTrainLine(adminSearchDTO.getFromStationId(),
+            adminSearchDTO.getTrainLineId());
+    TrainLineStationDTO fromDTO = null;
+    if (!(fromTrainLineStation == null)) {
+      fromDTO = new TrainLineStationDTO(fromTrainLineStation);
+    }
+
+    TrainLineStation toTrainLineStation = trainStationDAO.getTrainLineStationByStationAndTrainLine(
+        adminSearchDTO.getToStationId(), adminSearchDTO.getTrainLineId());
+    TrainLineStationDTO toDTO = null;
+    if (!(toTrainLineStation == null)) {
+      toDTO = new TrainLineStationDTO(toTrainLineStation);
+    }
+
+    long nextStationid = adminSearchDTO.getFromStationId();
+    long toStationid = adminSearchDTO.getToStationId();
+
+    List<TrainStation> stationList = new ArrayList<TrainStation>();
+
+    AdminTrainAnalyticsResultDTO dto = new AdminTrainAnalyticsResultDTO();
+    dto.setLabels(new ArrayList<String>());
+
+    while (true) {
+      // System.out.println("inner iteartion : - " + j);
+      TrainLineStation nextTrainLineStation = trainStationDAO
+          .getTrainLineStationByStationAndTrainLine(nextStationid, adminSearchDTO.getTrainLineId());
+      if (nextTrainLineStation == null) {
+        break;
+      }
+
+      stationList.add(nextTrainLineStation.getTrainStation());
+      dto.getLabels().add(nextTrainLineStation.getTrainStation().getTrainStationName());
+      nextStationid = nextTrainLineStation.getNextStation().getTrainStationId();
+
+      if (nextStationid == toStationid) {
+        dto.getLabels().add(toTrainLineStation.getTrainStation().getTrainStationName());
+        break;
+      }
+
+    }
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+
+    dto.setDatasets(new ArrayList<ChartItemDTO>());
+    dto.setStatus(ApplicationConstants.RESULTS_FOUND);
+    List<TrainStationScheduleTurn> trainStationScheduleTurns =
+        trainScheduleTurnDAO.fetchTrainScheduleTurnsById(adminSearchDTO);
+
+
+    if (!(trainStationScheduleTurns == null || trainStationScheduleTurns.isEmpty())) {
+      for (TrainStationScheduleTurn trainStationScheduleTurn : trainStationScheduleTurns) {
+        TrainScheduleTurn trainScheduleTurn = trainStationScheduleTurn.getTrainScheduleTurn();
+        if (!(trainScheduleTurn == null)) {
+          String label = trainScheduleTurn.getTrainSchedule().getTrainName() + " - "
+              + dateFormat.format(trainScheduleTurn.getTrainScheduleTurnDate());
+          List<Long> list = new ArrayList<Long>();
+          if (!(trainScheduleTurn.getTrainScheduleTurnLocationUpdates() == null)) {
+            for (TrainScheduleTurnLocationUpdate locationUpdate : trainScheduleTurn
+                .getTrainScheduleTurnLocationUpdates()) {
+              if (locationUpdate.getLocatedType().getCode() == LocatedType.IN_THE_STATION
+                  .getCode()) {
+
+                list.add(locationUpdate.getUpdatedTime().getTime());
+
+              }
+
+            }
+          }
+          java.util.Collections.sort(list);
+          dto.getDatasets().add(new ChartItemDTO(label, list));
+        }
+      }
+    } else {
+      dto.setStatus(ApplicationConstants.NO_RESULTS);
+    }
+    return dto;
   }
 
 

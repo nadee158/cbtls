@@ -159,7 +159,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
       TrainStationSchedule trainStationSchedule =
           commonDAO.getEntityById(TrainStationSchedule.class, dto.getTrainStationScheduleId());
       trainStationScheduleTurn.setTrainStationSchedule(trainStationSchedule);
-      trainStationScheduleTurn.setTrainTurn(trainScheduleTurn);
+      trainStationScheduleTurn.setTrainScheduleTurn(trainScheduleTurn);
       trainScheduleTurn.getTrainStationScheduleTurn().add(trainStationScheduleTurn);
 
     }
@@ -266,7 +266,7 @@ public class TrainLocationUpdateServiceImpl implements TrainLocationUpdateServic
       TrainStationSchedule trainStationSchedule =
           commonDAO.getEntityById(TrainStationSchedule.class, dto.getTrainStationScheduleId());
       trainStationScheduleTurn.setTrainStationSchedule(trainStationSchedule);
-      trainStationScheduleTurn.setTrainTurn(trainScheduleTurn);
+      trainStationScheduleTurn.setTrainScheduleTurn(trainScheduleTurn);
       trainScheduleTurn.getTrainStationScheduleTurn().add(trainStationScheduleTurn);
 
     }

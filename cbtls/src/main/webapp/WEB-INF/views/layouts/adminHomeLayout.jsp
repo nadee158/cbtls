@@ -30,6 +30,10 @@
 	    
 	    <link href='<c:url value="/css/fileinput.min.css" />' rel="stylesheet">
 	    
+	     <link href='<c:url value="/css/jquery-ui.min.css" />' rel="stylesheet" type="text/css">
+	    <link href='<c:url value="/css/jquery.timepicker.css" />' rel="stylesheet" type="text/css">
+	    <link href='<c:url value="/css/bootstrap-datepicker.css" />' rel="stylesheet" type="text/css">
+	    
 	    <link href='<c:url value="/css/star-rating.min.css" />' rel="stylesheet" type="text/css">
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,6 +56,14 @@
 	    <script src='<c:url value="/js/sb-admin-2.js" />' type="text/javascript"></script>
 	    
 	    <script src='<c:url value="/js/fileinput.min.js" />' type="text/javascript"></script>
+	    
+	    <script src='<c:url value="/js/jquery.timepicker.js" />' type="text/javascript"></script>
+		    <script src='<c:url value="/js/datepair.js" />' type="text/javascript"></script>
+		    <script src='<c:url value="/js/jquery.datepair.js" />' type="text/javascript"></script>
+		    <script src='<c:url value="/js/bootstrap-datepicker.js" />' type="text/javascript"></script>
+		     <script src='<c:url value="/js/bootstrap-number-input.js" />' type="text/javascript"></script>
+		     
+		     <script src='<c:url value="/js/Chart.js" />' type="text/javascript"></script>
     </head>
 
    <!--BACKGROUND -->
