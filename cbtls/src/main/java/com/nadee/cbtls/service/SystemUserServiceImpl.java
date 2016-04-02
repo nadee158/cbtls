@@ -23,6 +23,7 @@ import com.nadee.cbtls.model.MobileDevice;
 import com.nadee.cbtls.model.SystemUser;
 import com.nadee.cbtls.model.SystemUserFavouriteSchedules;
 import com.nadee.cbtls.model.SystemUserMobileDevice;
+import com.nadee.cbtls.model.SystemUserRankings;
 import com.nadee.cbtls.model.UserRole;
 
 @Service("systemUserService")
@@ -178,6 +179,11 @@ public class SystemUserServiceImpl implements SystemUserService {
   @Override
   public List<SystemUser> listSystemUsers() throws Exception {
     return systemUserDAO.listSystemUsers();
+  }
+
+  @Override
+  public List<SystemUserRankings> listSystemUserFeedBacks(long userId) throws Exception {
+    return systemUserDAO.listSystemUserFeedBacks(userId);
   }
 
 

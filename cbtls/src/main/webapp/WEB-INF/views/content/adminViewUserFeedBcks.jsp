@@ -1,4 +1,5 @@
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   <style type="text/css">
   .wrapword{
 white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
@@ -16,7 +17,7 @@ white-space: normal;
     
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Manage Users     </h1>
+            <h1 class="page-header">View user's Feedback</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -25,26 +26,26 @@ white-space: normal;
         <div class="col-lg-12">
         	<table class="table table-striped">
         		<tr>
-        			<th>User Name</th>
-        			<th>User Display Name</th>
-        			<th>Email Address</th>
-        			<th>Average Ranking</th>
-        			<th>Total Number Of FeedBacks</th>
+        			<th>Date of Feedback</th>
+        			<th>Average Rating</th>
+        			<th>Rating</th>
+        			<th>Comment</th>
         			<th>Activate/Deactivate</th>
-        			<th>Details</th>
         		</tr>
-        		<c:forEach items="${userList}" var="user">
+        		<c:forEach items="${userFeedBackList}" var="userFeedBack">
 	        		<tr>
-	        			<td class="wrapword">${user.userName}</td>
-	        			<td class="wrapword">${user.userDisplayName}</td>
-	        			<td class="wrapword">${user.emailAddress}</td>
-	        			<td>${user.averageRanking}</td>
-	        			<td>${user.totalNumberOfFeedBacks}</td>
+	        			<td class="wrapword"><fmt:formatDate value="${userFeedBack.rankedDate}" pattern="dd/MM/yyyy hh:mm a"/></td>
+	        			<td class="wrapword">
+	        				<input value="${userFeedBack.averageRate}" 
+	        				class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-readonly="true" data-size="xs">
+	        			</td>
+	        			<td class="wrapword">
+	        				<input value="${userFeedBack.ranking}" 
+	        				class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-readonly="true" data-size="xs">
+	        			</td>
+	        			<td>${userFeedBack.comment}</td>
 	        			<td>
 	        				<input class="btn btn-primary" value="Deactivate" type="button"/>
-	        			</td>
-	        			<td>
-	        				<input class="btn btn-primary" value="View Details" onclick="viewUserDetails(${user.userId})" type="button"/>
 	        			</td>
 	        		</tr>
         		</c:forEach>
@@ -57,9 +58,6 @@ white-space: normal;
     <!-- /.row -->
 </div>
 <!-- /#page-wrapper -->
+<script src='<c:url value="/js/star-rating.js" />' type="text/javascript"></script>
 <script type="text/javascript">
-function viewUserDetails(userId){
- window.location='viewUserFeedBcks.htm?userId=' + userId;
-	
-}
 </script>

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nadee.cbtls.model.SystemUser;
 import com.nadee.cbtls.model.SystemUserFavouriteSchedules;
 import com.nadee.cbtls.model.SystemUserMobileDevice;
+import com.nadee.cbtls.model.SystemUserRankings;
 
 @Repository(value = "systemUserDAO")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -87,6 +88,14 @@ public class SystemUserDAOImpl implements SystemUserDAO {
   @Override
   public List<SystemUser> listSystemUsers() throws Exception {
     Criteria criteria = sessionFactory.getCurrentSession().createCriteria(SystemUser.class);
+    return criteria.list();
+  }
+
+  @Override
+  public List<SystemUserRankings> listSystemUserFeedBacks(long userId) {
+    Criteria criteria = sessionFactory.getCurrentSession().createCriteria(SystemUserRankings.class);
+    criteria.createAlias("systemUser", "systemUser");
+    criteria.add(Restrictions.eq("systemUser.userId", userId));
     return criteria.list();
   }
 

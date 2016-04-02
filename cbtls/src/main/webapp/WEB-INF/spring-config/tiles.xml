@@ -75,6 +75,11 @@
         <put-attribute name="body" value="/WEB-INF/views/content/adminViewFeedBacks.jsp" />		
     </definition> 
     
+     <definition name="viewUserFeedBcks" extends="adminHome.common">
+        <put-attribute name="title" value="Admin View Feedbacks" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminViewUserFeedBcks.jsp" />		
+    </definition> 
+    
      <!-- Register Admin Page-->
     <definition name="registerAdmin" extends="adminHome.common">
         <put-attribute name="title" value="Register Admin" />

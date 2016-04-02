@@ -8,6 +8,7 @@ import com.nadee.cbtls.dto.UserLoginRequestDTO;
 import com.nadee.cbtls.model.SystemUser;
 import com.nadee.cbtls.model.SystemUserFavouriteSchedules;
 import com.nadee.cbtls.model.SystemUserMobileDevice;
+import com.nadee.cbtls.model.SystemUserRankings;
 
 public interface SystemUserService {
 
@@ -33,6 +34,8 @@ public interface SystemUserService {
   public SystemUser getSystemUserByUserName(String userId) throws Exception;
 
   public List<SystemUser> listSystemUsers() throws Exception;
+
+  public List<SystemUserRankings> listSystemUserFeedBacks(long userId) throws Exception;
 
 
 
