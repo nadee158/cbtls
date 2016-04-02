@@ -89,6 +89,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     userRoles.add(new UserRole(UserRoleType.ROLE_GUEST));
     userRoles.add(new UserRole(UserRoleType.ROLE_PASSENGER));
     systemUser.setUserRoles(userRoles);
+    systemUser.setTotalNumberOfFeedBacks(1);
     long userId = commonDAO.createEntity(systemUser);
     systemUser.setUserId(userId);
     return getSystemUserMobileDeviceByUniqueId(userUniqueId);
@@ -121,6 +122,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     systemUser.setUserDisplayName(ApplicationConstants.ANNONYMOUS_WEB_USER);
     systemUser.setUserName(ApplicationConstants.ANNONYMOUS_WEB_USER + "_" + userUniqueId);
     systemUser.setUserRoles(userRoles);
+    systemUser.setTotalNumberOfFeedBacks(1);
     long userId = commonDAO.createEntity(systemUser);
     systemUser.setUserId(userId);
     return systemUser;

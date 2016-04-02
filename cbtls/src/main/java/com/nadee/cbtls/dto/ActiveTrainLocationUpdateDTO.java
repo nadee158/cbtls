@@ -1,92 +1,102 @@
 package com.nadee.cbtls.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class ActiveTrainLocationUpdateDTO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private long trainStationScheduleId;
-	
-	private float latitude;
+  private static final long serialVersionUID = 1L;
 
-	private float longitude;
-	
-	private long trainScheduleId;
-	
-	private long lastStationId;
-	
-	private int locatedType;
-	
-	private long updatedUser;
-	
-	private String systemUserMobileDevice;
+  private long trainStationScheduleId;
 
-	public float getLatitude() {
-		return latitude;
-	}
+  private float latitude;
 
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
-	}
+  private float longitude;
 
-	public float getLongitude() {
-		return longitude;
-	}
+  private long trainScheduleId;
 
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
+  private long lastStationId;
 
-	public long getTrainScheduleId() {
-		return trainScheduleId;
-	}
+  private int locatedType;
 
-	public void setTrainScheduleId(long trainScheduleId) {
-		this.trainScheduleId = trainScheduleId;
-	}
+  private long updatedUser;
 
-	public long getLastStationId() {
-		return lastStationId;
-	}
+  private String systemUserMobileDevice;
 
-	public void setLastStationId(long lastStationId) {
-		this.lastStationId = lastStationId;
-	}
+  private Date locatedDate;
 
-	public int getLocatedType() {
-		return locatedType;
-	}
+  public float getLatitude() {
+    return latitude;
+  }
 
-	public void setLocatedType(int locatedType) {
-		this.locatedType = locatedType;
-	}
+  public void setLatitude(float latitude) {
+    this.latitude = latitude;
+  }
 
-	public long getUpdatedUser() {
-		return updatedUser;
-	}
+  public float getLongitude() {
+    return longitude;
+  }
 
-	public void setUpdatedUser(long updatedUser) {
-		this.updatedUser = updatedUser;
-	}
+  public void setLongitude(float longitude) {
+    this.longitude = longitude;
+  }
 
-	public long getTrainStationScheduleId() {
-		return trainStationScheduleId;
-	}
+  public long getTrainScheduleId() {
+    return trainScheduleId;
+  }
 
-	public void setTrainStationScheduleId(long trainStationScheduleId) {
-		this.trainStationScheduleId = trainStationScheduleId;
-	}
+  public void setTrainScheduleId(long trainScheduleId) {
+    this.trainScheduleId = trainScheduleId;
+  }
 
-	public String getSystemUserMobileDevice() {
-		return systemUserMobileDevice;
-	}
+  public long getLastStationId() {
+    return lastStationId;
+  }
 
-	public void setSystemUserMobileDevice(String systemUserMobileDevice) {
-		this.systemUserMobileDevice = systemUserMobileDevice;
-	}
-	
-	
+  public void setLastStationId(long lastStationId) {
+    this.lastStationId = lastStationId;
+  }
+
+  public int getLocatedType() {
+    return locatedType;
+  }
+
+  public void setLocatedType(int locatedType) {
+    this.locatedType = locatedType;
+  }
+
+  public long getUpdatedUser() {
+    return updatedUser;
+  }
+
+  public void setUpdatedUser(long updatedUser) {
+    this.updatedUser = updatedUser;
+  }
+
+  public long getTrainStationScheduleId() {
+    return trainStationScheduleId;
+  }
+
+  public void setTrainStationScheduleId(long trainStationScheduleId) {
+    this.trainStationScheduleId = trainStationScheduleId;
+  }
+
+  public String getSystemUserMobileDevice() {
+    return systemUserMobileDevice;
+  }
+
+  public void setSystemUserMobileDevice(String systemUserMobileDevice) {
+    this.systemUserMobileDevice = systemUserMobileDevice;
+  }
+
+  public Date getLocatedDate() {
+    return locatedDate;
+  }
+
+  public void setLocatedDate(Date locatedDate) {
+    this.locatedDate = locatedDate;
+  }
+
 
 
 }
