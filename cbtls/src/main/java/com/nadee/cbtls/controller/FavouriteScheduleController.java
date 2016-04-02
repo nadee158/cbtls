@@ -99,6 +99,7 @@ public class FavouriteScheduleController {
             map.get(ApplicationConstants.SYSTEM_USER));
         SessionUtil.addUserCookie(response, (SystemUser) map.get(ApplicationConstants.SYSTEM_USER));
       }
+      map.remove(ApplicationConstants.SYSTEM_USER);
     } catch (Exception e) {
       map.put(ApplicationConstants.RESULT, ApplicationConstants.ERROR);
       e.printStackTrace();

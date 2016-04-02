@@ -57,7 +57,7 @@
 	          	<tr>
 	          		<td><label for="rating" class="control-label">Rate User <span id="userNameDiv"></span></label></td>
 	          		<td>
-						<input id="rating" class="rating rating-loading" data-show-clear="false" data-show-caption="true" data-min="0" data-max="5" data-step="1">
+						<input id="rating" class="rating-loading" >
 						<input type="hidden" id="userIdHidden" />
 	          		</td>
 	          	</tr>
@@ -101,7 +101,15 @@ function viewCompartmentDetails(){
 
 $(function() {
 	initialize();
+
+	$('#rating').rating({
+        step: 1,
+        starCaptions: {1: 'Very Poor', 2: 'Poor', 3: 'Ok', 4: 'Good', 5: 'Very Good'},
+        starCaptionClasses: {1: 'text-danger', 2: 'text-warning', 3: 'text-info', 4: 'text-primary', 5: 'text-success'}
+    });
 });
+
+
 
 function ViewTrainlocationRequestDTO(trainStationScheduleId,trainScheduleId,trainLineId){
 	this.trainStationScheduleId=trainStationScheduleId;
@@ -180,6 +188,7 @@ function updateRankUser(){
 				}else{
 					alert('Could not submit rating, Please try again')
 				}
+				$('#modal_close').click();
 		    }
 	    });
 

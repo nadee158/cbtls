@@ -32,6 +32,8 @@ public interface SystemUserService {
 
   public SystemUser getSystemUserByUserName(String userId) throws Exception;
 
+  public List<SystemUser> listSystemUsers() throws Exception;
+
 
 
 }

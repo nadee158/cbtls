@@ -175,5 +175,10 @@ public class SystemUserServiceImpl implements SystemUserService {
     return systemUserDAO.getSystemUserByUserName(userId);
   }
 
+  @Override
+  public List<SystemUser> listSystemUsers() throws Exception {
+    return systemUserDAO.listSystemUsers();
+  }
+
 
 }

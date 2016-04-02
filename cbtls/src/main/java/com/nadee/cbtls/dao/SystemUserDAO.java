@@ -7,11 +7,14 @@ import com.nadee.cbtls.model.SystemUserFavouriteSchedules;
 import com.nadee.cbtls.model.SystemUserMobileDevice;
 
 public interface SystemUserDAO {
-	
-	public SystemUser getSystemUserByUserName(String userName);
 
-	public SystemUserMobileDevice getSystemUserMobileDeviceByUniqueId(String mobileUniqueId)throws Exception;
+  public SystemUser getSystemUserByUserName(String userName);
 
-	public List<SystemUserFavouriteSchedules> listFavouriteSchedules(long userId);
+  public SystemUserMobileDevice getSystemUserMobileDeviceByUniqueId(String mobileUniqueId)
+      throws Exception;
+
+  public List<SystemUserFavouriteSchedules> listFavouriteSchedules(long userId);
+
+  public List<SystemUser> listSystemUsers() throws Exception;
 
 }

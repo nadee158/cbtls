@@ -5,19 +5,16 @@
                   <a href="adminHome.htm"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
               </li>
               <li>
-                  <a href="masterData.htm"><i class="fa fa-edit fa-fw"></i> Master Data</a>
+                  <a href="masterData.htm"><i class="fa fa-edit fa-fw"></i> Manage Master Data</a>
               </li>
               <li>
-                  <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                  <ul class="nav nav-second-level">
-                      <li>
-                          <a href="flot.html">Flot Charts</a>
-                      </li>
-                      <li>
-                          <a href="morris.html">Morris.js Charts</a>
-                      </li>
-                  </ul>
-                  <!-- /.nav-second-level -->
+                  <a href="manageUsers.htm"><i class="fa fa-edit fa-fw"></i> Manage Users</a>
+              </li>
+               <li>
+                  <a href="manageUserFeedBack.htm"><i class="fa fa-edit fa-fw"></i> View User Feed Back </a>
+              </li>
+               <li>
+                  <a href="viewAnalysis.htm"><i class="fa fa-edit fa-fw"></i>  Analytics     </a>
               </li>
               
           </ul>

@@ -14,6 +14,7 @@ import com.nadee.cbtls.constant.GeneralEnumConstants.TrainFrequency;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.model.TicketPrice;
 import com.nadee.cbtls.model.TrainSchedule;
+import com.nadee.cbtls.model.TrainScheduleComment;
 import com.nadee.cbtls.model.TrainScheduleTurn;
 import com.nadee.cbtls.model.TrainScheduleTurnCompartmentUpdate;
 import com.nadee.cbtls.model.TrainScheduleTurnLocationPassiveUpdate;
@@ -158,6 +159,15 @@ public class TrainScheduleDAOImpl implements TrainScheduleDAO {
       }
     }
     return trainStationSchedule;
+  }
+
+  @Override
+  public List<TrainScheduleComment> listAllTrainScheduleComments(long trainScheduleId)
+      throws Exception {
+    Criteria criteria =
+        sessionFactory.getCurrentSession().createCriteria(TrainScheduleComment.class);
+    criteria.add(Restrictions.eq("trainScheduleId", trainScheduleId));
+    return criteria.list();
   }
 
 }

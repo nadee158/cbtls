@@ -26,49 +26,51 @@ import com.nadee.cbtls.util.SessionUtil;
 @Controller
 public class SystemUserRankingController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	@Autowired
-	private SystemUserRankingService rankingService;
-	
-	@Autowired
-    private SystemUserService systemUserService;
+  private static final long serialVersionUID = 1L;
 
-	
-	@RequestMapping(value = "/rankUser", method = RequestMethod.POST)
-    public @ResponseBody Map<String, Object> rankUser(HttpServletResponse response, HttpServletRequest request, 
-            @RequestBody UserRankDTO dtoUi) {
-	  SystemUserRankingsDTO dto=new SystemUserRankingsDTO(dtoUi);
-        Map<String, Object> map = new HashMap<String, Object>();
-        try {
-            System.out.println("dto :" + dto);
-            SystemUser systemUser=SessionUtil.getFromSession(ApplicationConstants.SYSTEM_USER);
-            boolean isUserNull=false;
-            if(StringUtils.isEmpty(dto.getSystemUserMobileDevice())){
-                if(!(systemUser==null)){
-                  dto.setUpdatedUser(systemUser.getUserId());
-                }else{
-                    long systemUserId=SessionUtil.getUserIdFromCookie(request);
-                    if(systemUserId==0){
-                        isUserNull=true;
-                    }else{
-                        SystemUser user=systemUserService.getSystemUserById(systemUserId);
-                        SessionUtil.addToSession(ApplicationConstants.SYSTEM_USER, user);
-                        dto.setUpdatedUser(systemUserId);
-                    }                   
-                }
-            }
-            map= rankingService.saveRanking(dto);
-            if(isUserNull){
-                SessionUtil.addToSession(ApplicationConstants.SYSTEM_USER, map.get(ApplicationConstants.SYSTEM_USER));
-                SessionUtil.addUserCookie(response,(SystemUser) map.get(ApplicationConstants.SYSTEM_USER));
-            }
-            return map;
-        } catch (Exception e) {
-            e.printStackTrace();
+  @Autowired
+  private SystemUserRankingService rankingService;
+
+  @Autowired
+  private SystemUserService systemUserService;
+
+
+  @RequestMapping(value = "/rankUser", method = RequestMethod.POST)
+  public @ResponseBody Map<String, Object> rankUser(HttpServletResponse response,
+      HttpServletRequest request, @RequestBody UserRankDTO dtoUi) {
+    SystemUserRankingsDTO dto = new SystemUserRankingsDTO(dtoUi);
+    Map<String, Object> map = new HashMap<String, Object>();
+    try {
+      System.out.println("dto :" + dto);
+      SystemUser systemUser = SessionUtil.getFromSession(ApplicationConstants.SYSTEM_USER);
+      boolean isUserNull = false;
+      if (StringUtils.isEmpty(dto.getSystemUserMobileDevice())) {
+        if (!(systemUser == null)) {
+          dto.setUpdatedUser(systemUser.getUserId());
+        } else {
+          long systemUserId = SessionUtil.getUserIdFromCookie(request);
+          if (systemUserId == 0) {
+            isUserNull = true;
+          } else {
+            SystemUser user = systemUserService.getSystemUserById(systemUserId);
+            SessionUtil.addToSession(ApplicationConstants.SYSTEM_USER, user);
+            dto.setUpdatedUser(systemUserId);
+          }
         }
-        map.put(ApplicationConstants.RESULT, ApplicationConstants.ERROR);
-        return map;
+      }
+      map = rankingService.saveRanking(dto);
+      if (isUserNull) {
+        SessionUtil.addToSession(ApplicationConstants.SYSTEM_USER,
+            map.get(ApplicationConstants.SYSTEM_USER));
+        SessionUtil.addUserCookie(response, (SystemUser) map.get(ApplicationConstants.SYSTEM_USER));
+      }
+      map.remove(ApplicationConstants.SYSTEM_USER);
+      return map;
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    map.put(ApplicationConstants.RESULT, ApplicationConstants.ERROR);
+    return map;
+  }
 
 }

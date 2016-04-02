@@ -60,6 +60,21 @@
         <put-attribute name="body" value="/WEB-INF/views/content/adminHome.jsp" />		
     </definition> 
     
+      <definition name="manageUsers" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Manage users" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminManageUsers.jsp" />		
+    </definition> 
+    
+     <definition name="manageUserFeedBack" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Manage User Feedbacks" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminManageUserFeedBack.jsp" />		
+    </definition> 
+    
+    <definition name="viewFeedBacks" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Manage User Feedbacks" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminViewFeedBacks.jsp" />		
+    </definition> 
+    
      <!-- Register Admin Page-->
     <definition name="registerAdmin" extends="adminHome.common">
         <put-attribute name="title" value="Register Admin" />

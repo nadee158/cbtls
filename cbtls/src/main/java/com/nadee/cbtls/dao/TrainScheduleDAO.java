@@ -5,6 +5,7 @@ import java.util.List;
 import com.nadee.cbtls.constant.GeneralEnumConstants.TrainFrequency;
 import com.nadee.cbtls.constant.GeneralEnumConstants.YesNoStatus;
 import com.nadee.cbtls.model.TrainSchedule;
+import com.nadee.cbtls.model.TrainScheduleComment;
 import com.nadee.cbtls.model.TrainStationSchedule;
 
 public interface TrainScheduleDAO {
@@ -19,5 +20,8 @@ public interface TrainScheduleDAO {
   public TrainSchedule loadTrainSchedule(long trainScheduleId) throws Exception;
 
   public TrainStationSchedule loadTrainStationSchedule(long trainStationScheduleId);
+
+  public List<TrainScheduleComment> listAllTrainScheduleComments(long trainScheduleId)
+      throws Exception;
 
 }

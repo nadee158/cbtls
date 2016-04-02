@@ -46,7 +46,7 @@
                         <div class="col-xs-12 text-center">
                              <a href="manageUserFeedBack.htm">
 			                    <div class="panel-footer">
-			                       Manage User Feed Back                       
+			                       View User Feed Back                       
 			                    </div>
 			                </a>
                         </div>
@@ -60,7 +60,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-12 text-center">
-                             <a href="manageUserFeedBack.htm">
+                             <a href="viewAnalysis.htm">
 			                    <div class="panel-footer">
 			                       Analytics                 
 			                    </div>
