@@ -58,7 +58,7 @@
 		<div class="form-group">
 			<div class="col-lg-6" style="text-align:left;">&nbsp;</div>
 			  <div class="col-lg-3">
-				<input class="btn btn-primary" value="View Recomandations" onclick="viewRecommendations()" type="button">
+<!-- 				<input class="btn btn-primary" value="View Recomandations" onclick="viewRecommendations()" type="button"> -->
 			  </div>
 			  <div class="col-lg-3">
 				<input class="btn btn-primary" value="Search Again" onclick="serchAgain()" type="button">
