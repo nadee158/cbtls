@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="base_app_url">http://192.168.1.104:8080/cbtls/</string>
+    <string name="base_app_url">http://192.168.43.111:8080/cbtls/</string>
     <string name="app_name">CBTLS Mobile</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

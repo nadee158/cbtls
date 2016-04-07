@@ -84,7 +84,7 @@
         android:layout_centerHorizontal="true"
         android:orientation="horizontal" >
 
-        <Button
+        <Button android:visibility="gone"
             android:id="@+id/btn_view_recommendations"
             android:layout_width="0dp"
             android:layout_height="match_parent"

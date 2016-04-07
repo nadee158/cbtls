@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nadee.cbtls.R;
 import com.nadee.cbtls.dto.TrainStationScheduleDTO;
@@ -82,7 +83,7 @@ public class ViewTrainScheduleDetailsActivity extends Activity {
     btn_view_analysis_of_train.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        Toast.makeText(context, "Not Implemented Yet in mobile!", Toast.LENGTH_SHORT).show();
       }
     });
 
@@ -90,7 +91,7 @@ public class ViewTrainScheduleDetailsActivity extends Activity {
     btn_add_to_favourites.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        Toast.makeText(context, "Schedule successfully added in to favourites!", Toast.LENGTH_SHORT).show();
       }
     });
 
@@ -98,7 +99,12 @@ public class ViewTrainScheduleDetailsActivity extends Activity {
     btn_search_again.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        System.out.println("selectedDTO in details" + selectedDTO);
+        intent.putExtra("TRAIN_SCHEDULE_SEARCH_DTO", selectedDTO);
+        intent.putExtra("TRAIN_SCHEDULE_DETAIL_ID", trainStationScheduleId);
+        startActivity(intent);
+        ViewTrainScheduleDetailsActivity.this.finish();
       }
     });
   }
