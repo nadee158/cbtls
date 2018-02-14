@@ -16,29 +16,29 @@ import com.nadee.cbtls.service.TrainStationService;
 @ContextConfiguration(locations={"/application-config.xml"})
 public class TrainStationMasterDataTest {
 	
-	@Autowired
-	private TrainStationService trainStationService;
-	
-	
-	@Test
-	public void testSaveTrainStatsions() {
-		try {
-			TrainStations stations=RailwayWebServiceV2.getTrainStations(0);
-			for (int i = 0; i < stations.getCount(); i++) {
-				String stationsName=stations.getNames()[i];
-				String statsionCode=stations.getCodes()[i];
-				//System.out.println("statsionCode :"  +statsionCode  + " stationsName" + stationsName);
-				if(!(StringUtils.equals("Anytype{}", stationsName))){
-					if(statsionCode.length()<=3){
-						TrainStation trainStation=new TrainStation(stationsName,statsionCode);
-						System.out.println("trainStation :" + trainStation);
-						trainStationService.saveTrainStation(trainStation);
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@Autowired
+//	private TrainStationService trainStationService;
+//	
+//	
+//	@Test
+//	public void testSaveTrainStatsions() {
+//		try {
+//			TrainStations stations=RailwayWebServiceV2.getTrainStations(0);
+//			for (int i = 0; i < stations.getCount(); i++) {
+//				String stationsName=stations.getNames()[i];
+//				String statsionCode=stations.getCodes()[i];
+//				//System.out.println("statsionCode :"  +statsionCode  + " stationsName" + stationsName);
+//				if(!(StringUtils.equals("Anytype{}", stationsName))){
+//					if(statsionCode.length()<=3){
+//						TrainStation trainStation=new TrainStation(stationsName,statsionCode);
+//						System.out.println("trainStation :" + trainStation);
+//						trainStationService.saveTrainStation(trainStation);
+//					}
+//				}
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 }

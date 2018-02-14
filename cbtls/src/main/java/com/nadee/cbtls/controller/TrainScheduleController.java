@@ -19,17 +19,17 @@ public class TrainScheduleController {
 	private TrainScheduleMasterDataService trainScheduleMasterDataService;
 
 	
-	@RequestMapping(value = "/trainSchedules", method = RequestMethod.GET)
-	public @ResponseBody List<TrainLineDTO> trainSchedules(){
-		List<TrainLineDTO> trainLines=new ArrayList<TrainLineDTO>();
-		try {
-		trainScheduleMasterDataService.saveSchedules(3);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return trainLines;
-	}
-	
+//	@RequestMapping(value = "/trainSchedules", method = RequestMethod.GET)
+//	public @ResponseBody List<TrainLineDTO> trainSchedules(){
+//		List<TrainLineDTO> trainLines=new ArrayList<TrainLineDTO>();
+//		try {
+//		trainScheduleMasterDataService.saveSchedules(3);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return trainLines;
+//	}
+//	
 	
 
 }

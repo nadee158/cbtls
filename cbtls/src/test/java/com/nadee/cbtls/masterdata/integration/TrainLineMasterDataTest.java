@@ -15,29 +15,29 @@ import com.nadee.cbtls.service.TrainLineService;
 @ContextConfiguration(locations={"/application-config.xml"})
 public class TrainLineMasterDataTest {
 	
-	@Autowired
-	private TrainLineService trainLineService;
-	
-
-	@Test
-	public void testSaveTrainlines() {
-		
-		try {
-			TrainLines lines=RailwayWebServiceV2.getLines();
-			for (int i = 0; i < lines.getCount(); i++) {
-				String trainLineName=lines.getNames()[i];
-				int trainLineId=lines.getIds()[i];
-				
-				TrainLine trainLine=new TrainLine(trainLineId,trainLineName);
-				System.out.println("trainLine :" + trainLine);
-				trainLineService.saveTrainLine(trainLine);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+//	@Autowired
+//	private TrainLineService trainLineService;
+//	
+//
+//	@Test
+//	public void testSaveTrainlines() {
+//		
+//		try {
+//			TrainLines lines=RailwayWebServiceV2.getLines();
+//			for (int i = 0; i < lines.getCount(); i++) {
+//				String trainLineName=lines.getNames()[i];
+//				int trainLineId=lines.getIds()[i];
+//				
+//				TrainLine trainLine=new TrainLine(trainLineId,trainLineName);
+//				System.out.println("trainLine :" + trainLine);
+//				trainLineService.saveTrainLine(trainLine);
+//			}
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	
 	
 
 

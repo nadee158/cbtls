@@ -248,11 +248,11 @@
 		  <version>${jackson.version}</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>com.google.code.ksoap2-android</groupId>
-			<artifactId>ksoap2</artifactId>
-			<version>1.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.code.ksoap2-android</groupId> -->
+<!-- 			<artifactId>ksoap2</artifactId> -->
+<!-- 			<version>1.0</version> -->
+<!-- 		</dependency> -->
 		
 		
 

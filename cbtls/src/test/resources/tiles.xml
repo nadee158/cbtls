@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+       
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	
+	<!-- Definition for Home Page-->
+    <definition name="login.common" template="/WEB-INF/views/layouts/loginLayout.jsp">
+        <put-attribute name="title" value="Template" />
+        <put-attribute name="body" value="" />
+    </definition>
+   
+	<!-- Definition for Home Page-->
+    <definition name="home.common" template="/WEB-INF/views/layouts/homeLayout.jsp">
+        <put-attribute name="title" value="Template" />
+        <put-attribute name="header" value="/WEB-INF/views/commons/homeHeader.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/commons/homeFooter.jsp" />	
+        <put-attribute name="body" value="" />
+    </definition>
+    
+    <!-- Definition for Admin Home Page-->
+    <definition name="adminHome.common" template="/WEB-INF/views/layouts/adminHomeLayout.jsp">
+        <put-attribute name="title" value="Template" />
+        <put-attribute name="header" value="/WEB-INF/views/commons/adminHomeHeader.jsp" />	
+        <put-attribute name="sideBar" value="/WEB-INF/views/commons/adminHomeSideBar.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+    
+     <!--  LOGIN Page-->
+    <definition name="login" extends="login.common">
+        <put-attribute name="title" value="Home" />
+        <put-attribute name="body" value="/WEB-INF/views/content/login.jsp" />		
+    </definition>
+	
+     <!-- HOME Page-->
+    <definition name="home" extends="home.common">
+        <put-attribute name="title" value="Home" />
+        <put-attribute name="body" value="/WEB-INF/views/content/home.jsp" />		
+    </definition>
+    
+    
+    <!-- Register User Page-->
+    <definition name="registerUser" extends="home.common">
+        <put-attribute name="title" value="Register User" />
+        <put-attribute name="body" value="/WEB-INF/views/content/registerUser.jsp" />		
+    </definition> 
+    
+    
+    <!-- User Profile Page-->
+    <definition name="userProfile" extends="home.common">
+        <put-attribute name="title" value="My Profile" />
+        <put-attribute name="body" value="/WEB-INF/views/content/userProfile.jsp" />		
+    </definition> 
+    
+    
+    <!-- ADMIN HOME Page-->
+    <definition name="adminHome" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Home" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminHome.jsp" />		
+    </definition> 
+    
+      <definition name="manageUsers" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Manage users" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminManageUsers.jsp" />		
+    </definition> 
+    
+     <definition name="manageUserFeedBack" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Manage User Feedbacks" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminManageUserFeedBack.jsp" />		
+    </definition> 
+    
+    <definition name="viewFeedBacks" extends="adminHome.common">
+        <put-attribute name="title" value="Admin Manage User Feedbacks" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminViewFeedBacks.jsp" />		
+    </definition> 
+    
+     <definition name="viewUserFeedBcks" extends="adminHome.common">
+        <put-attribute name="title" value="Admin View Feedbacks" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminViewUserFeedBcks.jsp" />		
+    </definition> 
+    
+      <definition name="viewAnalysis" extends="adminHome.common">
+        <put-attribute name="title" value="Admin View Train Analysis" />
+        <put-attribute name="body" value="/WEB-INF/views/content/adminViewAnalysis.jsp" />		
+    </definition> 
+    
+     <!-- Register Admin Page-->
+    <definition name="registerAdmin" extends="adminHome.common">
+        <put-attribute name="title" value="Register Admin" />
+        <put-attribute name="body" value="/WEB-INF/views/content/registerAdmin.jsp" />		
+    </definition>
+    
+     <!-- Master Data-->
+    <definition name="masterData" extends="adminHome.common">
+        <put-attribute name="title" value="Manage Master Data" />
+        <put-attribute name="body" value="/WEB-INF/views/content/masterData.jsp" />		
+    </definition>
+    
+     <!-- Manage Train Stations-->
+    <definition name="manageTrainStations" extends="adminHome.common">
+        <put-attribute name="title" value="Manage Train Stations" />
+        <put-attribute name="body" value="/WEB-INF/views/content/manageTrainStations.jsp" />		
+    </definition>
+    
+     <!-- Manage Train Types-->
+    <definition name="manageTrainTypes" extends="adminHome.common">
+        <put-attribute name="title" value="Manage Train Types" />
+        <put-attribute name="body" value="/WEB-INF/views/content/manageTrainTypes.jsp" />		
+    </definition>
+   
+   <!-- Manage Train Types-->
+    <definition name="manageTrainLines" extends="adminHome.common">
+        <put-attribute name="title" value="Manage Train Lines" />
+        <put-attribute name="body" value="/WEB-INF/views/content/manageTrainLines.jsp" />		
+    </definition>
+    
+    <!-- HOME Page-->
+    <definition name="trainSheduleList" extends="home.common">
+        <put-attribute name="title" value="Train Shedule List" />
+        <put-attribute name="body" value="/WEB-INF/views/content/trainSheduleList.jsp" />		
+    </definition>
+    
+    <!-- HOME Page-->
+    <definition name="viewRecommendations" extends="home.common">
+        <put-attribute name="title" value="View Recommendations" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewRecommendations.jsp" />		
+    </definition>
+    
+     <!-- HOME Page-->
+    <definition name="viewTrainScheduleDetails" extends="home.common">
+        <put-attribute name="title" value="View Train Schedule Details" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewTrainScheduleDetails.jsp" />		
+    </definition>
+    
+    
+     <definition name="activeUpdateLocation" extends="home.common">
+        <put-attribute name="title" value="Actively Update Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/activeUpdateLocation.jsp" />		
+    </definition>
+    
+    <definition name="passiveUpdateLocation" extends="home.common">
+        <put-attribute name="title" value="Passively Update Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/passiveUpdateLocation.jsp" />		
+    </definition>
+    
+     <definition name="viewAnalysisOfTrain" extends="home.common">
+        <put-attribute name="title" value="View Analysis of Train" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewAnalysisOfTrain.jsp" />		
+    </definition>
+    
+    <definition name="updateCompartmentDetails" extends="home.common">
+        <put-attribute name="title" value="Update Compartment Details" />
+        <put-attribute name="body" value="/WEB-INF/views/content/updateCompartmentDetails.jsp" />		
+    </definition>
+
+	<definition name="setNotificationAlarm" extends="home.common">
+        <put-attribute name="title" value="Set Notification Alarm" />
+        <put-attribute name="body" value="/WEB-INF/views/content/setNotificationAlarm.jsp" />		
+    </definition>   
+    
+    <definition name="viewTrainLocation" extends="home.common">
+        <put-attribute name="title" value="View Train Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewTrainLocation.jsp" />		
+    </definition>    
+    
+    <definition name="viewCompartmentDetails" extends="home.common">
+        <put-attribute name="title" value="View Compartment Details" />
+        <put-attribute name="body" value="/WEB-INF/views/content/viewCompartmentDetails.jsp" />		
+    </definition> 
+    
+    <definition name="favouriteList" extends="home.common">
+        <put-attribute name="title" value="View Train Location" />
+        <put-attribute name="body" value="/WEB-INF/views/content/favouriteList.jsp" />		
+    </definition>    
+    
+     
+
+</tiles-definitions>
